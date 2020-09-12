@@ -29,8 +29,28 @@ class UsersController < ApplicationController
     	redirect_to root_path
     end
 
-    def secret
+    def index
+    	if current_user.permissions != "管理者"
+    		@user = current_user
+ 	  	 	redirect_to user_path(current_user.id)
+ 	  	else
+ 	  		@admin = current_user
+ 	  	 	@users = User.all
+ 	  	end
     end
+
+    def authorization
+    	@user = User.find(params[:id])
+    	if @user.update(permissions: params[:permissions])
+    		redirect_to users_path
+    	else
+	    	@admin = current_user
+	    	@users = User.all
+	    	render 'index'
+    	end
+
+    end
+    
 
     private
   	def user_params

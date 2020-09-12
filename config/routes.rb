@@ -4,10 +4,10 @@ Rails.application.routes.draw do
   root 'home#top'
   get 'home/about', to: 'home#about'
 
-  resources :users, only: [:show, :edit, :update, :hide, :destroy] do
+  resources :users, only: [:show, :edit, :update, :hide, :destroy, :index] do
       collection do
         get 'hide'
-        patch 'secret'
+        put 'authorization'
       end
   end
 

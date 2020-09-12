@@ -1,0 +1,57 @@
+###検索
+
+<h3>ユーザー一覧</h3>
+<table>
+	<thead>
+		<tr>
+			<th>名前</th>
+			<th>フリガナ</th>
+			<th>表示名</th>
+			<th>性別</th>
+			<th>生年月日</th>
+			<th></th>
+			<th>電話</th>
+			<th>メール</th>
+			<th>権限タイプ</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @users.each do |user| %>
+			<tr>
+				<td><%= user.name %></td>
+				<td><%= user.name_kana %></td>
+				<td><%= user.nic_name %></td>
+				<td><%= user.sex %></td>
+				<td>
+					<% birthday = user.birthday %>
+					<% birthday_date = birthday.to_date %>
+					<%= birthday_date.strftime("%Y年%m月%d日") %>
+				</td>
+				<td>
+					<% birthday2 = birthday.to_i %>
+					<% day = Date.today %>
+					<% day.to_date %>
+					<% day2 = day.strftime("%Y%m%d").to_i %>
+					<%= age = (day2 - birthday2) / 10000 %>
+				</td>
+				<td><%= user.phone_number %></td>
+				<td><%= user.email %></td>
+				<td><%= user.permissions %></td>
+				<td><% if user.permissions != "管理者" %>
+						<%= form_with url: authorization_users_path, method: :put do |f| %>
+							<td>
+								<%= f.radio_button :permissions, :一般 %>
+					    		<%= f.label :一般 %>
+								<%= f.radio_button :permissions, :企業担当者 %>
+					    		<%= f.label :企業担当者 %>
+					    		<%= f.hidden_field :id, :value => user.id %>
+							</td>
+							<td><%= f.submit "管理者権限を変更する",class:"btn btn-primary" %></td>
+						<% end %>
+					<% end %>
+				</td>		
+			</tr>
+		<% end %>
+	</tbody>
+</table>

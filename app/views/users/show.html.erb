@@ -1,6 +1,12 @@
 <h3>基本登録情報</h3>	
 
-<p><%= @user.permissions %></p>
+<% if current_user.permissions == "管理者" %>
+	<%= link_to users_path do %>
+		<button class="btn btn-warning">
+			ユーザー一覧へ
+		</button>
+	<% end %>
+<% end %>
 
 <div>
 	<%= link_to edit_user_path do %>
