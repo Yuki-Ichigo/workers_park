@@ -1,0 +1,18 @@
+<p>退会すると、</p>
+<ul>
+	<li>企業とのつながり</li>
+	<li>お気に入りに入れたシゴト情報</li>
+	<li>作成されたPRページの情報　が</li>
+</ul>
+<p>削除されてしまいます。</p>
+<p>本当に退会しますか？</p>
+
+<div>
+	<%= link_to user_path(current_user) do %>
+		<button class="btn btn-warning">退会しない</button>
+	<% end %>
+
+	<%= link_to user_path(current_user), method: :destroy do %>
+		<button class="btn btn-success">退会する</button>
+	<% end %>
+</div>

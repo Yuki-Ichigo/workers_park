@@ -6,16 +6,19 @@
   <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+    <span>必須</span>
   </div>
 
   <div class="field">
     <%= f.label :name_kana %><br />
     <%= f.text_field :name_kana, autofocus: true, autocomplete: "name_kana" %>
+    <span>必須</span>
   </div>
 
   <div class="field">
     <%= f.label :nic_name %><br />
     <%= f.text_field :nic_name, autofocus: true, autocomplete: "nic_name" %>
+    <span>必須</span>
   </div>
 
   <label>
@@ -66,6 +69,7 @@
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <span>必須</span>
   </div>
 
   <div class="field">
@@ -74,11 +78,13 @@
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
+    <span>必須</span>
   </div>
 
   <div class="field">
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <span>必須</span>
   </div>
 
   <div class="actions">

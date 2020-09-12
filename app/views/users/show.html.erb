@@ -1,0 +1,60 @@
+<h3>基本登録情報</h3>	
+
+<p><%= @user.permissions %></p>
+
+<div>
+	<%= link_to edit_user_path do %>
+		<button class="btn btn-warning">基本登録情報を変更する</button>
+	<% end %>
+
+	<%= link_to edit_user_registration_path do %>
+		<button class="btn btn-success">パスワードの変更はこちら</button>
+	<% end %>
+</div>
+
+<table>
+	<tr>
+		<th>写真</th>
+		<td><%= attachment_image_tag @user, :image, :fill, 150, 150, fallback: "no_image_human.jpg" %></td>
+	</tr>
+	<tr>
+		<th>名前</th>
+		<td><%= @user.name %></td>
+	</tr>
+	<tr>
+		<th>フリガナ</th>
+		<td><%= @user.name_kana %></td>
+	</tr>
+	<tr>
+		<th>性別</th>
+		<td><%= @user.sex %></td>
+	</tr>
+	<tr>
+		<th>誕生日</th>
+		<td><%= @user.birthday %></td>
+	</tr>
+	<tr>
+		<th>メール</th>
+		<td><%= @user.email %></td>
+	</tr>
+	<tr>
+		<th>住所</th>
+		<td>
+			<%= "〒" + @user.zip_code %> <br />
+			<%= @user.address_prefecture_name + @user.address_city + @user.address_line1 + @user.address_line2 %>
+		</td>
+	</tr>
+	<tr>
+		<th>電話</th>
+		<td><%= @user.phone_number %></td>
+	</tr>
+	<tr>
+		<th>パスワード</th>
+		<td><%= "*************" %></td>
+	</tr>
+</table>
+
+<br />
+<%= link_to hide_users_path do %>
+	<button class="btn btn-success">退会する</button>
+<% end %>

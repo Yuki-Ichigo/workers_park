@@ -1,0 +1,80 @@
+users edit page
+
+<%= form_for(@user, url: user_path) do |f| %>
+
+	<!-- エラーメッセージ表示-->
+	<% if @user.errors.any? %>
+		<div>
+			<h3><%= @user.errors.count %>error prohibited this obj from being saved:</h3>
+			<ul>
+				<% @user.errors.full_messages.each do |message| %>
+				<li><%= message %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+
+	<table>
+		<tr>
+			<th>写真</th>
+			<td><%= attachment_image_tag @user, :image, :fill, 150, 150, fallback: "no_image_human.jpg" %>
+				<%= f.attachment_field :image %>
+			</td>
+		</tr>
+		<tr>
+			<th>名前</th>
+			<td><%= f.text_field :name %></td>
+		</tr>
+		<tr>
+			<th>フリガナ</th>
+			<td><%= f.text_field :name_kana %></td>
+		</tr>
+		<tr>
+			<th>性別</th>
+			<td>
+				<%= f.radio_button :sex, :男性 %>
+    			<%= f.label :男性 %>
+				<%= f.radio_button :sex, :女性 %>
+    			<%= f.label :女性 %>
+  			</td>
+		</tr>
+		<tr>
+			<th>誕生日</th>
+			<td><%= f.text_field :birthday %></td>
+		</tr>
+		<tr>
+			<th>メール</th>
+			<td><%= f.email_field :email %></td>
+		</tr>
+		<tr>
+			<th>郵便番号</th>
+			<td><%= f.text_field :zip_code %></td>
+		</tr>
+		<tr>
+			<th>住所（都道府県）</th>
+			<td><%= f.text_field :address_prefecture_name %></td>
+		</tr>
+		<tr>
+			<th>住所（市区郡町村）</th>
+			<td><%= f.text_field :address_city %></td>
+		</tr>
+		<tr>
+			<th>住所（町名・番地）</th>
+			<td><%= f.text_field :address_line1 %></td>
+		</tr>
+		<tr>
+			<th>住所（建物名・号室）</th>
+			<td><%= f.text_field :address_line2 %></td>
+		</tr>
+		<tr>
+			<th>電話</th>
+			<td><%= f.text_field :phone_number %></td>
+		</tr>
+	</table>
+
+
+	<div>
+		<%= f.submit "編集内容を保存する",class:"btn btn-primary" %>
+	</div><br>
+<% end %>
