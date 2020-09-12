@@ -39,16 +39,26 @@ class UsersController < ApplicationController
  	  	end
     end
 
-    def authorization
+    def not_approval
     	@user = User.find(params[:id])
-    	if @user.update(permissions: params[:permissions])
+    	if @user.update(permissions: '一般')
     		redirect_to users_path
     	else
 	    	@admin = current_user
 	    	@users = User.all
 	    	render 'index'
     	end
+    end
 
+    def approval
+    	@user = User.find(params[:id])
+    	if @user.update(permissions: '企業担当者')
+    		redirect_to users_path
+    	else
+	    	@admin = current_user
+	    	@users = User.all
+	    	render 'index'
+    	end
     end
     
 

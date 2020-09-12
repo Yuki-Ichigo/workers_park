@@ -37,18 +37,14 @@
 				</td>
 				<td><%= user.phone_number %></td>
 				<td><%= user.email %></td>
-				<td><%= user.permissions %></td>
 				<td><% if user.permissions != "管理者" %>
-						<%= form_with url: authorization_users_path, method: :put do |f| %>
-							<td>
-								<%= f.radio_button :permissions, :一般 %>
-					    		<%= f.label :一般 %>
-								<%= f.radio_button :permissions, :企業担当者 %>
-					    		<%= f.label :企業担当者 %>
-					    		<%= f.hidden_field :id, :value => user.id %>
-							</td>
-							<td><%= f.submit "管理者権限を変更する",class:"btn btn-primary" %></td>
+						<% if user.permissions == "企業担当者" %>
+							<%= button_to "企業担当者", not_approval_users_path, { method: :put, params: {id: user.id} } %>
+						<% else %>
+							<%= button_to "一般", approval_users_path, { method: :put, params: {id: user.id} } %>
 						<% end %>
+					<% else %>
+						<span>管理者</span>
 					<% end %>
 				</td>		
 			</tr>

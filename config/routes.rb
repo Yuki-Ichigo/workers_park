@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :edit, :update, :hide, :destroy, :index] do
       collection do
         get 'hide'
-        put 'authorization'
+        put 'approval'
+        put 'not_approval'
       end
   end
 
