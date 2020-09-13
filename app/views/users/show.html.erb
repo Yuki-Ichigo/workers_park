@@ -1,5 +1,11 @@
-<h3>基本登録情報</h3>	
+<!-- エラー、サクセスメッセージ -->
+<% flash.each do |key, value| %>
+  <%= content_tag(:div, value, class: key) %>
+<% end %>
+<!-- エラー、サクセスメッセージ -->
 
+
+<h3>基本登録情報</h3>	
 <% if current_user.permissions == "管理者" %>
 	<%= link_to users_path do %>
 		<button class="btn btn-warning">
@@ -19,13 +25,14 @@
 	<% end %>
 </div>
 <div>
-	<%= link_to new_profile_path do %>
-		<button class="btn btn-success">プロフィールを登録する</button>
-	<% end %>
-</div>
-<div>
-	<%= link_to edit_profile_path do %>
-		<button class="btn btn-success">プロフィールを編集する</button>
+	<% if current_user.profile.blank? %>
+		<%= link_to new_profile_path do %>
+			<button class="btn btn-success">プロフィールを登録する</button>
+		<% end %>
+	<% else %>
+		<%= link_to edit_profile_path do %>
+			<button class="btn btn-success">プロフィールを編集する</button>
+		<% end %>
 	<% end %>
 </div>
 

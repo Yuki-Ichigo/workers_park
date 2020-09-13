@@ -34,10 +34,11 @@ users edit page
 		<tr>
 			<th>性別</th>
 			<td>
-				<%= f.radio_button :sex, :男性 %>
+				<%= f.radio_button :sex, :男性, { selected: @user.sex_before_type_cast } %>
     			<%= f.label :男性 %>
-				<%= f.radio_button :sex, :女性 %>
+				<%= f.radio_button :sex, :女性, { selected: @user.sex_before_type_cast } %>
     			<%= f.label :女性 %>
+
   			</td>
 		</tr>
 		<tr>

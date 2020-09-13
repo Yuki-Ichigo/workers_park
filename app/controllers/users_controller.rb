@@ -26,7 +26,7 @@ class UsersController < ApplicationController
     def destroy
     	@user = current_user
     	@user.destroy
-    	redirect_to root_path
+    	redirect_to root_path,  notice: "登録情報を削除しました。またのご利用をお待ちしております。"
     end
 
     def index
@@ -41,7 +41,7 @@ class UsersController < ApplicationController
 
     def not_approval
     	@user = User.find(params[:id])
-    	if @user.update(permissions: '一般')
+    	if @user.update(permissions: 0)
     		redirect_to users_path
     	else
 	    	@admin = current_user
@@ -52,7 +52,7 @@ class UsersController < ApplicationController
 
     def approval
     	@user = User.find(params[:id])
-    	if @user.update(permissions: '企業担当者')
+    	if @user.update(permissions: 1)
     		redirect_to users_path
     	else
 	    	@admin = current_user
@@ -64,6 +64,6 @@ class UsersController < ApplicationController
 
     private
   	def user_params
-   		params.require(:user).permit(:email, :name, :name_kana, :nic_name, :birthday, :zip_code, :address_prefecture_name, :address_city, :address_line1, :address_line2, :phone_number, :permissions, :image, :sex)
+   		params.require(:user).permit(:email, :name, :name_kana, :nic_name, :birthday, :zip_code, :address_prefecture_name, :address_city, :address_line1, :address_line2, :phone_number, {permissions: params[:permissions]}, :image, {sex: params[:sex]})
 	end
 end

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head>
+  <head class="container">
     <title>WorkersPark</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -29,16 +29,13 @@
             <li class="">
               <%= "シゴトの募集をする" %>
             </li>
-            <!-- ここ「自分のプロフィールを見る」 -->
             <li class="">
               <% if current_user.profile.blank? %>
-                <% link_to "自分のプロフィールを見る", new_profile_path(current_user.id) %>
+                <%= link_to "プロフィールを登録する", new_profile_path(current_user.id) %>
               <% else %>
                 <%= link_to "自分のプロフィールを見る", profile_path(current_user.profile.id) %>
               <% end %>
             </li>
-
-            <!-- ここ「自分のプロフィールを見る」 -->
             <li class="">
               <%= link_to user_path(current_user.id) do %>
                 <%= attachment_image_tag current_user, :image, :fill, 40, 40, fallback: "no_image_human.jpg", size:'40x40' %>

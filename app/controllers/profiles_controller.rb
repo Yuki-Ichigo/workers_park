@@ -16,24 +16,28 @@ class ProfilesController < ApplicationController
 	end
 
 	def show
-		if Profile.find(params[:id]) == blank? 
-			@user = current_user
-			redirect_to new_profile_path(current_user.id)
-		else
-		    @profie = Profile.find(params[:id])
-		end
+		@profile = Profile.find(params[:id])
 	end
 
 	def edit
+		@profile = Profile.find(params[:id])
 	end
 
-	def updage
+	def update
+		@profile = Profile.find(params[:id])
+
+		if @profile.update(profile_params)
+      		redirect_to edit_profile_path(current_user.id), notice: "プロフィールを変更しました"
+        else
+      		@profile.id = current_user.profile.id   
+      		render "edit"
+    	end
 	end
 
     private
 
     def profile_params
-    params.permit(:introduction, :future, :employment_type)
+    params.permit(:introduction, :future, {employment_type: params[:employment_type]})
     end
 
 	

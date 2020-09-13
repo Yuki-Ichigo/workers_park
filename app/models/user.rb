@@ -5,6 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   
   has_one :profile, dependent: :destroy
+  has_many :company_members, dependent: :destroy
+  has_many :comment, dependent: :destroy
 
   validates :name, presence: true, length: {minimum: 2, maximum: 30}
   validates :name_kana, presence: true, length: {minimum: 2, maximum: 30}

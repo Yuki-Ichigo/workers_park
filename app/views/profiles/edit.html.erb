@@ -3,3 +3,18 @@ profiles#edit page
 <% flash.each do |key, value| %>
   <%= content_tag(:div, value, class: key) %>
 <% end %>
+
+
+<%= form_with url: profile_path, method: :patch do |f| %>
+	<h3>紹介文</h3>
+		<div><%= f.text_area :introduction, value: @profile.introduction %></div>
+
+	<h3>このさきやってみたいこと</h3>
+		<div><%= f.text_area :future, value: @profile.future %></div>
+
+
+	<h3>就業形態</h3>
+		<%= f.select :employment_type, { "社員": 0, "副業・委託": 1, "どちらも": 2 } , { selected: @profile.employment_type_before_type_cast } %>
+		
+	<div><%= f.submit "変更する", class:"btn btn-primary" %></div>
+<% end %>

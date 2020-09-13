@@ -6,11 +6,20 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show, :edit, :update, :hide, :destroy, :index] do
       collection do
-        get 'hide'
-        put 'approval'
-        put 'not_approval'
-      end
+      get 'hide'
+      put 'approval'
+      put 'not_approval'
+    end
   end
-
   resources :profiles, only: [:new, :create, :edit, :update, :index, :show]
+  resources :companies, only: [:new, :create, :index, :show, :edit, :update] do
+     collection do
+      put 'hide'
+     end
+  end
+  resources :works, only: [:new, :create, :index, :show, :edit, :update] do
+     collection do
+      put 'hide'
+     end
+  end
 end

@@ -10,7 +10,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_11_170023) do
+ActiveRecord::Schema.define(version: 2020_09_13_162137) do
+
+  create_table "comments", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "work_id"
+    t.string "title"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "companies", force: :cascade do |t|
+    t.integer "name", null: false
+    t.integer "name_kana", null: false
+    t.string "phone_number", null: false
+    t.string "establishment"
+    t.string "url"
+    t.string "email", null: false
+    t.string "zip_code"
+    t.string "address_prefecture", null: false
+    t.string "address_city"
+    t.string "address_line1"
+    t.string "address_line2"
+    t.string "image_id"
+    t.integer "is_active", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["phone_number"], name: "index_companies_on_phone_number"
+  end
+
+  create_table "company_members", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "company_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "profiles", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -44,6 +79,16 @@ ActiveRecord::Schema.define(version: 2020_09_11_170023) do
     t.integer "sex", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "works", force: :cascade do |t|
+    t.integer "company_id", null: false
+    t.text "introduction"
+    t.text "job_details"
+    t.string "image_id"
+    t.integer "is_active", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
