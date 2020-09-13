@@ -14,11 +14,11 @@
       <div id="slidemenu">
           <% if user_signed_in? %>
             <%= link_to user_path(current_user.id) do %>
-              <img src="../../assets/images/logo_clear.png" title="ロゴ" width="224" height="49">
+              <%= image_tag('logo_clear.png', width: '224', height: '49') %>
             <% end %>
           <% else %>
             <%= link_to root_path do %>
-              <img src="../../assets/images/logo_clear.png" title="ロゴ" width="224" height="49">
+              <%= image_tag('logo_clear.png', width: '224', height: '49') %>
             <% end %>
           <% end %>
         <!-- 検索フォームがつけれれば書く -->
@@ -30,6 +30,13 @@
               <%= "シゴトの募集をする" %>
             </li>
             <!-- ここ「自分のプロフィールを見る」 -->
+            <li class="">
+              <% if current_user.profile.blank? %>
+                <% link_to "自分のプロフィールを見る", new_profile_path(current_user.id) %>
+              <% else %>
+                <%= link_to "自分のプロフィールを見る", profile_path(current_user.profile.id) %>
+              <% end %>
+            </li>
 
             <!-- ここ「自分のプロフィールを見る」 -->
             <li class="">

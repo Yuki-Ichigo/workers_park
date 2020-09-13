@@ -1,7 +1,7 @@
 class ProfilesController < ApplicationController
 
 	def create
-		@profile = Profile.new
+		@profile = Profile.new(profile_params)
         @profile.user_id = current_user.id
     	if  @profile.save
         	redirect_to edit_profile_path(@profile.id), notice: "新規登録が完了しました"
@@ -33,7 +33,7 @@ class ProfilesController < ApplicationController
     private
 
     def profile_params
-    params.require(:profile).permit(:introduction, :future, :employment_type, :user_id)
+    params.permit(:introduction, :future, :employment_type)
     end
 
 	

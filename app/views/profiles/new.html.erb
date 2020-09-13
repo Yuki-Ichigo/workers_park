@@ -14,10 +14,6 @@ profile#new page
 	
 	<div><%= f.submit "登録する",class:"btn btn-primary" %></div>
 
-	<% user = current_user %>
-	<% f.hidden_field :user_id, :value => user.id %>
-
-
 <% end %>		
 		
 
