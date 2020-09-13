@@ -1,1 +1,24 @@
 profile#new page
+
+<%= form_with url: profiles_path, method: :post do |f| %>
+
+<h3>紹介文</h3>
+	<div><%= f.text_area :introduction %></div>
+
+<h3>このさきやってみたいこと</h3>
+	<div><%= f.text_area :future %></div>
+
+
+<h3>就業形態</h3>
+	<%= f.select :employment_type, [["社員", "社員"], ["副業・委託", "副業委託"],["どちらも", "問わない"] ] %>
+	
+	<div><%= f.submit "登録する",class:"btn btn-primary" %></div>
+
+	<% user = current_user %>
+	<% f.hidden_field :user_id, :value => user.id %>
+
+
+<% end %>		
+		
+
+	
