@@ -4,15 +4,94 @@
 <% end %>
 <!-- エラー、サクセスメッセージ -->
 
-
 <h3>基本登録情報</h3>	
-<% if current_user.permissions == "管理者" %>
-	<%= link_to users_path do %>
+<div>
+	<% if current_user.permissions == "管理者" %>
+		<%= link_to users_path do %>
+			<button class="btn btn-warning">
+				ユーザー一覧へ
+			</button>
+		<% end %>
+	<% end %>
+</div>
+
+<!-- ここまで１４日実装分-->
+
+管理者のみ表示
+<div>
+	<% if current_user.permissions == "管理者" %>
+		<%= link_to new_company_path do %>
+			<button class="btn btn-warning">
+				会社情報の登録をする
+			</button>
+		<% end %>
+	<% end %>
+</div>
+
+<div>
+	<% if current_user.permissions == "企業担当者" %>
+		<%= link_to edit_company_path do %>
+			<button class="btn btn-warning">
+				会社情報の編集をする
+			</button>
+		<% end %>
+	<% end %>
+</div>
+
+企業担当者のみ表示
+<div>
+	<% if current_user.permissions == "企業担当者" %>
+		<%= link_to new_work_path do %>
+			<button class="btn btn-warning">
+				新規のシゴトを登録する
+			</button>
+		<% end %>
+	<% end %>
+</div>
+
+企業担当者のみ表示
+<div>
+	<% if current_user.permissions == "企業担当者" %>
+		<%= link_to edit_work_path do %>
+			<button class="btn btn-warning">
+				掲載中のシゴトを編集する
+			</button>
+		<% end %>
+	<% end %>
+</div>
+
+ログイン済み全ユーザー対象
+<div>
+	<%= link_to companies_path do %>
 		<button class="btn btn-warning">
-			ユーザー一覧へ
+			企業情報一覧を見る
 		</button>
 	<% end %>
-<% end %>
+</div>
+
+ログイン済み全ユーザー表示
+<div>
+	<%= link_to works_path do %>
+		<button class="btn btn-warning">
+			シゴト一覧を見る
+		</button>
+	<% end %>
+</div>
+
+ログイン済み全ユーザー表示
+<div>
+	<% if current_user.company_members.exists? %>
+		<p>マイカンパニー</p>
+		<%= link_to users_path do %>
+			<button class="btn btn-warning">
+				マイカンパニーを見る
+			</button>
+		<% end %>
+	<% end %>
+</div>
+
+
+<!-- ここまで１４日実装分-->
 
 <div>
 	<%= link_to edit_user_path do %>

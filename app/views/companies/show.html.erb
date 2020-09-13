@@ -1,1 +1,24 @@
 companies # show page
+
+
+ログイン済み全ユーザー表示
+<div>
+	<% if current_user.permissions == "管理者" && current_user.permissions == "企業担当者" %>
+		<%= link_to users_path do %>
+			<button class="btn btn-warning">
+				マイカンパニー登録をする
+			</button>
+		<% end %>
+	<% end %>
+</div>
+
+ログイン済み全ユーザー表示
+<div>
+	<% if current_user.permissions == "管理者" && current_user.permissions == "企業担当者" %>
+		<%= link_to users_path do %>
+			<button class="btn btn-warning">
+				マイカンパニー登録をする
+			</button>
+		<% end %>
+	<% end %>
+</div>
