@@ -22,4 +22,6 @@ Rails.application.routes.draw do
       put 'hide'
      end
   end
+  resources :messages, only: [:new, :create, :index, :show]
+  resource :company_members, only: [:create, :destroy]
 end

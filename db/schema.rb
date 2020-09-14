@@ -10,16 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_13_162137) do
-
-  create_table "comments", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "work_id"
-    t.string "title"
-    t.text "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 2020_09_14_084145) do
 
   create_table "companies", force: :cascade do |t|
     t.integer "name", null: false
@@ -45,6 +36,18 @@ ActiveRecord::Schema.define(version: 2020_09_13_162137) do
     t.integer "company_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "destination_id"
+    t.string "title"
+    t.text "body"
+    t.integer "is_opened", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["destination_id"], name: "index_messages_on_destination_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -89,6 +92,7 @@ ActiveRecord::Schema.define(version: 2020_09_13_162137) do
     t.integer "is_active", default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
   end
 
 end
