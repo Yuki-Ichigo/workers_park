@@ -1,4 +1,4 @@
-class MessagesController < ApplicationController
+class CommunicatesController < ApplicationController
 	def new
 	end
 

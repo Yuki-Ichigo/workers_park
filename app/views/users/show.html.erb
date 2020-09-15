@@ -94,12 +94,12 @@
 <!-- ここまで１４日実装分-->
 
 <div>
-	<%= link_to edit_user_path do %>
+	<%= link_to edit_user_path(current_user.id) do %>
 		<button class="btn btn-warning">基本登録情報を変更する</button>
 	<% end %>
 </div>
 <div>
-	<%= link_to edit_user_registration_path do %>
+	<%= link_to edit_user_registration_path(current_user.id) do %>
 		<button class="btn btn-success">パスワードの変更はこちら</button>
 	<% end %>
 </div>
@@ -109,7 +109,7 @@
 			<button class="btn btn-success">プロフィールを登録する</button>
 		<% end %>
 	<% else %>
-		<%= link_to edit_profile_path do %>
+		<%= link_to edit_profile_path(current_user.profile.id) do %>
 			<button class="btn btn-success">プロフィールを編集する</button>
 		<% end %>
 	<% end %>
@@ -118,7 +118,7 @@
 <table>
 	<tr>
 		<th>写真</th>
-		<td><%= attachment_image_tag @user, :image, :fill, 150, 150, fallback: "no_image_human.jpg" %></td>
+		<td><%= attachment_image_tag @user, :image, :fill, 150, 150, fallback: "no_image_human.jpg", size:'150x150' %></td>
 	</tr>
 	<tr>
 		<th>名前</th>

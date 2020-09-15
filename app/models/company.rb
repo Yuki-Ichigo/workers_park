@@ -1,16 +1,21 @@
 class Company < ApplicationRecord
+	has_many :users, through: :group_users
 	has_many :company_members, dependent: :destroy
-	has_many :works, dependent: :destroy
+	accepts_nested_attributes_for :company_members
 
-	validates :name, presence: true, length: {minimum: 2, maximum: 30}
-	validates :name_kana, presence: true, length: {minimum: 2, maximum: 30}
+	has_many :users, through: :works
+	has_many :works, dependent: :destroy
+	accepts_nested_attributes_for :works
+
+	validates :name, presence: true
+	validates :name_kana, presence: true
 	validates :establishment, length: {is: 6}
 	validates :email, presence: true, length: {minimum: 5, maximum: 50}
 	validates :zip_code, length: {is: 7}
-	validates :address_prefecture_name, presence: true, length: {minimum: 1, maximum: 5}
+	validates :address_prefecture, presence: true, length: {minimum: 1, maximum: 5}
 	validates :address_city, length: {maximum: 15}
 	validates :address_line1, length: {maximum: 20}
-	validates :length, {maximum: 20}
+	validates :address_line1, length: {maximum: 20}
 	validates :phone_number, presence: true, length: {minimum: 3, maximum: 15}
 
 	attachment :image, destroy: false

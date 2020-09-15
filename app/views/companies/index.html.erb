@@ -1,3 +1,36 @@
 companies # index page
 
 管理者と企業担当者は会社情報の編集ページに行ける
+
+<table>
+	<% @companies.each do |company| %>
+		<tr>
+			<td></td>
+			<td><%= company.name %></td>
+		</tr>
+		<tr>
+			<td><%= attachment_image_tag company, :image, :fill, 60, 60, fallback: "no_image_white.png", size:'60x60' %>
+			</td>
+			<td><%= company.url %></td>
+			<td><%= company.address_prefecture %></td>
+			<td>
+				<% if user_signed_in? %>
+					<% if current_user.permissions == "管理者" || current_user.permissions == "企業担当者" %>
+						<td><%= button_to "編集する", edit_company_path(company.id), method: :get, class: "btn btn-warning  btn-sm" %></td>
+					<% end %>
+					<%if current_user.permissions == "管理者" %>
+						<% if company.is_active == true %>
+							<td><%= button_to "停止する", hide_companies_path(company.id), method: :put, class: "btn btn-primary  btn-sm" %>
+								<%= hidden_field_tag :id, company.id %>
+							</td>
+						<% else %>
+							<td><%= button_to "再開する", reopen_companies_path(company.id), method: :put, class: "btn btn-default  btn-sm" %>
+								<%= hidden_field_tag :id, company.id %>
+							</td>
+						<% end %>
+					<% end %>
+				<% end %>
+			</td>
+		</tr>
+	<% end %>
+</table>

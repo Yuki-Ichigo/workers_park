@@ -5,19 +5,26 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   
   has_one :profile, dependent: :destroy
+
+  has_many :companies, through: :company_members
   has_many :company_members, dependent: :destroy
+  accepts_nested_attributes_for :company_members
+
+  has_many :companies, through: :works
+  has_many :works, dependent: :destroy
+  accepts_nested_attributes_for :works
 
   # メッセージ送信側
   # 送信者のUserから見て、宛先（受信者）のUserを(中間テーブルを介して)集める。ユーザーの判別は 'sent_msgs(送信者)'カラムで行う。
-  has_many :messages, foreign_key: 'user_id', dependent: :destroy
+  has_many :communicates, foreign_key: 'user_id', dependent: :destroy
   # 中間テーブル(messages)を介して「destination」モデルのUser(宛名)「destination_id」を集めることを「sent(送信済みメッセージ)」と定義
-  has_many :sent_msgs, through: :messages, source: :destination
+  has_many :sent_msgs, through: :communicates, source: :destination
 
   # メッセージ受信側
   # 受信者から見て、送信者のUserを(中間テーブルを介して)集める。ユーザーの判別は ’destination_id(宛先)’カラムで行う。
-  has_many :receive_messages, class_name: 'Message', foreign_key: 'destination_id', dependent: :destroy
+  has_many :receive_communicates, class_name: 'Communicate', foreign_key: 'destination_id', dependent: :destroy
   # 中間テーブル(messages)を介して「user」モデルのUser(送信者)「user_id」を集めることを「received_msgs」と定義
-  has_many :received_msgs, through: :receive_messages, source: :user
+  has_many :received_msgs, through: :receive_communicates, source: :user
 
 
   validates :name, presence: true, length: {minimum: 2, maximum: 30}

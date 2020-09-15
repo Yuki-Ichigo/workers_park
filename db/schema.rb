@@ -10,11 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_14_084145) do
+ActiveRecord::Schema.define(version: 2020_09_15_171338) do
+
+  create_table "communicates", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "destination_id", null: false
+    t.string "title"
+    t.text "body"
+    t.integer "is_opened", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "companies", force: :cascade do |t|
-    t.integer "name", null: false
-    t.integer "name_kana", null: false
+    t.string "name", null: false
+    t.string "name_kana", null: false
     t.string "phone_number", null: false
     t.string "establishment"
     t.string "url"
@@ -36,18 +46,6 @@ ActiveRecord::Schema.define(version: 2020_09_14_084145) do
     t.integer "company_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "messages", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "destination_id"
-    t.string "title"
-    t.text "body"
-    t.integer "is_opened", default: 0, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["destination_id"], name: "index_messages_on_destination_id"
-    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -93,6 +91,7 @@ ActiveRecord::Schema.define(version: 2020_09_14_084145) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
+    t.string "title"
   end
 
 end

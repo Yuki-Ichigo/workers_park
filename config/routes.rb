@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :companies, only: [:new, :create, :index, :show, :edit, :update] do
      collection do
       put 'hide'
+      put 'reopen'
      end
   end
   resources :works, only: [:new, :create, :index, :show, :edit, :update] do
@@ -22,6 +23,6 @@ Rails.application.routes.draw do
       put 'hide'
      end
   end
-  resources :messages, only: [:new, :create, :index, :show]
+  resources :communicates, only: [:new, :create, :index, :show]
   resource :company_members, only: [:create, :destroy]
 end

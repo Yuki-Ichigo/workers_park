@@ -27,7 +27,7 @@ class ProfilesController < ApplicationController
 		@profile = Profile.find(params[:id])
 
 		if @profile.update(profile_params)
-      		redirect_to edit_profile_path(current_user.id), notice: "プロフィールを変更しました"
+      		redirect_to edit_profile_path(@profile.id), notice: "プロフィールを変更しました"
         else
       		@profile.id = current_user.profile.id   
       		render "edit"
@@ -37,8 +37,6 @@ class ProfilesController < ApplicationController
     private
 
     def profile_params
-    params.permit(:introduction, :future, {employment_type: params[:employment_type]})
+    	params.permit(:introduction, :future, :employment_type)
     end
-
-	
 end

@@ -1,24 +1,81 @@
 companies # show page
-
-
 ログイン済み全ユーザー表示
+
 <div>
-	<% if current_user.permissions == "管理者" && current_user.permissions == "企業担当者" %>
-		<%= link_to users_path do %>
-			<button class="btn btn-warning">
-				マイカンパニー登録をする
-			</button>
+	<% if current_user.permissions == "管理者" || current_user.permissions == "企業担当者" %>
+		<%= link_to edit_company_path do %>
+			<button class="btn default btn-sm">登録情報を変更する</button>
+		<% end %>
+	<% end %>
+
+	<% if current_user.permissions == "管理者" %>
+		<%= link_to companies_path, method: :hide, :confirm => '本当に削除しますか?' do %>
+			<button class="btn btn-default btn-sm">登録情報を削除する</button>
 		<% end %>
 	<% end %>
 </div>
 
-ログイン済み全ユーザー表示
 <div>
-	<% if current_user.permissions == "管理者" && current_user.permissions == "企業担当者" %>
-		<%= link_to users_path do %>
-			<button class="btn btn-warning">
-				マイカンパニー登録をする
-			</button>
-		<% end %>
-	<% end %>
+	<%= button_to "会社情報の一覧を見る", companies_path, method: :get, class:"btn btn-success btn-sm" %>
 </div>
+
+<table>
+	<tr>
+		<th>ロゴ画像</th>
+		<td><%= attachment_image_tag @company, :image, :fill, 150, 150, fallback: "no_image_white.png", size:'150x150' %></td>
+	</tr>
+	<tr>
+		<th>名前</th>
+		<td><%= @company.name %></td>
+	</tr>
+	<tr>
+		<th>フリガナ</th>
+		<td><%= @company.name_kana %></td>
+	</tr>
+	<tr>
+		<th>創立年月</th>
+		<td><%= @company.establishment %></td>
+	</tr>
+	<tr>
+		<th>url</th>
+		<td><%= @company.url %></td>
+	</tr>
+	<tr>
+		<th>住所</th>
+		<td>
+			<%= "〒" + @company.zip_code %> <br />
+			<%= @company.address_prefecture + @company.address_city + @company.address_line1 + @company.address_line2 %>
+		</td>
+	</tr>
+<% if current_user.permissions == "管理者" || current_user.permissions == "企業担当者" %>
+	<tr>
+		<th>電話</th>
+		<td><%= @company.phone_number %></td>
+	</tr>
+	<tr>
+		<th>メール</th>
+		<td><%= @company.email %></td>		
+	</tr>
+<% end %>
+</table>
+
+<br />
+
+<% if user_signed_in? %>
+	<% if current_user.company_members.where(company_id: @company.id).any? %>
+		<div>
+			<%= button_to company_members_path, method: :delete, class:"btn btn-success" do %>
+			<%= hidden_field_tag :company_id, @company.id %>
+					マイカンパニー登録を解除する
+			<% end %>
+		</div>
+	<% elsif current_user.company_members.any? %>
+		<div>
+			<%= button_to company_members_path, method: :post, class:"btn btn-default" do %>
+			<%= hidden_field_tag :company_id, @company.id %>
+					マイカンパニー登録をする
+			<% end %>
+		</div>
+	<% end %>
+<% end %>
+

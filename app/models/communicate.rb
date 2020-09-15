@@ -1,4 +1,4 @@
-class Message < ApplicationRecord
+class Communicate < ApplicationRecord
 	belongs_to :user
 	belongs_to :destination, class_name: 'User'
 
