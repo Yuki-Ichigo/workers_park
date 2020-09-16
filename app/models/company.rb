@@ -7,6 +7,8 @@ class Company < ApplicationRecord
 	has_many :works, dependent: :destroy
 	accepts_nested_attributes_for :works
 
+	has_one :information, dependent: :destroy
+
 	validates :name, presence: true
 	validates :name_kana, presence: true
 	validates :establishment, length: {is: 6}

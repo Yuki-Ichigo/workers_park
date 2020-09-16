@@ -2,7 +2,7 @@ class CompaniesController < ApplicationController
 
 	def create
 		@company = Company.new(company_params)
-    	if  @company.save!
+    	if  @company.save
         	redirect_to company_path(@company.id), notice: "新規登録が完了しました"
     	else
         	@user = current_user

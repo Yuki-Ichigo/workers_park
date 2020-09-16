@@ -1,1 +1,24 @@
 works # new page
+
+<% flash.each do |key, value| %>
+  <%= content_tag(:div, value, class: key) %>
+<% end %>
+
+
+<h2>募集内容登録</h2>
+
+<%= form_with model: Work.new, method: :post do |f| %>
+
+	<h3>紹介文</h3><p>
+	（検索結果トップに表示されます）</p>
+		<div><%= f.text_area :introduction %></div>
+		 <div class="field">
+  	<%= f.label "画像" %><br />
+  	<%= f.attachment_field :image %>
+  </div>
+
+	<h3>募集要項 詳細</h3>
+		<div><%= f.text_area :job_details %></div>
+
+	<div><%= f.submit "変更する", class:"btn btn-warning" %></div>
+<% end %>

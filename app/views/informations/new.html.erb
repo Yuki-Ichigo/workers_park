@@ -1,0 +1,26 @@
+information # new page
+
+<% flash.each do |key, value| %>
+  <%= content_tag(:div, value, class: key) %>
+<% end %>
+
+<h2>会社紹介登録</h2>
+
+<%= form_with model: @informaiton, url: company_informations_path, method: :post do |f| %>
+
+	<h3>会社紹介文</h3>
+		<div><%= f.text_area :introduction %></div>
+		<div><%= f.label "画像①" %><br />
+  			 <%= f.attachment_field :i_image1 %>
+  			 <%= f.label "画像②" %><br />
+  			 <%= f.attachment_field :i_image2 %></div>
+
+	<h3>今後の展望</h3>
+		<div><%= f.text_area :future %></div>
+		<div><%= f.label "画像①" %><br />
+  			 <%= f.attachment_field :f_image1 %>
+  			 <%= f.label "画像②" %><br />
+  			 <%= f.attachment_field :f_image2 %></div>
+
+	<div><%= f.submit "登録する", class:"btn btn-warning" %></div>
+<% end %>

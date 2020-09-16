@@ -1,16 +1,20 @@
 companies # show page
 ログイン済み全ユーザー表示
 
+
+
+
+
 <div>
 	<% if current_user.permissions == "管理者" || current_user.permissions == "企業担当者" %>
 		<%= link_to edit_company_path do %>
-			<button class="btn default btn-sm">登録情報を変更する</button>
+			<button class="btn btn-warning btn-sm">登録情報を変更する</button>
 		<% end %>
 	<% end %>
 
 	<% if current_user.permissions == "管理者" %>
 		<%= link_to companies_path, method: :hide, :confirm => '本当に削除しますか?' do %>
-			<button class="btn btn-default btn-sm">登録情報を削除する</button>
+			<button class="btn btn-primary btn-sm">登録情報を削除する</button>
 		<% end %>
 	<% end %>
 </div>

@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       put 'hide'
       put 'reopen'
      end
+     resources :informations, only: [:new, :create, :edit, :update, :index, :show]
   end
   resources :works, only: [:new, :create, :index, :show, :edit, :update] do
      collection do

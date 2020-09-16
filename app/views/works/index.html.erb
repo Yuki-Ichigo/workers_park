@@ -3,13 +3,14 @@ works # index page
 カンパニーメンバー一覧が見れる
 
 
+
 管理者・企業担当は
 カンパニーメンバーからユーザーを外せる
 
 <% @works.each do |work| %>
-	<%= works.image %>
-	<%= works.title %>
-	<%= works.introduction %>
-	<%= works.company.image %>
-	<%= works.company.name %>
+	<%= work.image %>
+	<%= work.title %>
+	<%= work.introduction %>
+	<%= work.company.image %>
+	<%= work.company.name %>
 <% end %>

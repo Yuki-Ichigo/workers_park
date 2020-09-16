@@ -1,5 +1,10 @@
 profile#new page
 
+<% flash.each do |key, value| %>
+  <%= content_tag(:div, value, class: key) %>
+<% end %>
+
+
 <%= form_with model: @profile, url: profiles_path, method: :post do |f| %>
 
 	<h3>紹介文</h3>
