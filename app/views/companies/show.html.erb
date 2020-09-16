@@ -62,19 +62,26 @@ companies # show page
 <br />
 
 <% if user_signed_in? %>
-	<% if current_user.company_members.where(company_id: @company.id).any? %>
+	<% if current_user.company_members.find_by(company_id: @company.id) %>
 		<div>
-			<%= button_to company_members_path, method: :delete, class:"btn btn-success" do %>
+			<%= button_to company_members_path, method: :delete, class: "btn btn-success" do %>
 			<%= hidden_field_tag :company_id, @company.id %>
 					マイカンパニー登録を解除する
 			<% end %>
 		</div>
 	<% elsif current_user.company_members.any? %>
 		<div>
-			<%= button_to company_members_path, method: :post, class:"btn btn-default" do %>
+			<%= button_to company_members_path, method: :post, class: "btn btn-success", disabled:"disabled" do %>
+			<%= hidden_field_tag :company_id, @company.id %>
+					他の会社でマイカンパニー登録しています
+			<% end %>
+		</div>
+	<% else %>
+		<div>
+			<%= button_to company_members_path, method: :post, class: "btn btn-default" do %>
 			<%= hidden_field_tag :company_id, @company.id %>
 					マイカンパニー登録をする
-			<% end %>
+			<% end %>			
 		</div>
 	<% end %>
 <% end %>
