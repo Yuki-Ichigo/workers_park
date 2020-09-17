@@ -8,7 +8,7 @@
 <div>
 	<% if current_user.permissions == "管理者" %>
 		<%= link_to users_path do %>
-			<button class="btn btn-warning">
+			<button class="btn btn-primary">
 				ユーザー一覧へ
 			</button>
 		<% end %>
@@ -21,8 +21,8 @@
 <div>
 	<% if current_user.permissions == "管理者" %>
 		<%= link_to new_company_path do %>
-			<button class="btn btn-warning">
-				会社情報の登録をする
+			<button class="btn btn-primary">
+				会社情報を登録をする
 			</button>
 		<% end %>
 	<% end %>
@@ -32,7 +32,7 @@
 	<% if current_user.permissions == "企業担当者" %>
 		<%= link_to edit_company_path do %>
 			<button class="btn btn-warning">
-				会社情報の編集をする
+				会社登録情報を変更する
 			</button>
 		<% end %>
 	<% end %>
@@ -54,7 +54,7 @@
 	<% if current_user.permissions == "企業担当者" %>
 		<%= link_to edit_work_path do %>
 			<button class="btn btn-warning">
-				掲載中のシゴトを編集する
+				掲載中のシゴトを変更する
 			</button>
 		<% end %>
 	<% end %>
@@ -64,7 +64,7 @@
 <div>
 	<%= link_to companies_path do %>
 		<button class="btn btn-warning">
-			企業情報一覧を見る
+			企業一覧をみる
 		</button>
 	<% end %>
 </div>
@@ -72,8 +72,8 @@
 ログイン済み全ユーザー表示
 <div>
 	<%= link_to works_path do %>
-		<button class="btn btn-warning">
-			シゴト一覧を見る
+		<button class="btn btn-success">
+			シゴト一覧をみる
 		</button>
 	<% end %>
 </div>
@@ -81,11 +81,21 @@
 ログイン済み全ユーザー表示
 <div>
 	<% if current_user.company_members.exists? %>
-		<p>マイカンパニー</p>
-		<%= link_to users_path do %>
-			<button class="btn btn-warning">
-				マイカンパニーを見る
-			</button>
+		<h3>マイカンパニー</h3>
+		<% @companies.each do |company| %>
+			<table>
+				<tr>
+					<td>
+						<%= link_to company_path(company.id) do %>
+							<%= attachment_image_tag company, :image, :fill, 40, 40, fallback: "no_image_white.png", size:'40x40' %>
+						<% end %>
+					</td>
+					<td><%= link_to company_path(company.id) do %>
+							<%= company.name %>
+						<% end %>
+					</td>
+				</tr>
+			</table>
 		<% end %>
 	<% end %>
 </div>
@@ -95,7 +105,7 @@
 
 <div>
 	<%= link_to edit_user_path(current_user.id) do %>
-		<button class="btn btn-warning">基本登録情報を変更する</button>
+		<button class="btn btn-success">基本登録情報を変更する</button>
 	<% end %>
 </div>
 <div>
@@ -158,6 +168,6 @@
 </table>
 
 <br />
-<%= link_to hide_users_path do %>
+<%= link_to hide_user_path do %>
 	<button class="btn btn-success">退会する</button>
 <% end %>

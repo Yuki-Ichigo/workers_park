@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
 	def show
 		@user = current_user
+        @companies = @user.companies
 	end
 
 	def edit

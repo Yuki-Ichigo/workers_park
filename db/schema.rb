@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_16_063550) do
+ActiveRecord::Schema.define(version: 2020_09_16_083954) do
 
   create_table "communicates", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -38,6 +38,12 @@ ActiveRecord::Schema.define(version: 2020_09_16_063550) do
     t.integer "is_active", default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "introduction"
+    t.string "i_image1_id"
+    t.string "i_image2_id"
+    t.text "future"
+    t.string "f_image1_id"
+    t.string "f_image2_id"
     t.index ["phone_number"], name: "index_companies_on_phone_number"
   end
 

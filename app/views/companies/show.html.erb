@@ -1,92 +1,154 @@
 companies # show page
+
+
+<% flash.each do |key, value| %>
+  <%= content_tag(:div, value, class: key) %>
+<% end %>
+
 ログイン済み全ユーザー表示
-
-
-
-
-
-<div>
-	<% if current_user.permissions == "管理者" || current_user.permissions == "企業担当者" %>
-		<%= link_to edit_company_path do %>
-			<button class="btn btn-warning btn-sm">登録情報を変更する</button>
-		<% end %>
+<% if user_signed_in? %>
+	<% if current_user.company_members.find_by(company_id: @company.id) %>
+		<span class="label label-danger">マイカンパニー</span>
 	<% end %>
+<% end %>
 
-	<% if current_user.permissions == "管理者" %>
-		<%= link_to companies_path, method: :hide, :confirm => '本当に削除しますか?' do %>
-			<button class="btn btn-primary btn-sm">登録情報を削除する</button>
-		<% end %>
-	<% end %>
-</div>
+
+<!-- 会社基本情報 -->
+
 
 <div>
 	<%= button_to "会社情報の一覧を見る", companies_path, method: :get, class:"btn btn-success btn-sm" %>
 </div>
 
-<table>
-	<tr>
-		<th>ロゴ画像</th>
-		<td><%= attachment_image_tag @company, :image, :fill, 150, 150, fallback: "no_image_white.png", size:'150x150' %></td>
-	</tr>
-	<tr>
-		<th>名前</th>
-		<td><%= @company.name %></td>
-	</tr>
-	<tr>
-		<th>フリガナ</th>
-		<td><%= @company.name_kana %></td>
-	</tr>
-	<tr>
-		<th>創立年月</th>
-		<td><%= @company.establishment %></td>
-	</tr>
-	<tr>
-		<th>url</th>
-		<td><%= @company.url %></td>
-	</tr>
-	<tr>
-		<th>住所</th>
-		<td>
-			<%= "〒" + @company.zip_code %> <br />
-			<%= @company.address_prefecture + @company.address_city + @company.address_line1 + @company.address_line2 %>
-		</td>
-	</tr>
-<% if current_user.permissions == "管理者" || current_user.permissions == "企業担当者" %>
-	<tr>
-		<th>電話</th>
-		<td><%= @company.phone_number %></td>
-	</tr>
-	<tr>
-		<th>メール</th>
-		<td><%= @company.email %></td>		
-	</tr>
-<% end %>
-</table>
 
+<!-- インフォメーション（PR）部分 -->
+
+<div><%= attachment_image_tag @company, :i_image1, :fill, 60, 60 %></div>
+<div><%= attachment_image_tag @company, :i_image2, :fill, 60, 60 %></div>
+
+
+<h3>企業紹介</h3>
+
+<div><%= @company.introduction %></div>
+<div><%= attachment_image_tag @company, :i_image1, :fill, 50, 60 %></div>
+<div><%= attachment_image_tag @company, :i_image2, :fill, 60, 60 %></div>
+
+<h3>今後の展望</h3>
+
+<div><%= @company.future %></div>
+<!-- インフォメーション（PR）部分 -->
+<div>
+	<% if user_signed_in? %>
+		<% if current_user.permissions == "管理者" || current_user.permissions == "企業担当者" %>
+			<%= link_to information_company_path(@company.id) do %>
+				<button class="btn btn-warning btn-sm">会社紹介ページを編集する</button>
+			<% end %>
+		<% end %>
+	<% end %>
+</div>
+
+<div>ログインしてない人でも誰でも見れる
+	<%= button_to company_works_path(@company.id), method: :get, class: "btn btn-default" do %>
+				この会社の募集一覧をみる
+	<% end %>
+</div>
+
+<div>企業担当者と管理者のみ
+	<% if user_signed_in? %>
+		<% if current_user.permissions == "管理者" || current_user.permissions == "企業担当者" %>
+				<%= link_to new_company_work_path(@company.id), method: :get, class: "btn btn-default" do %>
+				  シゴトの新規登録をする
+				<% end %>
+		<% end %>
+	<% end %>
+</div>
+
+<div>
+	<table>
+		<tr>
+			<th></th>
+			<td><%= attachment_image_tag @company, :image, :fill, 100, 100, fallback: "no_image_white.png", size:'100x100' %></td>
+		</tr>
+		<tr>
+			<th>名前</th>
+			<td><%= @company.name %></td>
+		</tr>
+		<tr>
+			<th>フリガナ</th>
+			<td><%= @company.name_kana %></td>
+		</tr>
+		<tr>
+			<th>創立年月</th>
+			<td><%= @company.establishment %></td>
+		</tr>
+		<tr>
+			<th>url</th>
+			<td><%= @company.url %></td>
+		</tr>
+		<tr>
+			<th>住所</th>
+			<td>
+				<%= "〒" + @company.zip_code %> <br />
+				<%= @company.address_prefecture + @company.address_city + @company.address_line1 + @company.address_line2 %>
+			</td>
+		</tr>
+		<% if user_signed_in? %>
+			<% if current_user.permissions == "管理者" || current_user.permissions == "企業担当者" %>
+				<tr>
+					<th>電話</th>
+					<td><%= @company.phone_number %></td>
+				</tr>
+				<tr>
+					<th>メール</th>
+					<td><%= @company.email %></td>		
+				</tr>
+			<% end %>
+		<% end %>
+	</table>
+</div>
+<!-- 会社基本情報 -->
 <br />
 
-<% if user_signed_in? %>
-	<% if current_user.company_members.find_by(company_id: @company.id) %>
-		<div>
-			<%= button_to company_members_path, method: :delete, class: "btn btn-success" do %>
-			<%= hidden_field_tag :company_id, @company.id %>
-					マイカンパニー登録を解除する
-			<% end %>
-		</div>
-	<% elsif current_user.company_members.any? %>
-		<div>
-			<%= button_to company_members_path, method: :post, class: "btn btn-success", disabled:"disabled" do %>
-			<%= hidden_field_tag :company_id, @company.id %>
-					他の会社でマイカンパニー登録しています
-			<% end %>
-		</div>
-	<% else %>
-		<div>
-			<%= button_to company_members_path, method: :post, class: "btn btn-default" do %>
-			<%= hidden_field_tag :company_id, @company.id %>
-					マイカンパニー登録をする
-			<% end %>			
-		</div>
-	<% end %>
-<% end %>
 
+<div>
+	<% if user_signed_in? %>
+		<% if current_user.permissions == "管理者" || current_user.permissions == "企業担当者" %>
+			<%= link_to edit_company_path do %>
+				<button class="btn btn-warning btn-sm">会社の基本情報を変更する</button>
+			<% end %>
+		<% end %>
+	<% end %>
+
+	<% if user_signed_in? %>
+		<% if current_user.permissions == "管理者" %>
+			<%= link_to companies_path, method: :hide, :confirm => '本当に停止にしますか?' do %>
+				<button class="btn btn-primary btn-sm">停止にする</button>
+			<% end %>
+		<% end %>
+	<% end %>
+</div>
+
+
+<div>
+	<% if user_signed_in? %>
+		<% if current_user.company_members.find_by(company_id: @company.id) %>
+			<div>
+				<%= button_to company_members_path, method: :delete, class: "btn btn-success" do %>
+						マイカンパニー登録を解除する
+				<% end %>
+			</div>
+		<% elsif current_user.company_members.any? %>
+			<div>
+				<%= button_to company_members_path, method: :post, class: "btn btn-success", disabled:"disabled" do %>
+						他の会社でマイカンパニー登録しています
+				<% end %>
+			</div>
+		<% else %>
+			<div>
+				<%= button_to company_members_path, method: :post, class: "btn btn-default" do %>
+						マイカンパニー登録をする
+				<% end %>			
+			</div>
+		<% end %>
+	<% end %>
+</div>

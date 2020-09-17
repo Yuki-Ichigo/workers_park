@@ -6,12 +6,12 @@ class User < ApplicationRecord
   
   has_one :profile, dependent: :destroy
 
-  has_many :companies, through: :company_members
   has_many :company_members, dependent: :destroy
+  has_many :companies, through: :company_members
   accepts_nested_attributes_for :company_members
 
-  has_many :companies, through: :works
   has_many :works, dependent: :destroy
+  has_many :work_companies, through: :works
   accepts_nested_attributes_for :works
 
   # メッセージ送信側

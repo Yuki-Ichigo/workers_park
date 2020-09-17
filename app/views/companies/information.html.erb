@@ -4,9 +4,9 @@ information # new page
   <%= content_tag(:div, value, class: key) %>
 <% end %>
 
-<h2>会社紹介登録</h2>
+<h3>会社紹介</h3>
 
-<%= form_with model: @informaiton, url: company_informations_path, method: :post do |f| %>
+<%= form_with model: @company, url: info_up_company_path, method: :patch do |f| %>
 
 	<h3>会社紹介文</h3>
 		<div><%= f.text_area :introduction %></div>

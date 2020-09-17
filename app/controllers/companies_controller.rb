@@ -16,11 +16,12 @@ class CompaniesController < ApplicationController
 
 	def show
 		@company = Company.find(params[:id])
+		@user = current_user
 	end
 
 	def hide
 		@company = Company.find(params[:id])
-		@company.update(is_active: false)
+		@company.update(company_params)
 		redirect_to companies_path, notice: "#{@company.name}の利用を停止しました"
 	end
 
@@ -41,12 +42,27 @@ class CompaniesController < ApplicationController
         else
       		@company = Company.find(params[:id])
       		render "edit"
+    	end		
+	end
+
+	def information
+		@company = Company.find(params[:id])
+	end
+
+	def info_up
+		@company = Company.find(params[:id])
+		if @company.update(company_params)
+      		redirect_to company_path(@company.id), notice: "#{@company.name}の会社情報を更新しました"
+        else
+      		@company = Company.find(params[:id])
+      		render "edit"
     	end
 	end
 
+
 	private
   	def company_params
-   		params.require(:company).permit(:name, :name_kana, :phone_number, :establishment, :url, :email, :zip_code, :address_prefecture, :address_city, :address_line1, :address_line2, :image, :is_active)
+   		params.require(:company).permit(:name, :name_kana, :phone_number, :establishment, :url, :email, :zip_code, :address_prefecture, :address_city, :address_line1, :address_line2, :image, :is_active, :introduction, :future, :i_image1, :i_image2, :f_image1, :f_image2)
 	end
 
 end

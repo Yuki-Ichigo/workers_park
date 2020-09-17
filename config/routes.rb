@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get 'home/about', to: 'home#about'
 
   resources :users, only: [:show, :edit, :update, :hide, :destroy, :index] do
-      collection do
+    member do
       get 'hide'
       put 'approval'
       put 'not_approval'
@@ -13,17 +13,19 @@ Rails.application.routes.draw do
   end
   resources :profiles, only: [:new, :create, :edit, :update, :index, :show]
   resources :companies, only: [:new, :create, :index, :show, :edit, :update] do
-     collection do
+    resources :works, only: [:new, :create, :index, :show, :edit, :update] do
+       member do
+         put 'hide'
+       end
+    end
+    member do
       put 'hide'
       put 'reopen'
-     end
-     resources :informations, only: [:new, :create, :edit, :update, :index, :show]
+      get 'information'
+      patch 'info_up'
+    end
   end
-  resources :works, only: [:new, :create, :index, :show, :edit, :update] do
-     collection do
-      put 'hide'
-     end
-  end
+
   resources :communicates, only: [:new, :create, :index, :show]
   resource :company_members, only: [:create, :destroy]
 end

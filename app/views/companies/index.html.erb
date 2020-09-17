@@ -1,36 +1,51 @@
 companies # index page
 
 管理者と企業担当者は会社情報の編集ページに行ける
-
-<table>
-	<% @companies.each do |company| %>
-		<tr>
-			<td></td>
-			<td><%= company.name %></td>
-		</tr>
-		<tr>
-			<td><%= attachment_image_tag company, :image, :fill, 60, 60, fallback: "no_image_white.png", size:'60x60' %>
-			</td>
-			<td><%= company.url %></td>
-			<td><%= company.address_prefecture %></td>
-			<td>
-				<% if user_signed_in? %>
-					<% if current_user.permissions == "管理者" || current_user.permissions == "企業担当者" %>
-						<td><%= button_to "編集する", edit_company_path(company.id), method: :get, class: "btn btn-warning  btn-sm" %></td>
+<div>
+	<table>
+		<% @companies.each do |company| %>
+			<tr>
+				<td></td>
+				<td>
+					<%= link_to company_path(company.id) do %>
+						<%= company.name %>
+					<% end %>	
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= link_to company_path(company.id) do %>
+						<%= attachment_image_tag company, :image, :fill, 60, 60, fallback: "no_image_white.png", size:'60x60' %>
 					<% end %>
-					<%if current_user.permissions == "管理者" %>
-						<% if company.is_active == true %>
-							<td><%= button_to "停止する", hide_companies_path(company.id), method: :put, class: "btn btn-primary  btn-sm" %>
-								<%= hidden_field_tag :id, company.id %>
-							</td>
-						<% else %>
-							<td><%= button_to "再開する", reopen_companies_path(company.id), method: :put, class: "btn btn-default  btn-sm" %>
-								<%= hidden_field_tag :id, company.id %>
+				</td>
+				<td><%= company.url %></td>
+				<td><%= company.address_prefecture %></td>
+				<td><%= company.introduction %></td>
+				<td><%= link_to "この会社の詳細をみる", company_path(company), class: "btn btn-success  btn-sm" %>	
+				</td>
+				<td>
+					<% if user_signed_in? %>
+						<% if current_user.permissions == "管理者" || current_user.permissions == "企業担当者" %>
+							<td><%= link_to "編集する", edit_company_path(company.id), class: "btn btn-warning  btn-sm" %>
 							</td>
 						<% end %>
+						<%if current_user.permissions == "管理者" %>
+							<% if company.is_active == 1 %>
+								<td>
+									<%= form_with model: company, url: hide_company_path(company), method: :put do |f| %>
+
+											<%= f.hidden_field :is_active, value: false  %>
+											<%= f.submit "停止する", class: "btn btn-primary  btn-sm" %>	
+									<% end %>
+								</td>
+							<% else %>
+								<td><%= button_to "再開する", reopen_company_path(company.id), method: :put, class: "btn btn-default  btn-sm" %>
+								</td>
+							<% end %>
+						<% end %>
 					<% end %>
-				<% end %>
-			</td>
-		</tr>
-	<% end %>
-</table>
+				</td>
+			</tr>
+		<% end %>
+	</table>
+</div>
