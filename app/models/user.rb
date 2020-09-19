@@ -14,6 +14,14 @@ class User < ApplicationRecord
   has_many :work_companies, through: :works
   accepts_nested_attributes_for :works
 
+  has_many :talk_rooms, dependent: :destroy
+  has_many :talk_room_companies, through: :talk_rooms
+  accepts_nested_attributes_for :talk_rooms
+
+  has_many :talks, dependent: :destroy
+  has_many :talk_rooms, through: :talks
+  accepts_nested_attributes_for :talks
+
   # メッセージ送信側
   # 送信者のUserから見て、宛先（受信者）のUserを(中間テーブルを介して)集める。ユーザーの判別は 'sent_msgs(送信者)'カラムで行う。
   has_many :communicates, foreign_key: 'user_id', dependent: :destroy

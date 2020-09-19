@@ -1,4 +1,6 @@
 class CompanyMembersController < ApplicationController
+	before_action :authenticate_user!
+
 	def create	
 		company = Company.find(params[:company_id])
 		user =  current_user

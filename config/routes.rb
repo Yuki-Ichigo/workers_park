@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resources :works, only: [:new, :create, :index, :show, :edit, :update] do
        member do
          put 'hide'
+         put 'reopen'
        end
     end
     member do
@@ -25,7 +26,9 @@ Rails.application.routes.draw do
       patch 'info_up'
     end
   end
-
-  resources :communicates, only: [:new, :create, :index, :show]
   resource :company_members, only: [:create, :destroy]
+  resources :communicates, only: [:new, :create, :index, :show]
+  resources :talk_rooms, only: [:new, :create, :index, :show, :destroy] do
+    resource :talks, only: [:new, :create, :destroy]
+  end
 end

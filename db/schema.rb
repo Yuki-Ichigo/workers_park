@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_16_083954) do
+ActiveRecord::Schema.define(version: 2020_09_19_060315) do
 
   create_table "communicates", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -71,6 +71,23 @@ ActiveRecord::Schema.define(version: 2020_09_16_083954) do
     t.text "introduction"
     t.text "future"
     t.integer "employment_type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "talk_rooms", force: :cascade do |t|
+    t.integer "company_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id", "user_id"], name: "index_talk_rooms_on_company_id_and_user_id", unique: true
+  end
+
+  create_table "talks", force: :cascade do |t|
+    t.integer "talk_room_id", null: false
+    t.integer "user_id", null: false
+    t.text "body"
+    t.integer "is_opened", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

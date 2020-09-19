@@ -23,15 +23,15 @@ companies # show page
 
 <!-- インフォメーション（PR）部分 -->
 
-<div><%= attachment_image_tag @company, :i_image1, :fill, 60, 60 %></div>
-<div><%= attachment_image_tag @company, :i_image2, :fill, 60, 60 %></div>
+<div><%= attachment_image_tag @company, :i_image1, :fill, 300, 300 %></div>
+<div><%= attachment_image_tag @company, :i_image2, :fill, 300, 300 %></div>
 
 
 <h3>企業紹介</h3>
 
 <div><%= @company.introduction %></div>
-<div><%= attachment_image_tag @company, :i_image1, :fill, 50, 60 %></div>
-<div><%= attachment_image_tag @company, :i_image2, :fill, 60, 60 %></div>
+<div><%= attachment_image_tag @company, :f_image1, :fill, 50, 60 %></div>
+<div><%= attachment_image_tag @company, :f_image2, :fill, 60, 60 %></div>
 
 <h3>今後の展望</h3>
 
@@ -39,27 +39,29 @@ companies # show page
 <!-- インフォメーション（PR）部分 -->
 <div>
 	<% if user_signed_in? %>
-		<% if current_user.permissions == "管理者" || current_user.permissions == "企業担当者" %>
-			<%= link_to information_company_path(@company.id) do %>
-				<button class="btn btn-warning btn-sm">会社紹介ページを編集する</button>
-			<% end %>
+		<% if current_user.permissions == "管理者" || current_user.permissions == "企業担当者" && current_user.company_members.find_by(company_id: @company.id) %>
+			<div>
+				<%= link_to information_company_path(@company.id) do %>
+					<button class="btn btn-warning btn-sm">会社紹介ページを編集する</button>
+				<% end %>
+			</div>
+			<div>
+				<%= link_to talk_rooms_path(company_id: @company.id) do %>
+					<button class="btn btn-warning btn-sm">トークルーム一覧をみる</button>
+				<% end %>
+			</div>
+			<div>
+				<%= link_to new_company_work_path(@company.id), method: :get, class: "btn btn-warning btn-sm" do %>
+				  シゴトの新規登録をする
+				<% end %>
+			</div>
 		<% end %>
 	<% end %>
 </div>
 
 <div>ログインしてない人でも誰でも見れる
-	<%= button_to company_works_path(@company.id), method: :get, class: "btn btn-default" do %>
+	<%= button_to company_works_path(@company.id), method: :get, class: "btn btn-success btn-sm" do %>
 				この会社の募集一覧をみる
-	<% end %>
-</div>
-
-<div>企業担当者と管理者のみ
-	<% if user_signed_in? %>
-		<% if current_user.permissions == "管理者" || current_user.permissions == "企業担当者" %>
-				<%= link_to new_company_work_path(@company.id), method: :get, class: "btn btn-default" do %>
-				  シゴトの新規登録をする
-				<% end %>
-		<% end %>
 	<% end %>
 </div>
 

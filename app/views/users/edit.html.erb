@@ -32,6 +32,10 @@ users edit page
 			<td><%= f.text_field :name_kana %></td>
 		</tr>
 		<tr>
+			<th>表示名</th>
+			<td><%= f.text_field :nic_name %></td>
+		</tr>
+		<tr>
 			<th>性別</th>
 			<td>
 				<%= f.radio_button :sex, :男性, { selected: @user.sex_before_type_cast } %>

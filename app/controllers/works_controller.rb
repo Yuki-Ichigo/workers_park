@@ -22,10 +22,44 @@ class WorksController < ApplicationController
 		@works = Work.all
 	end
 
+	def hide
+		@work = Work.find(params[:id])
+		@work.user_id = current_user.id
+		@company = Company.find(params[:company_id])
+		@work.company_id = @company.id
+		@work.update(is_active: false)
+		redirect_to company_works_path, notice: "#{@company.name}の利用を停止しました"
+	end
+
+	def reopen
+		@work = Work.find(params[:id])
+		@work.user_id = current_user.id
+		@company = Company.find(params[:company_id])
+		@work.company_id = @company.id
+		@work.update(is_active: true)
+		redirect_to company_works_path, notice: "#{@company.name}の利用を再開しました"
+	end
+
 	def show
+		@work = Work.find(params[:id])
+		@work.user_id = current_user.id
+		@company = Company.find(params[:company_id])
+		@members = @company.users
 	end
 
 	def edit
+		@work = Work.find(params[:id])
+		@work.user_id = current_user.id
+		@company = Company.find(params[:company_id])
+	end
+
+	def update
+		@work = Work.find(params[:id])
+		@work.user_id = current_user.id
+		@company = Company.find(params[:company_id])
+		@work.company_id = @company.id
+		@work.update(work_params)
+		redirect_to company_work_path, notice: "#{@company.name}の求人内容を更新しました"
 	end
 
 	private

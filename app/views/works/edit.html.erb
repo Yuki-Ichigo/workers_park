@@ -1,1 +1,24 @@
 works # edit page
+
+<h2>募集内容編集</h2>
+
+<%= form_with model: [@company, @work] do |f| %>
+	<h3>タイトル</h3>
+	<p>（検索結果トップに表示されます）</p>
+	<div><%= f.text_area :title %></div>
+		 <div class="field">
+
+	<h3>紹介文</h3>
+	<p>（検索結果トップに表示されます）</p>
+		<div><%= f.text_area :introduction %></div>
+		 <div class="field">
+  	<%= f.label "画像" %><br />
+    <%= attachment_image_tag @work, :image, :fill, 250, 250, fallback: "no_image_white.png", size:'60x60' %>
+  	<%= f.attachment_field :image %>
+  </div>
+
+	<h3>募集要項 詳細</h3>
+		<div><%= f.text_area :job_details %></div>
+
+	<div><%= f.submit "変更する", class:"btn btn-warning" %></div>
+<% end %>

@@ -70,13 +70,9 @@
 </div>
 
 ログイン済み全ユーザー表示
-<div>
-	<%= link_to works_path do %>
-		<button class="btn btn-success">
+
 			シゴト一覧をみる
-		</button>
-	<% end %>
-</div>
+
 
 ログイン済み全ユーザー表示
 <div>
@@ -137,6 +133,10 @@
 	<tr>
 		<th>フリガナ</th>
 		<td><%= @user.name_kana %></td>
+	</tr>
+	<tr>
+		<th>表示名</th>
+		<td><%= @user.nic_name %></td>
 	</tr>
 	<tr>
 		<th>性別</th>

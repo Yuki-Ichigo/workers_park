@@ -1,1 +1,85 @@
 works # show
+
+<h2><%= @work.title %></h2>
+<div>
+	<table>
+		<tr>
+			<td><%= link_to company_path(@work.company.id) do %>
+					<%= attachment_image_tag @work.company, :image, :fill, 100, 100, fallback: "no_image_white.png", size:'50x50' %>
+				<% end %>
+			</td>
+		    <td><%= link_to company_path(@work.company.id) do %>
+			    	<%= @work.company.name %>
+		    	<% end %>
+		    </td>
+	</table>
+</div>
+
+<div>
+	<%= attachment_image_tag @work, :image, :fill, 600, 200 %>
+</div>
+
+<div>
+	<h3><%= "#{@work.company.name}のメンバー" %></h3>
+
+	<% @members.each do |member| %>
+		<%= link_to profile_path(member.id) do %>
+			<%= attachment_image_tag member, :image, :fill, 100, 100, fallback: "no_image_human.jpeg", size:'100x100' %> <br />
+			<p><%= member.nic_name %></p>
+		<% end %>
+	<% end %>
+	<!-- 企業担当者・管理者はメンバーの登録削除ができる -->
+</div>
+
+<div>
+	<h3>事業内容</h3>
+		<%= attachment_image_tag @work.company, :i_image1, :fill, 300, 150 %>
+		<%= attachment_image_tag @work.company, :i_image2, :fill, 300, 150 %>
+		<p><%= @work.company.introduction %></p>
+</div>
+
+<div>
+	<h3>今後の展望</h3>
+		<%= attachment_image_tag @work.company, :f_image1, :fill, 300, 150 %>
+		<%= attachment_image_tag @work.company, :f_image2, :fill, 300, 150 %>
+		<p><%= @work.company.future %></p>
+</div>
+
+<div>
+	<!-- 企業担当者と管理者は会社のinformation編集ができる -->
+	<% if user_signed_in? %>
+		<% if current_user.permissions == "管理者" || current_user.permissions == "企業担当者" %>
+			<%= link_to "編集する", information_company_path(@company.id), class: "btn btn-warning  btn-sm" %>
+		<% end %>
+	<% end %>
+</div>
+
+<div>
+	<h3>募集内容</h3>
+	 	<%= @work.job_details %>
+</div>
+
+<div>
+	<!-- 企業担当者と管理者は会社の募集内容の編集ができる -->
+	<% if user_signed_in? %>
+		<% if current_user.permissions == "管理者" || current_user.permissions == "企業担当者" %>
+			<%= link_to "編集する", edit_company_work_path(@work.id), class: "btn btn-warning  btn-sm" %>
+		<% end %>
+	<% end %>
+</div>
+
+<div>
+	<% if user_signed_in? %>
+		<% talk_room = current_user.talk_rooms.find_by(company_id: @company.id) %>
+		<% if talk_room.present? %>
+			<%= link_to "シゴトの詳細を聞く true", talk_room_path(talk_room.id),class: "btn btn-default  btn-sm" %>
+		<% else %>
+			<%= form_with(url: talk_rooms_path) do |f| %>
+				<%= f.hidden_field :company_id, :value => @company.id %>
+				<%= f.submit "シゴトの詳細を聞く false", class: "btn btn-success" %>
+			<% end %>
+		<% end %>
+	<% else %>
+		<%= link_to "ログインしてシゴトの詳細を聞く", user_session_path , class: "btn btn-success  btn-sm" %>
+	<% end %>	
+</div>

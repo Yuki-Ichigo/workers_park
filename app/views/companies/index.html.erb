@@ -39,7 +39,12 @@ companies # index page
 									<% end %>
 								</td>
 							<% else %>
-								<td><%= button_to "再開する", reopen_company_path(company.id), method: :put, class: "btn btn-default  btn-sm" %>
+								<td>
+									<%= form_with model: company, url: reopen_company_path(company), method: :put do |f| %>
+
+											<%= f.hidden_field :is_active, value: true  %>
+											<%= f.submit "再開する", class: "btn btn-default  btn-sm" %>	
+									<% end %>
 								</td>
 							<% end %>
 						<% end %>

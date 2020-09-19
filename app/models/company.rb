@@ -7,6 +7,10 @@ class Company < ApplicationRecord
 	has_many :work_users, through: :works
 	accepts_nested_attributes_for :works
 
+	has_many :talk_rooms, dependent: :destroy
+	has_many :talk_room_users, through: :talk_rooms
+	accepts_nested_attributes_for :talk_rooms
+
 	validates :name, presence: true
 	validates :name_kana, presence: true
 	validates :establishment, length: {is: 6}
