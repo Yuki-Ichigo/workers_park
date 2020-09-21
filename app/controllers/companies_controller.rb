@@ -59,7 +59,6 @@ class CompaniesController < ApplicationController
     	end
 	end
 
-
 	private
   	def company_params
    		params.require(:company).permit(:name, :name_kana, :phone_number, :establishment, :url, :email, :zip_code, :address_prefecture, :address_city, :address_line1, :address_line2, :image, :is_active, :introduction, :future, :i_image1, :i_image2, :f_image1, :f_image2)

@@ -8,16 +8,32 @@ companies # show page
 ログイン済み全ユーザー表示
 <% if user_signed_in? %>
 	<% if current_user.company_members.find_by(company_id: @company.id) %>
-		<span class="label label-danger">マイカンパニー</span>
+		<div>
+			<span class="label label-danger">マイカンパニー</span>
+		</div>
+		<div>
+			<%= form_with(url: company_members_path, method: :delete) do |f| %>
+					<%= f.submit "マイカンパニー登録を解除する", class: "btn btn-success btn-sm" %>
+					<%= f.hidden_field :company_id, :value => @company.id %>
+			<% end %>
+		<% elsif current_user.company_members.any? %>
+			<%= form_with(url: company_members_path, method: :post) do |f| %>
+					<%= f.submit "他の会社でマイカンパニー登録しています", class: "btn btn-success btn-sm", disabled:"disabled" %>
+					<%= f.hidden_field :company_id, :value => @company.id %>
+			<% end %>
+		<% else %>
+			<%= form_with(url: company_members_path, method: :post) do |f| %>
+					<%= f.submit "マイカンパニー登録をする", class: "btn btn-default btn-sm" %>
+					<%= f.hidden_field :company_id, :value => @company.id %>
+			<% end %>
+		</div>
 	<% end %>
 <% end %>
 
 
 <!-- 会社基本情報 -->
-
-
 <div>
-	<%= button_to "会社情報の一覧を見る", companies_path, method: :get, class:"btn btn-success btn-sm" %>
+	<%= button_to "ほかの会社を探す", companies_path, method: :get, class:"btn btn-success btn-sm" %>
 </div>
 
 
@@ -47,7 +63,7 @@ companies # show page
 			</div>
 			<div>
 				<%= link_to talk_rooms_path(company_id: @company.id) do %>
-					<button class="btn btn-warning btn-sm">トークルーム一覧をみる</button>
+					<button class="btn btn-warning btn-sm">トークルームを確認する</button>
 				<% end %>
 			</div>
 			<div>
@@ -126,31 +142,6 @@ companies # show page
 			<%= link_to companies_path, method: :hide, :confirm => '本当に停止にしますか?' do %>
 				<button class="btn btn-primary btn-sm">停止にする</button>
 			<% end %>
-		<% end %>
-	<% end %>
-</div>
-
-
-<div>
-	<% if user_signed_in? %>
-		<% if current_user.company_members.find_by(company_id: @company.id) %>
-			<div>
-				<%= button_to company_members_path, method: :delete, class: "btn btn-success" do %>
-						マイカンパニー登録を解除する
-				<% end %>
-			</div>
-		<% elsif current_user.company_members.any? %>
-			<div>
-				<%= button_to company_members_path, method: :post, class: "btn btn-success", disabled:"disabled" do %>
-						他の会社でマイカンパニー登録しています
-				<% end %>
-			</div>
-		<% else %>
-			<div>
-				<%= button_to company_members_path, method: :post, class: "btn btn-default" do %>
-						マイカンパニー登録をする
-				<% end %>			
-			</div>
 		<% end %>
 	<% end %>
 </div>

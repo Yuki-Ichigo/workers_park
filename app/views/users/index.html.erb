@@ -39,9 +39,13 @@
 				<td><%= user.email %></td>
 				<td><% if user.permissions != "管理者" %>
 						<% if user.permissions == "企業担当者" %>
-							<%= button_to "企業担当者", not_approval_users_path, { method: :put, params: {id: user.id} } %>
+							<%= form_with(model:user ,url: not_approval_user_path(user.id), method: :put) do |f| %>
+									<%= f.submit "企業担当者", class: "btn btn-warning  btn-sm" %>
+							<% end %>
 						<% else %>
-							<%= button_to "一般", approval_users_path, { method: :put, params: {id: user.id} } %>
+							<%= form_with(model:user ,url: approval_user_path(user.id), method: :put) do |f| %>
+									<%= f.submit "一般", class: "btn btn-default  btn-sm" %>
+							<% end %>
 						<% end %>
 					<% else %>
 						<span>管理者</span>

@@ -4,14 +4,25 @@ talk_room # show page
   <%= content_tag(:div, value, class: key) %>
 <% end %>
 
-<% if  %>
 <% @talks.each do | talk | %>
-  <% if talk.user_id = current_user.id %>
-   <!-- write on left block ? -->
-    <div><%= talk.body %></div>
+  <% if talk.user_id == current_user.id %>
+   <!-- write on rignt block ? クラウ名変更してCSS書く -->
+    <div>
+      <%= attachment_image_tag talk.user, :image, :fill, 40, 40, fallback: "no_image_human.jpeg", size:'40x40' %>
+    </div>
+    <div>
+      <%= talk.user.name %> <br />
+      <%= talk.body %>
+    </div>
   <% else %>
-  <!-- write on right block -->
-    <div><%= talk.body %></div>
+  <!-- write on left block -->
+    <div>
+      <%= attachment_image_tag talk.user, :image, :fill, 40, 40, fallback: "no_image_human.jpeg", size:'40x40' %>
+    </div>
+    <div>
+      <%= talk.user.name %> <br />
+      <%= talk.body %>
+    </div>
   <% end %>
 <% end %>
 
