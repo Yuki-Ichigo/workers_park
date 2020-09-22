@@ -33,7 +33,7 @@ companies # show page
 
 <!-- 会社基本情報 -->
 <div>
-	<%= button_to "ほかの会社を探す", companies_path, method: :get, class:"btn btn-success btn-sm" %>
+	<%= link_to "ほかの会社を探す", companies_path, method: :get, class:"btn btn-success btn-sm" %>
 </div>
 
 
@@ -76,8 +76,10 @@ companies # show page
 </div>
 
 <div>ログインしてない人でも誰でも見れる
-	<%= button_to company_works_path(@company.id), method: :get, class: "btn btn-success btn-sm" do %>
-				この会社の募集一覧をみる
+	<%= link_to company_works_path(@company.id) do %>
+		<button class="btn btn-success btn-sm">
+			この会社の募集一覧をみる
+		</button>
 	<% end %>
 </div>
 
@@ -130,18 +132,31 @@ companies # show page
 
 <div>
 	<% if user_signed_in? %>
-		<% if current_user.permissions == "管理者" || current_user.permissions == "企業担当者" %>
-			<%= link_to edit_company_path do %>
-				<button class="btn btn-warning btn-sm">会社の基本情報を変更する</button>
+		<div>
+			<% if current_user.permissions == "管理者" || current_user.permissions == "企業担当者" %>
+				<%= link_to edit_company_path do %>
+					<button class="btn btn-warning btn-sm">会社の基本情報を変更する</button>
+				<% end %>
 			<% end %>
-		<% end %>
-	<% end %>
+		</div>
+		<div>
+			<% if @company.is_active == 1 %>
+				<td>
+					<%= form_with model: @company, url: hide_company_path(@company), method: :put do |f| %>
 
-	<% if user_signed_in? %>
-		<% if current_user.permissions == "管理者" %>
-			<%= link_to companies_path, method: :hide, :confirm => '本当に停止にしますか?' do %>
-				<button class="btn btn-primary btn-sm">停止にする</button>
-			<% end %>
-		<% end %>
+							<%= f.hidden_field :is_active, value: false  %>
+							<%= f.submit "停止する", class: "btn btn-primary  btn-sm" %>	
+					<% end %>
+				</td>
+			<% else %>
+				<td>
+					<%= form_with model: @company, url: reopen_company_path(@company), method: :put do |f| %>
+
+							<%= f.hidden_field :is_active, value: true  %>
+							<%= f.submit "再開する", class: "btn btn-default  btn-sm" %>	
+					<% end %>
+				</td>
+			<% end %>		
+		</div>
 	<% end %>
 </div>

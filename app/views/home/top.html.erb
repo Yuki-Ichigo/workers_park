@@ -15,3 +15,15 @@ top page
 <%= link_to user_session_path do %>
 	<button>ログイン</button>
 <% end %>
+
+<% @works.each do |work| %>
+<table>
+	<tr>
+		<td></td>
+		<td><%= attachment_image_tag work.company, :image, :fill, 60, 60, fallback: "no_image_white.png", size:'60x60' %> <br />
+			<%=work.company.name %></td>
+		<td><%=work.introduction %></td>
+	</tr>
+</table>
+<% end %>
+

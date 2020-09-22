@@ -22,13 +22,13 @@ class CompaniesController < ApplicationController
 	def hide
 		@company = Company.find(params[:id])
 		@company.update(company_params)
-		redirect_to companies_path, notice: "#{@company.name}の利用を停止しました"
+		redirect_to request.referer, notice: "#{@company.name}の利用を停止しました"
 	end
 
 	def reopen
 		@company = Company.find(params[:id])
 		@company.update(is_active: true)
-		redirect_to companies_path, notice: "#{@company.name}の利用を再開しました"
+		redirect_to request.referer, notice: "#{@company.name}の利用を再開しました"
 	end
 
 	def edit

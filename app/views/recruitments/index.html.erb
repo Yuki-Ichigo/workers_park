@@ -1,5 +1,19 @@
-<h3>募集企業一覧</h3>
+<h3>募集一覧</h3>
 
-<%= @recruitments.each do |recruitment| %>
-	<%= recruitment.introduction %>
+<% @works.each do |work| %>
+<table>
+	<tr>	
+		<td>
+			<%= link_to company_work_path(work.company_id, work.id) do %>
+				<%= attachment_image_tag work.company, :image, :fill, 60, 60, fallback: "no_image_white.png", size:'60x60' %> <br />
+				<%=work.company.name %>
+			<% end %>
+		</td>
+		<td>
+			<%= link_to company_work_path(work.company_id, work.id) do %>
+				<%=work.introduction %>
+			<% end %>
+		</td>
+	</tr>
+</table>
 <% end %>

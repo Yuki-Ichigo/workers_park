@@ -13,43 +13,47 @@ works # index page
 
 管理者・企業担当者はedit・掲載停止ボタンが押せる
 
-<% @works.each do |work| %>
-		<%= link_to company_work_path(work.company.id, work.id) do %>
+<% if @works.where(is_active: 1).blank? %>
+	<p>現在募集はしていません</p>
+<% else %>
+	<% @works.each do |work| %>
+			<%= link_to company_work_path(work.company.id, work.id) do %>
 
-			<div><%= attachment_image_tag work, :image, :fill, 600, 200, fallback: "no_image_gray.png", size:'600x200' %></div>
-			<h3><%= work.title %></h3>
-			<p><%= work.introduction %></p>
-			<div>
-		<% end %>
-			<table>
-				<tr>
-					<td><%= link_to company_path(work.company.id) do %>
-							<%= attachment_image_tag work.company, :image, :fill, 100, 100, fallback: "no_image_white.png", size:'60x60' %>
-						<% end %>
-					</td>
-				    <td><%= link_to company_path(work.company.id) do %>
-					    	<%= work.company.name %>
-				    	<% end %>
-				    </td><br />
-					<td><%= work.company.address_prefecture %></td>
-					<%if current_user.permissions == "管理者" %>
-						<% if work.is_active == 1 %>
-							<td>
+				<div><%= attachment_image_tag work, :image, :fill, 600, 200, fallback: "no_image_gray.png", size:'600x200' %></div>
+				<h3><%= work.title %></h3>
+				<p><%= work.introduction %></p>
+				<div>
+			<% end %>
+				<table>
+					<tr>
+						<td><%= link_to company_path(work.company.id) do %>
+								<%= attachment_image_tag work.company, :image, :fill, 100, 100, fallback: "no_image_white.png", size:'60x60' %>
+							<% end %>
+						</td>
+					    <td><%= link_to company_path(work.company.id) do %>
+						    	<%= work.company.name %>
+					    	<% end %>
+					    </td><br />
+						<td><%= work.company.address_prefecture %></td>
+						<%if current_user.permissions == "管理者" %>
+							<% if work.is_active == 1 %>
+								<td>
 
-								<%= form_with(model:[work.company,work],url: hide_company_work_path(work.company.id, work.id), method: :put) do |f| %>
-										<%= f.submit "停止する", class: "btn btn-primary  btn-sm" %>	
-								<% end %>
+									<%= form_with(model:[work.company,work],url: hide_company_work_path(work.company.id, work.id), method: :put) do |f| %>
+											<%= f.submit "停止する", class: "btn btn-primary  btn-sm" %>	
+									<% end %>
+									</td>
+							<% else %>
+								<td>
+
+									<%= form_with(model:[work.company,work],url: reopen_company_work_path(work.company.id, work.id), method: :put) do |f| %>
+											<%= f.submit "再開する", class: "btn btn-default  btn-sm" %>	
+									<% end %>
 								</td>
-						<% else %>
-							<td>
-
-								<%= form_with(model:[work.company,work],url: reopen_company_work_path(work.company.id, work.id), method: :put) do |f| %>
-										<%= f.submit "再開する", class: "btn btn-default  btn-sm" %>	
-								<% end %>
-							</td>
+							<% end %>
 						<% end %>
-					<% end %>
-				</tr>
-			</table>
-		</div>	
+					</tr>
+				</table>
+			</div>	
+	<% end %>
 <% end %>

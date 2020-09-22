@@ -10,14 +10,14 @@
 <% if current_user.permissions == "管理者" %>
 	<div>
 		<%= link_to users_path do %>
-			<button class="btn btn-primary">
+			<button class="btn btn-primary btn-sm">
 				ユーザー一覧へ
 			</button>
 		<% end %>
 	</div>
 	<div>
 		<%= link_to new_company_path do %>
-			<button class="btn btn-primary">
+			<button class="btn btn-primary btn-sm">
 				会社情報を登録をする
 			</button>
 		<% end %>
@@ -28,16 +28,21 @@
 ログイン済み全ユーザー表示
 <div>
 	<%= link_to companies_path do %>
-		<button class="btn btn-warning">
+		<button class="btn btn-success btn-sm">
 			企業一覧をみる
 		</button>
 	<% end %>
 </div>
 <div>
 	<%= link_to recruitments_path do %>
-		<button class="btn btn-warning">
+		<button class="btn btn-success btn-sm">
 			シゴト一覧をみる
 		</button>
+	<% end %>
+</div>
+<div>
+	<%= link_to talk_rooms_path do |f| %>
+		<button class="btn btn-success  btn-sm">トークルームを確認する</button>
 	<% end %>
 </div>
 <div>
@@ -62,22 +67,22 @@
 </div>
 <div>
 	<%= link_to edit_user_path(current_user.id) do %>
-		<button class="btn btn-success">基本登録情報を変更する</button>
+		<button class="btn btn-success btn-sm">基本登録情報を変更する</button>
 	<% end %>
 </div>
 <div>
 	<%= link_to edit_user_registration_path(current_user.id) do %>
-		<button class="btn btn-success">パスワードの変更はこちら</button>
+		<button class="btn btn-success btn-sm">パスワードの変更はこちら</button>
 	<% end %>
 </div>
 <div>
 	<% if current_user.profile.blank? %>
 		<%= link_to new_profile_path do %>
-			<button class="btn btn-success">プロフィールを登録する</button>
+			<button class="btn btn-success btn-sm">プロフィールを登録する</button>
 		<% end %>
 	<% else %>
 		<%= link_to edit_profile_path(current_user.profile.id) do %>
-			<button class="btn btn-success">プロフィールを編集する</button>
+			<button class="btn btn-success btn-sm">プロフィールを編集する</button>
 		<% end %>
 	<% end %>
 </div>
@@ -130,5 +135,5 @@
 
 <br />
 <%= link_to hide_user_path do %>
-	<button class="btn btn-success">退会する</button>
+	<button class="btn btn-success btn-sm">退会する</button>
 <% end %>

@@ -70,11 +70,10 @@ works # show
 
 <div>
 	<% if user_signed_in? %>
-		<% talk_room = current_user.talk_rooms.find_by(company_id: @company.id) %>
-		<% if talk_room.present? %>
-			<%= link_to "シゴトの詳細を聞く true", talk_room_path(talk_room.id),class: "btn btn-default  btn-sm" %>
+		<% if TalkRoom.find_by(company_id: @work.company, user_id: current_user.id).present? %>
+			<%= link_to "シゴトの詳細を聞く true", talk_room_detail_path(@talk_room), class: "btn btn-default  btn-sm" %>
 		<% else %>
-			<%= form_with(url: talk_rooms_path) do |f| %>
+			<%= form_with(url: talk_room_make_path, method: :post) do |f| %>
 				<%= f.hidden_field :company_id, :value => @company.id %>
 				<%= f.submit "シゴトの詳細を聞く false", class: "btn btn-success" %>
 			<% end %>

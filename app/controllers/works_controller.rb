@@ -19,7 +19,8 @@ class WorksController < ApplicationController
 	end
 
 	def index
-		@works = Work.all
+		@company = Company.find(params[:company_id])
+		@works = @company.works
 	end
 
 	def hide
@@ -45,6 +46,7 @@ class WorksController < ApplicationController
 		@work.user_id = current_user.id
 		@company = Company.find(params[:company_id])
 		@members = @company.users
+		@talk_room = TalkRoom.find_by(company_id: @work.company, user_id: current_user.id)
 	end
 
 	def edit

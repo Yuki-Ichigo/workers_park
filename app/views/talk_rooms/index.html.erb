@@ -12,12 +12,7 @@ talk_room # index page
 			<td><%= talk_room.user.name %></td>
 			<td>
 				<div>
-					<% if user_signed_in? %>
-						<% talk_room = current_user.talk_rooms.find_by(company_id: @company.id) %>
-						<%= link_to "この人とのトークルームに行く", talk_room_path(talk_room.id),class: "btn btn-default  btn-sm" %>
-					<% else %>
-						<%= link_to "ログインしてシゴトの詳細を聞く", user_session_path , class: "btn btn-success  btn-sm" %>
-					<% end %>	
+					<%= link_to "この人とのトークルームに行く", talk_room_path(talk_room.id),class: "btn btn-default  btn-sm" %>
 				</div>
 			</td>
 		</table>

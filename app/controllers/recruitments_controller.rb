@@ -1,5 +1,5 @@
 class RecruitmentsController < ApplicationController
 	def index
-		@recruitments = Work.all
+		@works = Work.all
 	end
 end
