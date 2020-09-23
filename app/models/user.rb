@@ -48,7 +48,12 @@ class User < ApplicationRecord
   validates :phone_number, length: {minimum: 3, maximum: 15}
 
   enum sex: {男性: 0, 女性: 1}
-  enum permissions: {一般: 0, 企業担当者: 1, 管理者: 2}
+  enum permissions: {nomal: 0, company_rep: 1, admin: 2}
 
   attachment :image, destroy: false
+
+
+  def belongs_to?(company)
+    self.company_rep? && company.users.include?(self)
+  end
 end

@@ -27,7 +27,7 @@ class ProfilesController < ApplicationController
 		@profile = Profile.find(params[:id])
 
 		if @profile.update(profile_params)
-      		redirect_to edit_profile_path(@profile.id), notice: "プロフィールを変更しました"
+      		redirect_to profile_path(@profile.id), notice: "プロフィールを変更しました"
         else
       		@profile.id = current_user.profile.id   
       		render "edit"

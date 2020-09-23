@@ -15,7 +15,7 @@ companies # index page
 			<tr>
 				<td>
 					<%= link_to company_path(company.id) do %>
-						<%= attachment_image_tag company, :image, :fill, 60, 60, fallback: "no_image_white.png", size:'60x60' %>
+						<%= attachment_image_tag company, :image, :fill, 60, 60, fallback: "no_image_white.png", size:'60x60', class:"img-circle" %>
 					<% end %>
 				</td>
 				<td><%= company.url %></td>

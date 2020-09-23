@@ -2,6 +2,7 @@
 <% flash.each do |key, value| %>
   <%= content_tag(:div, value, class: key) %>
 <% end %>
+
 <!-- エラー、サクセスメッセージ -->
 
 <h3>基本登録情報</h3>	
@@ -26,25 +27,14 @@
 
 
 ログイン済み全ユーザー表示
-<div>
-	<%= link_to companies_path do %>
-		<button class="btn btn-success btn-sm">
-			企業一覧をみる
-		</button>
-	<% end %>
-</div>
-<div>
-	<%= link_to recruitments_path do %>
-		<button class="btn btn-success btn-sm">
-			シゴト一覧をみる
-		</button>
-	<% end %>
-</div>
-<div>
-	<%= link_to talk_rooms_path do |f| %>
-		<button class="btn btn-success  btn-sm">トークルームを確認する</button>
-	<% end %>
-</div>
+<% if current_user.talk_rooms.exists? %>
+	<div>
+		<%= link_to talk_rooms_path do |f| %>
+			<button class="btn btn-success  btn-sm">トークルームを確認する</button>
+		<% end %>
+	</div>
+<% end %>
+
 <div>
 	<% if current_user.company_members.exists? %>
 		<h3>マイカンパニー</h3>
@@ -53,7 +43,7 @@
 				<tr>
 					<td>
 						<%= link_to company_path(company.id) do %>
-							<%= attachment_image_tag company, :image, :fill, 40, 40, fallback: "no_image_white.png", size:'40x40' %>
+							<%= attachment_image_tag company, :image, :fill, 40, 40, fallback: "no_image_white.png", size:'40x40',  class:"img-circle" %>
 						<% end %>
 					</td>
 					<td><%= link_to company_path(company.id) do %>
@@ -90,7 +80,7 @@
 <table>
 	<tr>
 		<th>写真</th>
-		<td><%= attachment_image_tag @user, :image, :fill, 150, 150, fallback: "no_image_human.jpg", size:'150x150' %></td>
+		<td><%= attachment_image_tag @user, :image, :fill, 150, 150, fallback: "no_image_human.jpg", size:'150x150',  class:"img-circle" %></td>
 	</tr>
 	<tr>
 		<th>名前</th>

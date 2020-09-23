@@ -16,8 +16,25 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-* {
+*{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+header {
+	background-color: #f7f5f0;
+}
+
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+footer {
+	margin-top: auto;
+	background-color: #0f1941;
+	color: white;
+	text-align: center;
 }

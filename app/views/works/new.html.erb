@@ -1,8 +1,9 @@
 works # new page
+<%= render "layouts/error", obj: @work %>
 
 <h2>募集内容登録</h2>
 
-<%= form_with model: [@company, @work] do |f| %>
+<%= form_with model: [@company, @work] ,data: {remote: false} do |f| %>
 	<h3>タイトル</h3>
 	<p>（検索結果トップに表示されます）</p>
 	<div><%= f.text_area :title %></div>

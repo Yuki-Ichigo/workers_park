@@ -8,7 +8,7 @@ talk_room # show page
   <% if talk.user_id == current_user.id %>
    <!-- write on rignt block ? クラウ名変更してCSS書く -->
     <div>
-      <%= attachment_image_tag talk.user, :image, :fill, 40, 40, fallback: "no_image_human.jpeg", size:'40x40' %>
+      <%= attachment_image_tag talk.user, :image, :fill, 40, 40, fallback: "no_image_human.jpeg", size:'40x40', class:"img-circle" %>
     </div>
     <div>
       <%= talk.user.name %> <br />
@@ -17,7 +17,7 @@ talk_room # show page
   <% else %>
   <!-- write on left block -->
     <div>
-      <%= attachment_image_tag talk.user, :image, :fill, 40, 40, fallback: "no_image_human.jpeg", size:'40x40' %>
+      <%= attachment_image_tag talk.user, :image, :fill, 40, 40, fallback: "no_image_human.jpeg", size:'40x40', class:"img-circle" %>
     </div>
     <div>
       <%= talk.user.name %> <br />

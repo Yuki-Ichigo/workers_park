@@ -15,15 +15,15 @@ profile#show page
 </div>
 
 <div>
-	<%= attachment_image_tag @profile.user, :image, :fill, 200, 200, fallback: "no_image_human.jpg" %>
+	<%= attachment_image_tag @profile.user, :image, :fill, 200, 200, fallback: "no_image_human.jpg", class:"img-circle" %>
 	<%= @profile.user.nic_name %>
 </div>
 
 <h3>紹介文</h3>
-<div><%= @profile.introduction %></div>
+<div><%= simple_format(@profile.introduction) %></div>
 
 <h3>このさきやってみたいこと</h3>
-<div><%= @profile.future %></div>
+<div><%= simple_format(@profile.future) %></div>
 
 <h3>就業形態</h3>
 	<% if @profile.employment_type == "問わない" %>

@@ -13,8 +13,8 @@ class WorksController < ApplicationController
     	if  @work.save
         	redirect_to company_work_path(@company, @work.id), notice: "新規登録が完了しました"
     	else
-        	@user = current_user
-        	render 'users/show'
+		@company = Company.find(params[:company_id])
+        render 'new'
     	end
 	end
 
@@ -46,6 +46,7 @@ class WorksController < ApplicationController
 		@work.user_id = current_user.id
 		@company = Company.find(params[:company_id])
 		@members = @company.users
+		belongsCompany = CompanyMember.find_by(user_id: current_user.id)
 		@talk_room = TalkRoom.find_by(company_id: @work.company, user_id: current_user.id)
 	end
 

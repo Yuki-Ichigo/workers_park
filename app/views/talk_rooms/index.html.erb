@@ -1,6 +1,5 @@
 talk_room # index page
 
-
 <% flash.each do |key, value| %>
   <%= content_tag(:div, value, class: key) %>
 <% end %>
@@ -8,11 +7,15 @@ talk_room # index page
 <% @talk_rooms.each do |talk_room| %>
 	<div>
 		<table>
-			<td><%= attachment_image_tag talk_room.user, :image, :fill, 60, 60, fallback: "no_image_human.jpeg", size:'60x60' %></td>
+			<td><%= attachment_image_tag talk_room.company, :image, :fill, 60, 60, fallback: "no_image_white.jpeg", size:'60x60' %></td>
+			<td><%= talk_room.company.name %></td>
+			<td><p>&nbsp;&nbsp;×&nbsp;&nbsp;</p></td>
+			<td><%= attachment_image_tag talk_room.user, :image, :fill, 60, 60, fallback: "no_image_human.jpeg", size:'60x60' %>
+			</td>
 			<td><%= talk_room.user.name %></td>
 			<td>
 				<div>
-					<%= link_to "この人とのトークルームに行く", talk_room_path(talk_room.id),class: "btn btn-default  btn-sm" %>
+					<%= link_to "このトークルームに行く", talk_room_path(talk_room.id),class: "btn btn-default  btn-sm" %>
 				</div>
 			</td>
 		</table>

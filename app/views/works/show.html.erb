@@ -5,7 +5,7 @@ works # show
 	<table>
 		<tr>
 			<td><%= link_to company_path(@work.company.id) do %>
-					<%= attachment_image_tag @work.company, :image, :fill, 100, 100, fallback: "no_image_white.png", size:'50x50' %>
+					<%= attachment_image_tag @work.company, :image, :fill, 100, 100, fallback: "no_image_white.png", size:'50x50', class:"img-circle" %>
 				<% end %>
 			</td>
 		    <td><%= link_to company_path(@work.company.id) do %>
@@ -35,14 +35,14 @@ works # show
 	<h3>事業内容</h3>
 		<%= attachment_image_tag @work.company, :i_image1, :fill, 300, 150 %>
 		<%= attachment_image_tag @work.company, :i_image2, :fill, 300, 150 %>
-		<p><%= @work.company.introduction %></p>
+		<p><%= simple_format(@work.company.introduction) %></p>
 </div>
 
 <div>
 	<h3>今後の展望</h3>
 		<%= attachment_image_tag @work.company, :f_image1, :fill, 300, 150 %>
 		<%= attachment_image_tag @work.company, :f_image2, :fill, 300, 150 %>
-		<p><%= @work.company.future %></p>
+		<p><%= simple_format(@work.company.future) %></p>
 </div>
 
 <div>
@@ -56,7 +56,7 @@ works # show
 
 <div>
 	<h3>募集内容</h3>
-	 	<%= @work.job_details %>
+	 	<%= simple_format(@work.job_details) %>
 </div>
 
 <div>
@@ -70,12 +70,16 @@ works # show
 
 <div>
 	<% if user_signed_in? %>
-		<% if TalkRoom.find_by(company_id: @work.company, user_id: current_user.id).present? %>
-			<%= link_to "シゴトの詳細を聞く true", talk_room_detail_path(@talk_room), class: "btn btn-default  btn-sm" %>
+		<% if current_user.permissions == 1 && belongsCompany.company_id == @company.id %>
+		　　<p>空白</p>	
 		<% else %>
-			<%= form_with(url: talk_room_make_path, method: :post) do |f| %>
-				<%= f.hidden_field :company_id, :value => @company.id %>
-				<%= f.submit "シゴトの詳細を聞く false", class: "btn btn-success" %>
+			<% if TalkRoom.find_by(company_id: @work.company, user_id: current_user.id).present? %>
+				<%= link_to "トークルームにいく", talk_room_path(@talk_room), class: "btn btn-default  btn-sm" %>
+			<% else %>
+				<%= form_with(url: talk_rooms_path, method: :post) do |f| %>
+					<%= f.hidden_field :company_id, :value => @company.id %>
+					<%= f.submit "トークルームにいく", class: "btn btn-success" %>
+				<% end %>
 			<% end %>
 		<% end %>
 	<% else %>

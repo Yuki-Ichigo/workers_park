@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head class="container">
+  <head>
     <title>WorkersPark</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -10,60 +10,60 @@
   </head>
 
   <body>
-    <header>
-      <div id="slidemenu">
-          <% if user_signed_in? %>
-            <%= link_to user_path(current_user.id) do %>
-              <%= image_tag('logo_clear.png', width: '224', height: '49') %>
-            <% end %>
-          <% else %>
-            <%= link_to root_path do %>
-              <%= image_tag('logo_clear.png', width: '224', height: '49') %>
-            <% end %>
-          <% end %>
-        <!-- 検索フォームがつけれれば書く -->
-      
-        <!-- 検索フォームがつけれれば書く -->
-        <ul class="nav navbar-nav navbar-right" data-hover="dropdown" data-animations="zoomIn fadeIn fadeInUp fadeIn">
-          <% if user_signed_in? %>
-            <li class="">
-              <%= "シゴトの募集をする" %>
-            </li>
-            <li class="">
-              <% if current_user.profile.blank? %>
-                <%= link_to "プロフィールを登録する", new_profile_path(current_user.id) %>
+      <header class="container-fluid">
+          <div id="slidemenu">
+              <% if user_signed_in? %>
+                <%= link_to user_path(current_user.id) do %>
+                  <%= image_tag('logo_clear.png', width: '224', height: '49') %>
+                <% end %>
               <% else %>
-                <%= link_to "自分のプロフィールを見る", profile_path(current_user.profile.id) %>
+                <%= link_to root_path do %>
+                  <%= image_tag('logo_clear.png', width: '224', height: '49') %>
+                <% end %>
               <% end %>
-            </li>
-            <li class="">
-              <%= link_to user_path(current_user.id) do %>
-                <%= attachment_image_tag current_user, :image, :fill, 40, 40, fallback: "no_image_human.jpg", size:'40x40' %>
+            <!-- 検索フォームがつけれれば書く -->
+          
+            <!-- 検索フォームがつけれれば書く -->
+            <ul class="nav navbar-nav navbar-right" data-hover="dropdown" data-animations="zoomIn fadeIn fadeInUp fadeIn">
+              <li><%= link_to "カイシャの一覧をみる", companies_path %></li>
+              <li><%= link_to "シゴトの募集一覧をみる", recruitments_path %></li>
+              <% if user_signed_in? %>
+              <li>
+                <% if current_user.profile.blank? %>
+                  <%= link_to "プロフィールを登録する", new_profile_path(current_user.id) %>
+                <% else %>
+                  <%= link_to "自分のプロフィールを見る", profile_path(current_user.profile.id) %>
+                <% end %>
+              </li>
+              <li class="">
+                <%= link_to user_path(current_user.id) do %>
+                  <%= attachment_image_tag current_user, :image, :fill, 50, 50, fallback: "no_image_human.jpg", size:'50x50', class:"img-circle" %>
+                <% end %>
+                </li>
+                <li class="">
+                  <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+                </li>                        
+              <% else %>
+                <li class="">
+                  <%= link_to "ログイン", new_user_session_path %>
+                </li>
+                <li class="">
+                  <%= link_to "新規登録する", new_user_registration_path %>
+                </li>
               <% end %>
-            </li>
-            <li class="">
-              <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
-            </li>                        
-          <% else %>
-            <li class="">
-              <%= link_to "ログイン", new_user_session_path %>
-            </li>
-            <li class="">
-              <%= link_to "新規登録する", new_user_registration_path %>
-            </li>
-
-
-          <% end %>
-        </ul>
-      </div>      
-    </header>
-    <main>
-
-    <%= yield %>
-    
-    </main>
-    <footer>
+            </ul>
+          </div>    
+      </header>
       
-    </footer>
+    <div id="wrapper">
+      <main class = "container">
+        <%= yield %>
+      </main>
+      <footer class="fixed-bottom">
+          <br>
+          <p>Workers' park</p>
+          <br><br><br>
+      </footer>
+    </div>
   </body>
 </html>

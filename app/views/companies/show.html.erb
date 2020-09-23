@@ -1,33 +1,28 @@
-companies # show page
-
-
 <% flash.each do |key, value| %>
   <%= content_tag(:div, value, class: key) %>
 <% end %>
 
 ログイン済み全ユーザー表示
 <% if user_signed_in? %>
-	<% if current_user.company_members.find_by(company_id: @company.id) %>
-		<div>
-			<span class="label label-danger">マイカンパニー</span>
-		</div>
-		<div>
-			<%= form_with(url: company_members_path, method: :delete) do |f| %>
-					<%= f.submit "マイカンパニー登録を解除する", class: "btn btn-success btn-sm" %>
-					<%= f.hidden_field :company_id, :value => @company.id %>
-			<% end %>
-		<% elsif current_user.company_members.any? %>
-			<%= form_with(url: company_members_path, method: :post) do |f| %>
-					<%= f.submit "他の会社でマイカンパニー登録しています", class: "btn btn-success btn-sm", disabled:"disabled" %>
-					<%= f.hidden_field :company_id, :value => @company.id %>
-			<% end %>
-		<% else %>
-			<%= form_with(url: company_members_path, method: :post) do |f| %>
-					<%= f.submit "マイカンパニー登録をする", class: "btn btn-default btn-sm" %>
-					<%= f.hidden_field :company_id, :value => @company.id %>
-			<% end %>
-		</div>
-	<% end %>
+	<div>
+		<span class="label label-danger">マイカンパニー</span>
+	</div>
+	<div>
+		<%= form_with(url: company_members_path, method: :delete) do |f| %>
+				<%= f.submit "マイカンパニー登録を解除する", class: "btn btn-success btn-sm" %>
+				<%= f.hidden_field :company_id, :value => @company.id %>
+		<% end %>
+	<% elsif current_user.company_members.any? %>
+		<%= form_with(url: company_members_path, method: :post) do |f| %>
+				<%= f.submit "他の会社でマイカンパニー登録しています", class: "btn btn-success btn-sm", disabled:"disabled" %>
+				<%= f.hidden_field :company_id, :value => @company.id %>
+		<% end %>
+	<% else %>
+		<%= form_with(url: company_members_path, method: :post) do |f| %>
+				<%= f.submit "マイカンパニー登録をする", class: "btn btn-default btn-sm" %>
+				<%= f.hidden_field :company_id, :value => @company.id %>
+		<% end %>
+	</div>
 <% end %>
 
 
@@ -39,14 +34,14 @@ companies # show page
 
 <!-- インフォメーション（PR）部分 -->
 
-<div><%= attachment_image_tag @company, :i_image1, :fill, 300, 300 %></div>
+<div><%= attachment_image_tag @company, :i_image1, :fill, 300, 300  %></div>
 <div><%= attachment_image_tag @company, :i_image2, :fill, 300, 300 %></div>
 
 
 <h3>企業紹介</h3>
 
 <div><%= @company.introduction %></div>
-<div><%= attachment_image_tag @company, :f_image1, :fill, 50, 60 %></div>
+<div><%= attachment_image_tag @company, :f_image1, :fill, 60, 60 %></div>
 <div><%= attachment_image_tag @company, :f_image2, :fill, 60, 60 %></div>
 
 <h3>今後の展望</h3>
@@ -87,7 +82,7 @@ companies # show page
 	<table>
 		<tr>
 			<th></th>
-			<td><%= attachment_image_tag @company, :image, :fill, 100, 100, fallback: "no_image_white.png", size:'100x100' %></td>
+			<td><%= attachment_image_tag @company, :image, :fill, 100, 100, fallback: "no_image_white.png", size:'100x100', class:"img-circle" %></td>
 		</tr>
 		<tr>
 			<th>名前</th>

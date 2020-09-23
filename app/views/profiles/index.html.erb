@@ -4,7 +4,7 @@ profiles#index page
 	<% user = profile.user_id %>
 	<table>
 		<tr>
-			<%= attachment_image_tag user, :image, :fill, 150, 150, fallback: "no_image_human.jpg" %>
+			<%= attachment_image_tag user, :image, :fill, 150, 150, fallback: "no_image_human.jpg", class:"img-circle" %>
 		<%= user.nic_name %>
 		</tr>
 	</table>
