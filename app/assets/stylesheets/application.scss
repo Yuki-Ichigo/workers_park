@@ -32,9 +32,63 @@ header {
   min-height: 100vh;
 }
 
+#main-wrapper {
+  width: 978px;
+}
+
 footer {
 	margin-top: auto;
 	background-color: #0f1941;
 	color: white;
 	text-align: center;
 }
+
+
+// ボタン
+
+.secret-btn-right {
+  text-align: right;
+}
+
+.btn-center {
+  text-align: center
+}
+
+// フォーム
+
+.form-text-title {
+  width: 100%;
+}
+
+.form-text-area {
+  width: 100%;
+}
+
+.form-counter {
+  text-align: right;
+}
+
+// 小見出し
+.subheading {
+  color: #9DA0A4;
+}
+
+.size-adjustment{
+  width: 100%;
+}
+
+// ラベル
+.box1 {
+    padding: 1em 1em;
+    margin: 2em 0;
+    font-weight: bold;
+    color: #6ba5b4;;/*文字色*/
+    background: #FFF;
+    border: solid 4px #6ba5b4;/*線*/
+    border-radius: 10px;/*角の丸み*/
+}
+.size-adjustment-box1 {
+    margin: 0; 
+    padding: 20px 20px 0 0;
+}
+

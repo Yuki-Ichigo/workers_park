@@ -1,26 +1,35 @@
-information # new page
+<%= render "layouts/error", obj: @company %>
 
-<% flash.each do |key, value| %>
-  <%= content_tag(:div, value, class: key) %>
-<% end %>
-
-<h3>会社紹介</h3>
+<h2>会社紹介登録</h2>
 
 <%= form_with model: @company, url: info_up_company_path, method: :patch do |f| %>
 
+	<br>
 	<h3>会社紹介文</h3>
-		<div><%= f.text_area :introduction %></div>
+	<div class="form_wrapper">
+		<div><%= f.text_area :introduction, class: "form-text-area form-control js-text1", rows: 6 %></div>
+		<P class="js-text1-count pull-right"></P>
+		<br>
 		<div><%= f.label "画像①" %><br />
   			 <%= f.attachment_field :i_image1 %>
   			 <%= f.label "画像②" %><br />
   			 <%= f.attachment_field :i_image2 %></div>
+  	</div>
 
+  	<br>
 	<h3>今後の展望</h3>
-		<div><%= f.text_area :future %></div>
+	<div class="form_wrapper">
+		<div><%= f.text_area :future, class: "form-text-area form-control js-text2", rows: 6 %></div>
+		<P class="js-text2-count pull-right"></P>
+		<br>
 		<div><%= f.label "画像①" %><br />
   			 <%= f.attachment_field :f_image1 %>
   			 <%= f.label "画像②" %><br />
   			 <%= f.attachment_field :f_image2 %></div>
+  	</div>
 
+  	<br>
 	<div><%= f.submit "登録する", class:"btn btn-warning" %></div>
 <% end %>
+<br>
+<br>

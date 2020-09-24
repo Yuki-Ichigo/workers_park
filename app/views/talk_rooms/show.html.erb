@@ -1,8 +1,7 @@
-talk_room # show page
-
 <% flash.each do |key, value| %>
   <%= content_tag(:div, value, class: key) %>
 <% end %>
+
 
 <% @talks.each do | talk | %>
   <% if talk.user_id == current_user.id %>
@@ -12,7 +11,7 @@ talk_room # show page
     </div>
     <div>
       <%= talk.user.name %> <br />
-      <%= talk.body %>
+      <%= simple_format(talk.body) %>
     </div>
   <% else %>
   <!-- write on left block -->
@@ -21,7 +20,7 @@ talk_room # show page
     </div>
     <div>
       <%= talk.user.name %> <br />
-      <%= talk.body %>
+      <%= simple_format(talk.body) %>
     </div>
   <% end %>
 <% end %>

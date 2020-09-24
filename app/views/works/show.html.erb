@@ -1,6 +1,8 @@
-works # show
+<% flash.each do |key, value| %>
+  <%= content_tag(:div, value, class: key) %>
+<% end %>
 
-<h2><%= @work.title %></h2>
+<h2><strong><%= @work.title %></strong></h2>
 <div>
 	<table>
 		<tr>
@@ -15,66 +17,73 @@ works # show
 	</table>
 </div>
 
-<div>
-	<%= attachment_image_tag @work, :image, :fill, 600, 200 %>
-</div>
+<br>
+<div><%= attachment_image_tag @work, :image, :fill, 978, 398 %></div>
 
+
+<br>
 <div>
-	<h3><%= "#{@work.company.name}のメンバー" %></h3>
+	<h3><strong><%= "#{@work.company.name}のメンバー" %></strong></h3>
 
 	<% @members.each do |member| %>
 		<%= link_to profile_path(member.id) do %>
-			<%= attachment_image_tag member, :image, :fill, 100, 100, fallback: "no_image_human.jpeg", size:'100x100' %> <br />
+			<%= attachment_image_tag member, :image, :fill, 100, 100, fallback: "no_image_human.jpeg", size:'100x100', class:"img-circle" %> <br />
 			<p><%= member.nic_name %></p>
 		<% end %>
 	<% end %>
-	<!-- 企業担当者・管理者はメンバーの登録削除ができる -->
 </div>
 
+<br>
 <div>
-	<h3>事業内容</h3>
-		<%= attachment_image_tag @work.company, :i_image1, :fill, 300, 150 %>
-		<%= attachment_image_tag @work.company, :i_image2, :fill, 300, 150 %>
-		<p><%= simple_format(@work.company.introduction) %></p>
-</div>
+	<h3><strong>事業内容</strong></h3>
 
-<div>
-	<h3>今後の展望</h3>
-		<%= attachment_image_tag @work.company, :f_image1, :fill, 300, 150 %>
-		<%= attachment_image_tag @work.company, :f_image2, :fill, 300, 150 %>
-		<p><%= simple_format(@work.company.future) %></p>
-</div>
-
-<div>
-	<!-- 企業担当者と管理者は会社のinformation編集ができる -->
 	<% if user_signed_in? %>
-		<% if current_user.permissions == "管理者" || current_user.permissions == "企業担当者" %>
-			<%= link_to "編集する", information_company_path(@company.id), class: "btn btn-warning  btn-sm" %>
+		<% if current_user.belongs_to?(@company) %>
+			<div class="secret-btn-right"><%= link_to "会社の紹介文を編集する", information_company_path(@company.id), class: "btn btn-warning  btn-sm", data: {"turbolinks" => false} %></div>
+			<br>
 		<% end %>
 	<% end %>
+
+	<div class="flex">
+		<div class="image_left"><%= attachment_image_tag @work.company, :i_image1, :fill, 469, 250, class: "img-rounded" %></div>
+		<div><%= attachment_image_tag @work.company, :i_image2, :fill, 469, 250, class: "img-rounded" %></div>
+	</div>
+
+	<p><%= simple_format(@work.company.introduction) %></p>
 </div>
 
+<br>
 <div>
-	<h3>募集内容</h3>
-	 	<%= simple_format(@work.job_details) %>
+	<h3><strong>今後の展望</strong></h3>
+
+	<div class="flex">
+		<div class="image_left"><%= attachment_image_tag @work.company, :f_image1, :fill, 469, 250, class: "img-rounded" %></div>
+		<div><%= attachment_image_tag @work.company, :f_image2, :fill, 469, 250, class: "img-rounded" %></div>
+	</div>
+
+	<p><%= simple_format(@work.company.future) %></p>
 </div>
 
+<br>
 <div>
-	<!-- 企業担当者と管理者は会社の募集内容の編集ができる -->
-	<% if user_signed_in? %>
-		<% if current_user.permissions == "管理者" || current_user.permissions == "企業担当者" %>
-			<%= link_to "編集する", edit_company_work_path(@work.id), class: "btn btn-warning  btn-sm" %>
+	<h3><strong>募集内容</strong></h3>
+		<% if user_signed_in? %>
+			<% if current_user.belongs_to?(@company) %>
+				<div class="secret-btn-right"><%= link_to "募集内容を編集する", edit_company_work_path(@company.id, @work.id), class: "btn btn-warning  btn-sm", data: {"turbolinks" => false} %></div><br>
+			<% end %>
 		<% end %>
-	<% end %>
+
+		<div><%= simple_format(@work.job_details) %></div>
 </div>
 
+<br>
 <div>
 	<% if user_signed_in? %>
-		<% if current_user.permissions == 1 && belongsCompany.company_id == @company.id %>
-		　　<p>空白</p>	
+		<% if current_user.belongs_to?(@company) %>
+		　　<p></p>	
 		<% else %>
 			<% if TalkRoom.find_by(company_id: @work.company, user_id: current_user.id).present? %>
-				<%= link_to "トークルームにいく", talk_room_path(@talk_room), class: "btn btn-default  btn-sm" %>
+				<%= link_to "トークルームにいく", talk_room_path(@talk_room), class: "btn btn-default" %>
 			<% else %>
 				<%= form_with(url: talk_rooms_path, method: :post) do |f| %>
 					<%= f.hidden_field :company_id, :value => @company.id %>
@@ -86,3 +95,5 @@ works # show
 		<%= link_to "ログインしてシゴトの詳細を聞く", user_session_path , class: "btn btn-success  btn-sm" %>
 	<% end %>	
 </div>
+<br>
+<br>

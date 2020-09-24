@@ -1,4 +1,7 @@
-profiles#edit page
+<%= render "layouts/error", obj: @profile %>
+
+<br>	
+<h2>プロフィール編集</h2>
 
 <% flash.each do |key, value| %>
   <%= content_tag(:div, value, class: key) %>
@@ -7,15 +10,21 @@ profiles#edit page
 
 <%= form_with model: @profile, url: profile_path, method: :patch do |f| %>
 
+	<br>
 	<h3>紹介文</h3>
-		<div><%= f.text_area :introduction %></div>
+		<div><%= f.text_area :introduction, rows: 7, class: "form-text-area form-control js-text7"  %></div>
+		<P class="js-text7-count pull-right"></P>
 
+	<br>
 	<h3>このさきやってみたいこと</h3>
-		<div><%= f.text_area :future %></div>
+		<div><%= f.text_area :future, rows: 7, class: "form-text-area form-control js-text8" %></div>
+		<P class="js-text8-count pull-right"></P>
 
-
+	<br>
 	<h3>就業形態</h3>
 		<%= f.select :employment_type, [ "社員" , "副業委託", "問わない" ] %>
-	<br><br><br><br><br>	
-	<div><%= f.submit "変更する", class:"btn btn-primary" %></div>
+	<br><br>
+	<div class="btn-center"><%= f.submit "変更する", class: "btn btn-primary" %></div>
 <% end %>
+
+<br><br>

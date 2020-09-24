@@ -1,21 +1,6 @@
-users edit page
+<%= render "layouts/error", obj: @user %>
 
 <%= form_for(@user, url: user_path) do |f| %>
-
-	<!-- エラーメッセージ表示-->
-	<% if @user.errors.any? %>
-		<div>
-			<h3><%= @user.errors.count %>error prohibited this obj from being saved:</h3>
-			<ul>
-				<% @user.errors.full_messages.each do |message| %>
-				<li><%= message %></li>
-				<% end %>
-			</ul>
-		</div>
-	<% end %>
-	<!-- エラーメッセージ表示-->
-
-
 	<table>
 		<tr>
 			<th>写真</th>
