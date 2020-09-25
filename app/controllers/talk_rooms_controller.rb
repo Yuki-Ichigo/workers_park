@@ -5,11 +5,7 @@ class TalkRoomsController < ApplicationController
 
 	end
 
-	# 会社側からのアクション
 	def create
-		# TalkRoomから既存のTalkRoomを検索
-		# TalkRoomにcomapny id とuser idのマッチングがあれば既存のテーブルを返しtalk_room_path(@talk_room.id)に遷移する
-		# なければ新たにTolkRoomを作成してtalk_room_path(@talk_room.id)に遷移する
 		@talk_room = TalkRoom.new(talk_room_params)
 		@talk_room.user_id = current_user.id
 		@talk_room.company = Company.find(params[:company_id])
@@ -22,20 +18,14 @@ class TalkRoomsController < ApplicationController
 		end
 	end
 	
-	def index		
-		# もしこの会社の企業担当者なら、
-
-		# 自身が所属しているTalkRoomの一覧を取得
-		# CompanyMembersを検索して自身が所属する企業のIDと一致して
-		# かつAdmin権限が存在している場合は表示する
+	def index
 		belongsCompany = CompanyMember.find_or_initialize_by(user_id: current_user.id)
 		@company = Company.find_or_initialize_by(id: belongsCompany.company_id)
 		if current_user.belongs_to?(@company)
-		 @talk_rooms = TalkRoom.where(company_id: @company.id)
+		 @talk_rooms = TalkRoom.where(company_id: @company.id).order(created_at: "DESC")
 		elsif TalkRoom.find_by(user_id: current_user.id)
-		 @talk_rooms = TalkRoom.where(user_id: current_user.id)
+		 @talk_rooms = TalkRoom.where(user_id: current_user.id).order(created_at: "DESC")
 		end
-
 	end
 
 	def show 

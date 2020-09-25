@@ -123,11 +123,11 @@
 	<div>
 	<%= attachment_image_tag @company, :image, :fill, 60, 60, fallback: "no_image_white.png", size:'60x60', class:"img-circle" %>&nbsp;&nbsp;<%= @company.name %></div>
 	<table>
-		<tr><td><%= @company.establishment %></td></tr>
+		<tr><td><%= @company.establishment[0..3]+ "/" %><%= @company.establishment[4..5]+ " 創立" %></td></tr>
 		<tr><td><%= @company.url %></td></tr>
 		<tr>
 			<td>
-				<%= "〒" + @company.zip_code %> <br />
+				<%= "〒" + @company.zip_code[0..2] %><%= "-" + @company.zip_code[3..6] %> <br />
 				<%= @company.address_prefecture + @company.address_city + @company.address_line1 + @company.address_line2 %>
 			</td>
 		</tr>
@@ -142,31 +142,27 @@
 <div>
 	<% if user_signed_in? %>		
 		<% if current_user.admin? %>
-			<div class=""secret-btn-right>
+			<div class="secret-btn-right">
 				<%= link_to edit_company_path do %>
 					<button class="btn btn-warning btn-sm">会社の基本情報を変更する</button>
 				<% end %>
 			</div>
 			<% if @company.is_active == 1 %>
-				<td>
-					<div>
-						<%= form_with model: @company, url: hide_company_path(@company), method: :put do |f| %>
+				<div>
+					<%= form_with model: @company, url: hide_company_path(@company), method: :put do |f| %>
 
-								<%= f.hidden_field :is_active, value: false  %>
-								<%= f.submit "停止する", class: "btn btn-primary  btn-sm" %>	
-						<% end %>
-					</div>
-				</td>
-			<% else %>
-				<td>
-					<div>
-						<%= form_with model: @company, url: reopen_company_path(@company), method: :put do |f| %>
-
-								<%= f.hidden_field :is_active, value: true  %>
-								<%= f.submit "再開する", class: "btn btn-default  btn-sm" %>
-					</div>
+							<%= f.hidden_field :is_active, value: false  %>
+							<%= f.submit "停止する", class: "btn btn-primary  btn-sm" %>	
 					<% end %>
-				</td>
+				</div>
+			<% else %>
+				<div>
+					<%= form_with model: @company, url: reopen_company_path(@company), method: :put do |f| %>
+
+							<%= f.hidden_field :is_active, value: true  %>
+							<%= f.submit "再開する", class: "btn btn-default  btn-sm" %>
+					<% end %>
+				</div>
 			<% end %>	
 		<% end %>
 	<% end %>

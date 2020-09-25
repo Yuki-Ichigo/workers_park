@@ -83,11 +83,11 @@
 		　　<p></p>	
 		<% else %>
 			<% if TalkRoom.find_by(company_id: @work.company, user_id: current_user.id).present? %>
-				<%= link_to "トークルームにいく", talk_room_path(@talk_room), class: "btn btn-default" %>
+				<%= link_to "メッセージを送る", talk_room_path(@talk_room), class: "btn btn-default" %>
 			<% else %>
 				<%= form_with(url: talk_rooms_path, method: :post) do |f| %>
 					<%= f.hidden_field :company_id, :value => @company.id %>
-					<%= f.submit "トークルームにいく", class: "btn btn-success" %>
+					<%= f.submit "メッセージを送る", class: "btn btn-success" %>
 				<% end %>
 			<% end %>
 		<% end %>

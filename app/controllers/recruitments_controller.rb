@@ -1,5 +1,5 @@
 class RecruitmentsController < ApplicationController
 	def index
-		@works = Work.all
+		@works = Work.all.order(created_at: "DESC")
 	end
 end

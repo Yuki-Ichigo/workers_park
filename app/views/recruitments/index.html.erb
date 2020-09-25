@@ -2,20 +2,49 @@
 
 <h3>募集一覧</h3>
 
-<% @works.each do |work| %>
-<table>
-	<tr>	
-		<td>
-			<%= link_to company_work_path(work.company_id, work.id) do %>
-				<%= attachment_image_tag work.company, :image, :fill, 60, 60, fallback: "no_image_white.png", size:'60x60', class:"img-circle" %> <br />
-				<%=work.company.name %>
+<div class="row col-sm-12">
+	<% if @works.where(is_active: 1).blank? %>
+		<p>現在募集はしていません</p>
+	<% else %>
+		<% @works.each do |work| %>
+			<%= link_to company_work_path(work.company.id, work.id) do %>
+				<div class="line"></div>
+				<div><%= attachment_image_tag work, :image, :fill,  978, 300, fallback: "no_image_gray.png", size:'978x280' %></div>
+				<h3><%= work.title %></h3>
+				<p><%= simple_format(work.introduction) %></p>
 			<% end %>
-		</td>
-		<td>
-			<%= link_to company_work_path(work.company_id, work.id) do %>
-				<%=work.introduction %>
-			<% end %>
-		</td>
-	</tr>
-</table>
-<% end %>
+			<table>
+				<tr>
+					<td class="col-sm-3"><%= link_to company_path(work.company.id) do %>
+							<%= attachment_image_tag work.company, :image, :fill, 60, 60, fallback: "no_image_white.png", size:'60x60', class:"img-circle" %>
+						<% end %>
+					</td>
+				    <td><%= link_to company_path(work.company.id) do %>
+					    	<%= work.company.name %>
+				    	<% end %><br>
+				    	<%= work.company.address_prefecture %>
+				    </td><br>
+
+					<%if current_user.permissions == "管理者" %>
+						<% if work.is_active == 1 %>
+							<td>
+
+								<%= form_with(model:[work.company,work],url: hide_company_work_path(work.company.id, work.id), method: :put) do |f| %>
+										<%= f.submit "停止する", class: "btn btn-primary  btn-sm" %>	
+								<% end %>
+								</td>
+						<% else %>
+							<td>
+								<%= form_with(model:[work.company,work],url: reopen_company_work_path(work.company.id, work.id), method: :put) do |f| %>
+										<%= f.submit "再開する", class: "btn btn-default  btn-sm" %>	
+								<% end %>
+							</td>
+						<% end %>
+					<% end %>
+				</tr>
+			</table>	
+		<% end %>
+	<% end %>
+<br><br>
+</div>
+<br><br>

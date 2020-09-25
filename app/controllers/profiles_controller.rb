@@ -12,7 +12,7 @@ class ProfilesController < ApplicationController
 	end
 
 	def index
-		@profiles = Profile.all
+		@profiles = Profile.all.order(created_at: "DESC")
 	end
 
 	def show

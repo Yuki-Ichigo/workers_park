@@ -1,12 +1,22 @@
-profiles#index page
-
-<% @profiles.each do |profile| %>
-	<% user = profile.user_id %>
-	<table>
-		<tr>
-			<%= attachment_image_tag user, :image, :fill, 150, 150, fallback: "no_image_human.jpg", class:"img-circle" %>
-		<%= user.nic_name %>
-		</tr>
-	</table>
-
+<% flash.each do |key, value| %>
+  <%= content_tag(:div, value, class: key) %>
 <% end %>
+
+<h2>プロフィール一覧</h2>
+
+<div class="row col-sm-12">
+	<% @profiles.each do |profile| %>
+		<table class="table table-hover">
+			<tr>
+				<td class="col-sm-1"><%= attachment_image_tag profile.user, :image, :fill, 60, 60, fallback: "no_image_human.jpg", size:'60x60', class:"img-circle" %></td>
+				<td class="col-sm-2">
+					<%= profile.user.nic_name %><br>
+					<div class="label label-danger"><%= profile.user.address_prefecture_name %></div>
+				</td>
+				<td><%= profile.introduction %></td>
+				<td class="col-sm-2"><%= link_to "この人の詳細をみる", profile_path(profile), class: "btn btn-success  btn-sm" %>	
+				</td>
+			</tr>
+		</table>
+	<% end %>
+</div>

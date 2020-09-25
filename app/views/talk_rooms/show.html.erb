@@ -2,32 +2,57 @@
   <%= content_tag(:div, value, class: key) %>
 <% end %>
 
-
-<% @talks.each do | talk | %>
-  <% if talk.user_id == current_user.id %>
-   <!-- write on rignt block ? クラウ名変更してCSS書く -->
-    <div>
-      <%= attachment_image_tag talk.user, :image, :fill, 40, 40, fallback: "no_image_human.jpeg", size:'40x40', class:"img-circle" %>
+<div class="talk-room">
+  <div class="room_wrapper flex3">
+    <div class="row col-sm-12">
+      <div class="room_header">
+        <table class="table-hover">
+          <td class="col-sm-1"><%= attachment_image_tag @talk_room.company, :image, :fill, 50, 50, fallback: "no_image_white.jpeg", size:'50x50', class:"img-circle" %></td>
+          <td class="col-sm-3"><%= @talk_room.company.name %></td>
+          <td class="col-sm-1"><p class="emphasis">×</p></td>
+          <td class="col-sm-1"><%= attachment_image_tag @talk_room.user, :image, :fill, 50, 50, fallback: "no_image_human.jpeg", size:'50x50', class:"img-circle" %>
+          </td>
+          <td class="col-sm-3"><%= @talk_room.user.name %></td>
+          <td>
+        </table>
+      </div>
     </div>
-    <div>
-      <%= talk.user.name %> <br />
-      <%= simple_format(talk.body) %>
+    <div class="text-contents">
+      <div class="row col-sm-12">
+        <% @talks.each do | talk | %>
+          <% if talk.user_id == current_user.id %>
+           <!-- write on rignt block ? クラウ名変更してCSS書く -->
+           <div class="flex1">
+            <div class="my-balloon"><%= simple_format(talk.body) %></div>
+          </div>
+              
+            
+          <% else %>
+          <!-- write on left block -->
+            <div class=flex2>
+              <div>
+                <%= attachment_image_tag talk.user, :image, :fill, 50, 50, fallback: "no_image_human.jpeg", size:'50x50', class:"img-circle" %><br>
+                <%= talk.user.name %> <br />
+              </div>
+              <div class="others-balloon">
+                <%= simple_format(talk.body) %>
+              </div>
+              <div>
+                <span class="my-records"><%= talk.created_at.strftime("%Y/%m/%d" + " %H:%M ") %></span>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
     </div>
-  <% else %>
-  <!-- write on left block -->
-    <div>
-      <%= attachment_image_tag talk.user, :image, :fill, 40, 40, fallback: "no_image_human.jpeg", size:'40x40', class:"img-circle" %>
+    <!-- メッセージ入力フォーム -->
+    <div class="post-form">
+      <%= form_with url: talk_room_talks_path(@talk_room.id), local: true, method: :post do |f| %>
+      	<div class="col-sm-10"><%= f.text_area :body, rows: 4, class: " form-control" %></div>
+        <div><%= f.submit "送信する", class: "standerd_btn_blue" %>
+      	<%= f.hidden_field :company_id, :value => @company_id %>
+        </div>
+      <% end %>
     </div>
-    <div>
-      <%= talk.user.name %> <br />
-      <%= simple_format(talk.body) %>
-    </div>
-  <% end %>
-<% end %>
-
-<!-- メッセージ入力フォーム -->
-<%= form_with url: talk_room_talks_path(@talk_room.id), local: true, method: :post do |f| %>
-	<div><%= f.text_area :body %></div>
-	<div><%= f.submit "送信する", class:"btn btn-success" %></div>
-	<%= f.hidden_field :company_id, :value => @company_id %>
-<% end %>
+  </div>
+</div>

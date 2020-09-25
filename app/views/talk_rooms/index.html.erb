@@ -1,20 +1,19 @@
-talk_room # index page
-
 <% flash.each do |key, value| %>
   <%= content_tag(:div, value, class: key) %>
 <% end %>
 
+<h2>トークルーム一覧</h2>
 <% @talk_rooms.each do |talk_room| %>
-	<div>
-		<table>
-			<td><%= attachment_image_tag talk_room.company, :image, :fill, 60, 60, fallback: "no_image_white.jpeg", size:'60x60' %></td>
-			<td><%= talk_room.company.name %></td>
-			<td><p>&nbsp;&nbsp;×&nbsp;&nbsp;</p></td>
-			<td><%= attachment_image_tag talk_room.user, :image, :fill, 60, 60, fallback: "no_image_human.jpeg", size:'60x60' %>
+	<div class="row col-sm-12">
+		<table class="table table-hover">
+			<td class="col-sm-1"><%= attachment_image_tag talk_room.company, :image, :fill, 60, 60, fallback: "no_image_white.jpeg", size:'60x60', class:"img-circle" %></td>
+			<td class="col-sm-2"><%= talk_room.company.name %></td>
+			<td class="col-sm-1"><p class="emphasis">×</p></td>
+			<td class="col-sm-1"><%= attachment_image_tag talk_room.user, :image, :fill, 60, 60, fallback: "no_image_human.jpeg", size:'60x60', class:"img-circle" %>
 			</td>
-			<td><%= talk_room.user.name %></td>
+			<td class="col-sm-2"><%= talk_room.user.name %></td>
 			<td>
-				<div>
+				<div class="col-sm-3">
 					<%= link_to "このトークルームに行く", talk_room_path(talk_room.id),class: "btn btn-default  btn-sm" %>
 				</div>
 			</td>

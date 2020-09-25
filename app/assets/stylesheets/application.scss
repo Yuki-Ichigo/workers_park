@@ -22,6 +22,7 @@
   box-sizing: border-box;
 }
 
+
 header {
 	background-color: #f7f5f0;
 }
@@ -54,6 +55,80 @@ footer {
   text-align: center
 }
 
+.standerd_btn_green {
+  display: block;
+  position: relative;
+  padding: 0.6em;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  color: #fff;
+  background: #7AB893;
+  border: solid 0.5px #7AB893;
+  border-radius: 8px;
+}
+.standerd_btn_green:hover {
+   opacity:0.8;
+   cursor: pointer;
+   text-decoration: none;
+}
+
+.standerd_btn_blue {
+  display: block;
+  position: relative;
+  padding: 0.6em;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  color: #fff;
+  background: #2175d9;
+  border: solid 0.5px #2175d9;
+  border-radius: 8px;
+}
+.standerd_btn_blue:hover {
+   opacity:0.8;
+   cursor: pointer;
+   text-decoration: none;
+}
+
+
+.standerd_btn_yellow {
+  display: block;
+  position: relative;
+  padding: 0.6em;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  color: #fff;
+  background: #ffb511;
+  border: solid 0.5px #ffb511;
+  border-radius: 8px;
+}
+.standerd_btn_yellow:hover {
+   opacity:0.8;
+   cursor: pointer;
+   text-decoration: none;
+}
+
+
+.standerd_btn_red {
+  display: block;
+  position: relative;
+  padding: 0.6em;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  color: #fff;
+  background: #e74537;
+  border: solid 0.5px #e74537;
+  border-radius: 8px;
+}
+.standerd_btn_red:hover {
+   opacity:0.8;
+   cursor: pointer;
+   text-decoration: none;
+}
+
 // フォーム
 
 .form-text-title {
@@ -82,13 +157,25 @@ footer {
     padding: 1em 1em;
     margin: 2em 0;
     font-weight: bold;
-    color: #6ba5b4;;/*文字色*/
+    color: #009999;/*文字色*/
     background: #FFF;
-    border: solid 4px #6ba5b4;/*線*/
+    border: solid 4px #009999;/*線*/
     border-radius: 10px;/*角の丸み*/
 }
-.size-adjustment-box1 {
+
+.box2 {
+    padding: 1em 1em;
+    margin: 2em 0;
+    font-weight: bold;
+    color: #009999;/*文字色*/
+    background: #FFF;
+    border: solid 4px #009999;/*線*/
+    border-radius: 10px;/*角の丸み*/
+}
+
+.size-adjustment-box {
     margin: 0; 
     padding: 20px 20px 0 0;
 }
+
 
