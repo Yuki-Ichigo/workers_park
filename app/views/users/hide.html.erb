@@ -1,18 +1,24 @@
-<p>退会すると、</p>
-<ul>
-	<li>企業とのつながり</li>
-	<li>お気に入りに入れたシゴト情報</li>
-	<li>作成されたPRページの情報　が</li>
-</ul>
-<p>削除されてしまいます。</p>
-<p>本当に退会しますか？</p>
+<br><br><br>
 
 <div>
-	<%= link_to user_path(current_user) do %>
-		<button class="btn btn-warning">退会しない</button>
-	<% end %>
-
-	<%= link_to user_path(current_user), method: :destroy do %>
-		<button class="btn btn-success">退会する</button>
-	<% end %>
+	<div class="text-hide-message">
+		<p>退会すると、</p>
+		<p>企業とのトーク履歴</p>
+		<p>作成されたPRページの情報　が</p>
+		<p>削除されてしまいます。</p>
+		<p>本当に退会しますか？</p>
+	</div>
+<br><br>	
+	<div class="profile-btn-flex">
+		<div class="profile-btns">
+			<%= link_to users_path(current_user) do %>
+				<button class="btn btn-warning">退会しない</button>
+			<% end %>
+		</div>
+		<div class="profile-btns">
+			<%= link_to  destroy_personal_data_user_path(current_user), method: :delete do %>
+				<button class="btn btn-success">退会する</button>
+			<% end %>
+		</div>
+	</div>
 </div>

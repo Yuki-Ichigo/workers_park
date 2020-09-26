@@ -70,6 +70,24 @@
 		<% if user_signed_in? %>
 			<% if current_user.belongs_to?(@company) %>
 				<div class="secret-btn-right"><%= link_to "募集内容を編集する", edit_company_work_path(@company.id, @work.id), class: "btn btn-warning  btn-sm", data: {"turbolinks" => false} %></div><br>
+
+					<% if @work.is_active == 1 %>
+						<div>
+							<%= form_with model: @work, url: hide_company_work_path(@company, @work), method: :put do |f| %>
+
+									<%= f.hidden_field :is_active, value: false  %>
+									<%= f.submit "停止する", class: "btn btn-primary btn-sm company-btns" %>	
+							<% end %>
+						</div>
+					<% else %>
+						<div>
+							<%= form_with model: @work, url: reopen_company_work_path(@company, @work), method: :put do |f| %>
+
+									<%= f.hidden_field :is_active, value: true  %>
+									<%= f.submit "再開する", class: "btn btn-primary btn-sm company-btns" %>
+							<% end %>
+						</div>
+					<% end %>	
 			<% end %>
 		<% end %>
 

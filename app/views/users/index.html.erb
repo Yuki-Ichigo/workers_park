@@ -37,8 +37,8 @@
 				</td>
 				<td><%= user.phone_number %></td>
 				<td><%= user.email %></td>
-				<td><% if user.permissions != "管理者" %>
-						<% if user.permissions == "企業担当者" %>
+				<td><% if user.permissions != "admin" %>
+						<% if user.permissions == "company_rep" %>
 							<%= form_with(model:user ,url: not_approval_user_path(user.id), method: :put) do |f| %>
 									<%= f.submit "企業担当者", class: "btn btn-warning  btn-sm" %>
 							<% end %>

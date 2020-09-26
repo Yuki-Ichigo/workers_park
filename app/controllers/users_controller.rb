@@ -24,7 +24,7 @@ class UsersController < ApplicationController
 		@user = current_user
     end
 
-    def destroy
+    def destroy_personal_data
     	@user = current_user
     	@user.destroy
     	redirect_to root_path,  notice: "登録情報を削除しました。またのご利用をお待ちしております。"

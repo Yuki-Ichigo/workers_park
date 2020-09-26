@@ -20,7 +20,11 @@ class WorksController < ApplicationController
 
 	def index
 		@company = Company.find(params[:company_id])
-		@works = @company.works
+		if current_user.belongs_to?(@company)
+		  @works = @company.works
+		else
+		  @works = @company.works.where(is_active: true)
+		end
 	end
 
 	def hide
@@ -29,7 +33,7 @@ class WorksController < ApplicationController
 		@company = Company.find(params[:company_id])
 		@work.company_id = @company.id
 		@work.update(is_active: false)
-		redirect_to company_works_path, notice: "#{@company.name}の利用を停止しました"
+		redirect_to company_works_path, notice: "#{@work.title}の掲載を停止しました"
 	end
 
 	def reopen
@@ -38,7 +42,7 @@ class WorksController < ApplicationController
 		@company = Company.find(params[:company_id])
 		@work.company_id = @company.id
 		@work.update(is_active: true)
-		redirect_to company_works_path, notice: "#{@company.name}の利用を再開しました"
+		redirect_to company_works_path, notice: "#{@work.title}の掲載を再開しました"
 	end
 
 	def show

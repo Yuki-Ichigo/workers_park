@@ -1,10 +1,13 @@
 class ProfilesController < ApplicationController
+	def new
+		@profile = Profile.new
+	end
 
 	def create
 		@profile = Profile.new(profile_params)
         @profile.user_id = current_user.id
     	if  @profile.save
-        	redirect_to edit_profile_path(@profile.id), notice: "新規登録が完了しました"
+        	redirect_to profiles_path(@profile.id), notice: "新規登録が完了しました"
     	else
         	@user = current_user(current_user.id)
         	render 'users/show'
@@ -22,6 +25,9 @@ class ProfilesController < ApplicationController
 
 	def edit
 		@profile = Profile.find(params[:id])
+		if current_user != @profile.user
+		redirect_to users_path(current_user)
+	    end
 	end
 
 	def update

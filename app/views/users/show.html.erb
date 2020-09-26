@@ -8,7 +8,7 @@
 <h3>基本登録情報</h3>	
 
 
-<% if current_user.permissions == "admin" %>
+<% if current_user.admin? %>
 	<div class="all-users-flex btns">
 		<div>
 			<%= link_to users_path do %>
@@ -106,7 +106,9 @@
 		</tr>
 		<tr>
 			<th class="col-sm-2">誕生日</th>
-			<td class="col-sm-7"><%= @user.birthday %></td>
+			<td class="col-sm-7">
+				<% birthday = @user.birthday.to_date %>
+				<%= birthday.strftime("%Y/%m/%d") %></td>
 		</tr>
 		<tr>
 			<th class="col-sm-2">メール</th>
@@ -115,7 +117,7 @@
 		<tr>
 			<th class="col-sm-2">住所</th>
 			<td class="col-sm-7">
-				<%= "〒" + @user.zip_code %> <br />
+				<%= "〒" + @user.zip_code[0..2] %><%= "-" + @user.zip_code[3..6] %>  <br />
 				<%= @user.address_prefecture_name + @user.address_city + @user.address_line1 + @user.address_line2 %>
 			</td>
 		</tr>

@@ -21,9 +21,10 @@ top page
 	</div>
 </div>
 
+<div class="home-flex home-work-box">
 <% @works.each do |work| %>
-	<div class="home-flex home-work-box">
-		<table>		
+	
+		<table col-sm-12>		
 			<%= link_to company_work_path(work.company.id, work.id) do %>
 				<tr><td><%= attachment_image_tag work, :image, :fill,  300, 150, fallback: "no_image_gray.png", size:'326x150' %></td></tr>
 				<tr class="home-work-contents"><td><b><%= work.title %></b></td></tr>
@@ -34,9 +35,9 @@ top page
 				</tr>
 			<% end %>
 		</table>
-	</div>
+	
 <% end %>
-
+</div>
 
 
 

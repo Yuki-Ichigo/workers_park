@@ -4,9 +4,23 @@
 
 .profile-flex {
 	display: flex;
-	align-items: baseline;
 }
 
 .image_left {
 	float: 40px;
+}
+
+.profile-btn-flex {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.profile-btns {
+	margin-top: 10px;
+	margin-right: 10px;
+}
+
+.text-hide-message{
+	text-align: center;
 }

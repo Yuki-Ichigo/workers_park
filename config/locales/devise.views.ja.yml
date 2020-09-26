@@ -65,6 +65,7 @@ ja:
         sign_up: "アカウント登録"
       user:
         signed_up: "アカウントを作成しました"
+        updated: "パスワードを変更しました"
     sessions:
       new:
         sign_in: "ログイン"
@@ -83,6 +84,9 @@ ja:
     unlocks:
       new:
         resend_unlock_instructions: "アカウントの凍結解除方法を再送する"
+    failure:
+      user:
+        already_authenticated: "ログイン済みです"
 
   errors:
     messages: 

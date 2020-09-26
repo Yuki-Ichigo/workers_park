@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       get 'hide'
       put 'approval'
       put 'not_approval'
+      delete 'destroy_personal_data'
     end
   end
   resources :profiles, only: [:new, :create, :edit, :update, :index, :show]
