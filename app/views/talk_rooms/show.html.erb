@@ -3,7 +3,7 @@
 <% end %>
 
 <div class="talk-room">
-  <div class="room_wrapper flex3">
+  <div class="room_wrapper talk_room-flex3">
     <div class="row col-sm-12">
       <div class="room_header">
         <table class="table-hover">
@@ -22,14 +22,17 @@
         <% @talks.each do | talk | %>
           <% if talk.user_id == current_user.id %>
            <!-- write on rignt block ? クラウ名変更してCSS書く -->
-           <div class="flex1">
+           <div class="talk_room-flex1">
             <div class="my-balloon"><%= simple_format(talk.body) %></div>
+              <div>
+                <span class="talk_records"><%= talk.created_at.strftime("%Y/%m/%d" + " %H:%M ") %></span>
+              </div>
           </div>
               
             
           <% else %>
           <!-- write on left block -->
-            <div class=flex2>
+            <div class=talk_room-flex2>
               <div>
                 <%= attachment_image_tag talk.user, :image, :fill, 50, 50, fallback: "no_image_human.jpeg", size:'50x50', class:"img-circle" %><br>
                 <%= talk.user.name %> <br />
@@ -38,7 +41,7 @@
                 <%= simple_format(talk.body) %>
               </div>
               <div>
-                <span class="my-records"><%= talk.created_at.strftime("%Y/%m/%d" + " %H:%M ") %></span>
+                <span class="talk_records"><%= talk.created_at.strftime("%Y/%m/%d" + " %H:%M ") %></span>
               </div>
             </div>
           <% end %>

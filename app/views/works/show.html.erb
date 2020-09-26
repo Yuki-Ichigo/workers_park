@@ -44,7 +44,7 @@
 		<% end %>
 	<% end %>
 
-	<div class="flex">
+	<div class="company-flex">
 		<div class="image_left"><%= attachment_image_tag @work.company, :i_image1, :fill, 469, 250, class: "img-rounded" %></div>
 		<div><%= attachment_image_tag @work.company, :i_image2, :fill, 469, 250, class: "img-rounded" %></div>
 	</div>
@@ -56,7 +56,7 @@
 <div>
 	<h3><strong>今後の展望</strong></h3>
 
-	<div class="flex">
+	<div class="company-flex">
 		<div class="image_left"><%= attachment_image_tag @work.company, :f_image1, :fill, 469, 250, class: "img-rounded" %></div>
 		<div><%= attachment_image_tag @work.company, :f_image2, :fill, 469, 250, class: "img-rounded" %></div>
 	</div>
@@ -81,14 +81,18 @@
 	<% if user_signed_in? %>
 		<% if current_user.belongs_to?(@company) %>
 		　　<p></p>	
-		<% else %>
+		<% else %>			
 			<% if TalkRoom.find_by(company_id: @work.company, user_id: current_user.id).present? %>
-				<%= link_to "メッセージを送る", talk_room_path(@talk_room), class: "btn btn-default" %>
+				<div class="btn-center">
+					<%= link_to "メッセージを送る", talk_room_path(@talk_room), class: "btn btn-danger btn-lg" %>
+				</div>
 			<% else %>
-				<%= form_with(url: talk_rooms_path, method: :post) do |f| %>
-					<%= f.hidden_field :company_id, :value => @company.id %>
-					<%= f.submit "メッセージを送る", class: "btn btn-success" %>
-				<% end %>
+				<div class="btn-center">
+					<%= form_with(url: talk_rooms_path, method: :post) do |f| %>
+						<%= f.hidden_field :company_id, :value => @company.id %>
+						<%= f.submit "メッセージを送る", class: "btn btn-success btn-lg" %>
+					<% end %>
+				</div>
 			<% end %>
 		<% end %>
 	<% else %>

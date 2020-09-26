@@ -24,15 +24,15 @@
 					<% if current_user.admin? %>
 						<td>
 							<div class="secret-btn-right">
-								<%= link_to edit_company_path do %>
+								<%= link_to edit_company_path(company) do %>
 									<button class="btn btn-warning btn-sm">基本情報を変更する</button>
 								<% end %>
 							</div>
 						</td>
-						<% if @company.is_active == 1 %>
+						<% if company.is_active == 1 %>
 							<td class="col-sm-1">
 								<div>
-									<%= form_with model: @company, url: hide_company_path(@company), method: :put do |f| %>
+									<%= form_with model: company, url: hide_company_path(company), method: :put do |f| %>
 
 											<%= f.hidden_field :is_active, value: false  %>
 											<%= f.submit "停止する", class: "btn btn-primary  btn-sm" %>	
@@ -42,7 +42,7 @@
 						<% else %>
 							<td class="col-sm-1">
 								<div>
-									<%= form_with model: @company, url: reopen_company_path(@company), method: :put do |f| %>
+									<%= form_with model: company, url: reopen_company_path(company), method: :put do |f| %>
 
 											<%= f.hidden_field :is_active, value: true  %>
 											<%= f.submit "再開する", class: "btn btn-default  btn-sm" %>

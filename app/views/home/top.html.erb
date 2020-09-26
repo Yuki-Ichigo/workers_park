@@ -7,23 +7,36 @@ top page
 
 <div>トップメッセージ</div>
 
+<div class="home-btn-flex">
+	<div class="home-btns">
+		<%= link_to new_user_registration_path do %>
+			<button class="btn btn-success">会員登録する</button>
+		<% end %>
+	</div>
 
-<%= link_to new_user_registration_path do %>
-	<button>会員登録する</button>
-<% end %>
-
-<%= link_to user_session_path do %>
-	<button>ログイン</button>
-<% end %>
+	<div class="home-btns">
+		<%= link_to user_session_path do %>
+			<button class="btn btn-warning">ログイン</button>
+		<% end %>
+	</div>
+</div>
 
 <% @works.each do |work| %>
-<table>
-	<tr>
-		<td></td>
-		<td><%= attachment_image_tag work.company, :image, :fill, 60, 60, fallback: "no_image_white.png", size:'60x60' %> <br />
-			<%=work.company.name %></td>
-		<td><%=work.introduction %></td>
-	</tr>
-</table>
+	<div class="home-flex home-work-box">
+		<table>		
+			<%= link_to company_work_path(work.company.id, work.id) do %>
+				<tr><td><%= attachment_image_tag work, :image, :fill,  300, 150, fallback: "no_image_gray.png", size:'326x150' %></td></tr>
+				<tr class="home-work-contents"><td><b><%= work.title %></b></td></tr>
+				<tr class="home-work-contents"><td class="max-5-lines"><p><%= simple_format(work.introduction) %></p></td></tr>
+				<tr class="home-work-contents">
+					<td><%= attachment_image_tag work.company, :image, :fill, 40, 40, fallback: "no_image_white.png", size:'40x40' %>
+					<%= work.company.name %></td>
+				</tr>
+			<% end %>
+		</table>
+	</div>
 <% end %>
+
+
+
 

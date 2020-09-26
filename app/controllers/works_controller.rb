@@ -43,11 +43,13 @@ class WorksController < ApplicationController
 
 	def show
 		@work = Work.find(params[:id])
-		@work.user_id = current_user.id
 		@company = Company.find(params[:company_id])
-		@members = @company.users
-		belongsCompany = CompanyMember.find_by(user_id: current_user.id)
-		@talk_room = TalkRoom.find_by(company_id: @work.company, user_id: current_user.id)
+	    @members = @company.users
+		if user_signed_in?
+		  @work.user_id = current_user.id
+	      belongsCompany = CompanyMember.find_by(user_id: current_user.id)
+		  @talk_room = TalkRoom.find_by(company_id: @work.company, user_id: current_user.id)
+		end
 	end
 
 	def edit

@@ -83,10 +83,12 @@
     <%= f.label :password_confirmation %><span class = "mandatory">&nbsp;<必須></span><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
-
+<br>
   <div class="actions">
-    <%= f.submit "新規会員登録をする" %>
+    <%= f.submit "新規会員登録をする", class: "btn btn-primary" %>
   </div>
 <% end %>
-
+<br>
 <%= render "devise/shared/links" %>
+
+<br><br>

@@ -7,123 +7,139 @@
 
 <h3>基本登録情報</h3>	
 
-管理者のみ表示
-<% if current_user.permissions == "管理者" %>
-	<div>
-		<%= link_to users_path do %>
-			<button class="btn btn-primary btn-sm">
-				ユーザー一覧へ
-			</button>
-		<% end %>
-	</div>
-	<div>
-		<%= link_to new_company_path do %>
-			<button class="btn btn-primary btn-sm">
-				会社情報を登録をする
-			</button>
-		<% end %>
-	</div>
-<% end %>
 
-
-ログイン済み全ユーザー表示
-<% if current_user.talk_rooms.exists? %>
-	<div>
-		<%= link_to talk_rooms_path do |f| %>
-			<button class="btn btn-success  btn-sm">トークルームを確認する</button>
-		<% end %>
+<% if current_user.permissions == "admin" %>
+	<div class="all-users-flex btns">
+		<div>
+			<%= link_to users_path do %>
+				<button class="standerd_btn_dark-blue users_btn">
+					ユーザー一覧へ
+				</button>
+			<% end %>
+		</div>
+		<div>
+			<%= link_to new_company_path do %>
+				<button class="standerd_btn_dark-blue users_btn">
+					会社情報を登録をする
+				</button>
+			<% end %>
+		</div>
 	</div>
 <% end %>
 
+
+<!-- ログイン済み全ユーザー表示 -->
+<div class="all-users-flex btns">
+	<% if current_user.talk_rooms.exists? %>
+		<div>
+			<%= link_to talk_rooms_path do |f| %>
+				<button class="standerd_btn_blue users_btn">トークルームを確認する</button>
+			<% end %>
+		</div>
+	<% end %>
+	<div>
+		<%= link_to edit_user_path(current_user.id) do %>
+			<button class="standerd_btn_blue users_btn">基本登録情報を変更する</button>
+		<% end %>
+	</div>
+	<div>
+		<%= link_to edit_user_registration_path(current_user.id) do %>
+			<button class="standerd_btn_blue users_btn">パスワードの変更はこちら</button>
+		<% end %>
+	</div>
+	<div>
+		<% if current_user.profile.blank? %>
+			<%= link_to new_profile_path, data: {"turbolinks" => false} do %>
+				<button class="standerd_btn_blue users_btn">プロフィールを登録する</button>
+			<% end %>
+		<% else %>
+			<%= link_to edit_profile_path(current_user.profile.id), data: {"turbolinks" => false} do %>
+				<button class="standerd_btn_blue users_btn">プロフィールを編集する</button>
+			<% end %>
+		<% end %>
+	</div>
+</div>
+<br>
+<!-- ログイン済み全ユーザー表示 -->
 <div>
 	<% if current_user.company_members.exists? %>
-		<h3>マイカンパニー</h3>
 		<% @companies.each do |company| %>
-			<table>
+			<table class="table row col-sm-12">
 				<tr>
-					<td>
+					<th class="col-sm-2">所属企業</th>
+					<td class="col-sm-2 belongs-companay-link">
 						<%= link_to company_path(company.id) do %>
 							<%= attachment_image_tag company, :image, :fill, 40, 40, fallback: "no_image_white.png", size:'40x40',  class:"img-circle" %>
-						<% end %>
-					</td>
-					<td><%= link_to company_path(company.id) do %>
+						<% end %> <br>
+						<%= link_to company_path(company.id) do %>
 							<%= company.name %>
 						<% end %>
 					</td>
+					<td class="col-sm-8"></td>
 				</tr>
 			</table>
 		<% end %>
 	<% end %>
 </div>
-<div>
-	<%= link_to edit_user_path(current_user.id) do %>
-		<button class="btn btn-success btn-sm">基本登録情報を変更する</button>
-	<% end %>
-</div>
-<div>
-	<%= link_to edit_user_registration_path(current_user.id) do %>
-		<button class="btn btn-success btn-sm">パスワードの変更はこちら</button>
-	<% end %>
-</div>
-<div>
-	<% if current_user.profile.blank? %>
-		<%= link_to new_profile_path, data: {"turbolinks" => false} do %>
-			<button class="btn btn-success btn-sm">プロフィールを登録する</button>
-		<% end %>
-	<% else %>
-		<%= link_to edit_profile_path(current_user.profile.id), data: {"turbolinks" => false} do %>
-			<button class="btn btn-success btn-sm">プロフィールを編集する</button>
-		<% end %>
-	<% end %>
-</div>
 
-<table>
-	<tr>
-		<th>写真</th>
-		<td><%= attachment_image_tag @user, :image, :fill, 150, 150, fallback: "no_image_human.jpg", size:'150x150',  class:"img-circle" %></td>
-	</tr>
-	<tr>
-		<th>名前</th>
-		<td><%= @user.name %></td>
-	</tr>
-	<tr>
-		<th>フリガナ</th>
-		<td><%= @user.name_kana %></td>
-	</tr>
-	<tr>
-		<th>表示名</th>
-		<td><%= @user.nic_name %></td>
-	</tr>
-	<tr>
-		<th>性別</th>
-		<td><%= @user.sex %></td>
-	</tr>
-	<tr>
-		<th>誕生日</th>
-		<td><%= @user.birthday %></td>
-	</tr>
-	<tr>
-		<th>メール</th>
-		<td><%= @user.email %></td>
-	</tr>
-	<tr>
-		<th>住所</th>
-		<td>
-			<%= "〒" + @user.zip_code %> <br />
-			<%= @user.address_prefecture_name + @user.address_city + @user.address_line1 + @user.address_line2 %>
-		</td>
-	</tr>
-	<tr>
-		<th>電話</th>
-		<td><%= @user.phone_number %></td>
-	</tr>
-	<tr>
-		<th>パスワード</th>
-		<td><%= "*************" %></td>
-	</tr>
-</table>
+<div class="row col-sm-12"><br><br>
+	<div class="col-sm-3">
+		<%= attachment_image_tag @user, :image, :fill, 200, 200, fallback: "no_image_human.jpg", size:'200x200',  class:"img-circle" %>
+	</div>
+	<div class="col-sm-9">
+	<table class="table col-sm-9">
+		<tr>
+			<th class="col-sm-2">名前</th>
+			<td class="col-sm-7"><%= @user.name %></td>
+		</tr>
+		<tr>
+			<th class="col-sm-2">フリガナ</th>
+			<td class="col-sm-7"><%= @user.name_kana %></td>
+		</tr>
+		<tr>
+			<th class="col-sm-2">表示名</th>
+			<td class="col-sm-7"><%= @user.nic_name %></td>
+		</tr>
+		<tr>
+			<th class="col-sm-2">性別</th>
+			<td class="col-sm-7"><%= @user.sex %></td>
+		</tr>
+		<tr>
+			<th class="col-sm-2">誕生日</th>
+			<td class="col-sm-7"><%= @user.birthday %></td>
+		</tr>
+		<tr>
+			<th class="col-sm-2">メール</th>
+			<td class="col-sm-7"><%= @user.email %></td>
+		</tr>
+		<tr>
+			<th class="col-sm-2">住所</th>
+			<td class="col-sm-7">
+				<%= "〒" + @user.zip_code %> <br />
+				<%= @user.address_prefecture_name + @user.address_city + @user.address_line1 + @user.address_line2 %>
+			</td>
+		</tr>
+		<tr>
+			<th class="col-sm-2">電話</th>
+			<td class="col-sm-7"><%= @user.phone_number %></td>
+		</tr>
+		<tr>
+			<th class="col-sm-2">パスワード</th>
+			<td class="col-sm-7"><%= "*************" %></td>
+		</tr>
+		<tr>
+			<th class="col-sm-2"></th>
+			<td class="col-sm-5"></td>
+			<td class="col-sm-2">
+				<%= link_to hide_user_path class: "btn-center" do %>
+					<button class="standerd_btn_red">退会する</button>
+				<% end %></td>
+		</tr>
+	</table>
+	</div>
+</div>
 
 <br />
-<%= link_to hide_user_path do %>
-	<button class="btn btn-success btn-sm">退会する</button>
-<% end %>
+
+
+	<br><br>

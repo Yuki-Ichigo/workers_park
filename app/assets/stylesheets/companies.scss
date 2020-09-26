@@ -2,7 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.flex {
+.company-flex {
 	display: flex;
 }
 
@@ -18,4 +18,6 @@
 	text-align: center;
 }
 
-
+.company-btns {
+	margin: 10px 10px 0 0;
+}

@@ -29,7 +29,7 @@
 	padding: 0 50px;
 }
 
-.flex1 {
+.talk_room-flex1 {
     display: flex;
     flex-direction: row-reverse;
     flex-wrap: wrap;
@@ -47,14 +47,14 @@
 	border-radius: 10px;
 }
 
-.my-records {
+.talk_records {
 	font-size: 8px;
 	text-align: right;
 	margin-bottom: 8px;
 	padding-right: 5px;
 }
 
-.flex2 {
+.talk_room-flex2 {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -72,7 +72,7 @@
 	border-radius: 10px;
 }
 
-.flex3 {
+.talk_room-flex3 {
   display: flex;
   flex-direction: column;
   min-height: 85vh;

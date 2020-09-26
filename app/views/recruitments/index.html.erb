@@ -25,20 +25,22 @@
 				    	<%= work.company.address_prefecture %>
 				    </td><br>
 
-					<%if current_user.permissions == "管理者" %>
-						<% if work.is_active == 1 %>
-							<td>
+				    <% if user_signed_in? %>
+						<% if current_user.permissions == 2 %>
+							<% if work.is_active == 1 %>
+								<td>
 
-								<%= form_with(model:[work.company,work],url: hide_company_work_path(work.company.id, work.id), method: :put) do |f| %>
-										<%= f.submit "停止する", class: "btn btn-primary  btn-sm" %>	
-								<% end %>
+									<%= form_with(model:[work.company,work],url: hide_company_work_path(work.company.id, work.id), method: :put) do |f| %>
+											<%= f.submit "停止する", class: "btn btn-primary  btn-sm" %>	
+									<% end %>
+									</td>
+							<% else %>
+								<td>
+									<%= form_with(model:[work.company,work],url: reopen_company_work_path(work.company.id, work.id), method: :put) do |f| %>
+											<%= f.submit "再開する", class: "btn btn-default  btn-sm" %>	
+									<% end %>
 								</td>
-						<% else %>
-							<td>
-								<%= form_with(model:[work.company,work],url: reopen_company_work_path(work.company.id, work.id), method: :put) do |f| %>
-										<%= f.submit "再開する", class: "btn btn-default  btn-sm" %>	
-								<% end %>
-							</td>
+							<% end %>
 						<% end %>
 					<% end %>
 				</tr>

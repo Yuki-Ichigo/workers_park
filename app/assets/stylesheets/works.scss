@@ -2,7 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.flex {
+.work-flex {
 	display: flex;
 }
 
@@ -17,3 +17,41 @@
 	border: thin solid #9DA0A4;
 }
 
+.home-flex{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: flex-start;
+}
+
+.home-work-box {
+	width: 300px;
+	height: 370px;
+}
+
+.home-work-contents {
+	width: 300px;
+}
+
+// 表示行数指定
+.max-5-lines{
+  max-width: 350px;
+  font-size: 13px;
+  word-break: break-all;
+ 
+  /** ５行以上で省略 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  
+  /** webkit以外のフォールバック */
+  line-height: 20px;
+  max-height: calc(24px*5);
+}
+
+.btn-center {
+	text-align: center;
+}

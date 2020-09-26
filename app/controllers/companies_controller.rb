@@ -1,4 +1,7 @@
 class CompaniesController < ApplicationController
+	def new
+		@company = Company.new
+	end
 
 	def create
 		@company = Company.new(company_params)
@@ -17,7 +20,9 @@ class CompaniesController < ApplicationController
 	def show
 		@company = Company.find(params[:id])
 		@user = current_user
-		@company_member = current_user.company_members.find_by(company_id: @company.id)
+		if user_signed_in?
+		  @company_member = current_user.company_members.find_by(company_id: @company.id)
+		end
 	end
 
 	def hide
