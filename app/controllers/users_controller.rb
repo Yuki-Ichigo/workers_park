@@ -37,8 +37,6 @@ class UsersController < ApplicationController
  	  	else
  	  		@admin = current_user
  	  	 	@users = User.all
-            <% @users.each do |user| %>
-            <% end %>
  	  	end
     end
 
