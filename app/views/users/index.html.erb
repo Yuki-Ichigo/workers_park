@@ -1,7 +1,5 @@
-###検索
-
 <h2>ユーザー一覧</h2>
-<table>
+<table class="table">
 	<thead>
 		<tr>
 			<th>名前</th>
@@ -40,7 +38,7 @@
 				<td><% if user.permissions != "admin" %>
 						<% if user.permissions == "company_rep" %>
 							<%= form_with(model:user ,url: not_approval_user_path(user.id), method: :put) do |f| %>
-									<%= f.submit "企業担当者", class: "btn btn-warning  btn-sm" %>
+									<%= f.submit "企業担当者", class: "btn btn-primary  btn-sm" %>
 							<% end %>
 						<% else %>
 							<%= form_with(model:user ,url: approval_user_path(user.id), method: :put) do |f| %>
@@ -56,6 +54,8 @@
 	</tbody>
 </table>
 
-<%= link_to user_path(current_user.id) do %>
-	<button>マイページに戻る</button>
-<% end %>
+<div class="btn-center">
+	<%= link_to user_path(current_user.id) do %>
+	<button class="btn btn-primary">マイページに戻る</button>
+	<% end %>
+</div>

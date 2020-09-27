@@ -31,12 +31,14 @@ class UsersController < ApplicationController
     end
 
     def index
-    	if current_user.permissions != "管理者"
+    	if current_user.permissions != "admin"
     		@user = current_user
  	  	 	redirect_to user_path(current_user.id)
  	  	else
  	  		@admin = current_user
  	  	 	@users = User.all
+            <% @users.each do |user| %>
+            <% end %>
  	  	end
     end
 

@@ -13,7 +13,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :password %> <i>(変更前のパスワードを入力してください)</i><br />
+    <%= f.label :password %> <i>(変更後のパスワードを入力してください)</i><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
     <% if @minimum_password_length %>
       <br />
