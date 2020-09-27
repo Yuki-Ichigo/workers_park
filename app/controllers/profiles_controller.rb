@@ -24,6 +24,12 @@ class ProfilesController < ApplicationController
 	end
 
 	def edit
+		@employment_type = []
+		emp_types = Profile.employment_types_i18n
+	    [*0...emp_types.length].each do |n|
+			@employment_type << [emp_types.values[n], emp_types.invert.values[n]]
+		end
+
 		@profile = Profile.find(params[:id])
 		if current_user != @profile.user
 		redirect_to users_path(current_user)
