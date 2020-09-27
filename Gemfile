@@ -71,7 +71,10 @@ gem "refile-mini_magick"
 gem 'rails-i18n'
 gem 'devise-i18n-views'
 gem 'enum_help'
-
+gem 'capistrano'
+gem 'capistrano-rails'
+gem 'capistrano3-puma'
+gem 'capistrano-rbenv'
 
 # mysql
 gem 'dotenv-rails'
