@@ -4,6 +4,9 @@ class UsersController < ApplicationController
 	def show
 		@user = current_user
         @companies = @user.companies
+        @zip_code =  "〒" + @user.zip_code[0..2] + "-" + @user.zip_code[3..6]
+        @address = @user.address_prefecture_name + @user.address_city + @user.address_line1 + @user.address_line2
+        @phone_number = @user.phone_number[0..2] + "-" + @user.phone_number[3..6] + "-" + @user.phone_number[7..10]
 	end
 
 	def edit

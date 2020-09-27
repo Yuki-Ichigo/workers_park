@@ -117,13 +117,13 @@
 		<tr>
 			<th class="col-sm-2">住所</th>
 			<td class="col-sm-7">
-				<%= "〒" + @user.zip_code[0..2] %><%= "-" + @user.zip_code[3..6] %>  <br />
-				<%= @user.address_prefecture_name + @user.address_city + @user.address_line1 + @user.address_line2 %>
+				<%= @zip_code %>  <br />
+				<%= @address %>
 			</td>
 		</tr>
 		<tr>
 			<th class="col-sm-2">電話</th>
-			<td class="col-sm-7"><%= @user.phone_number %></td>
+			<td class="col-sm-7"><%= @phone_number %></td>
 		</tr>
 		<tr>
 			<th class="col-sm-2">パスワード</th>
@@ -135,7 +135,8 @@
 			<td class="col-sm-2">
 				<%= link_to hide_user_path class: "btn-center" do %>
 					<button class="standerd_btn_red">退会する</button>
-				<% end %></td>
+				<% end %>
+			</td>
 		</tr>
 	</table>
 	</div>

@@ -33,12 +33,12 @@
 					<% day2 = day.strftime("%Y%m%d").to_i %>
 					<%= age = (day2 - birthday2) / 10000 %>
 				</td>
-				<td><%= user.phone_number %></td>
+				<td><%= user.phone_number[0..2] + "-" + user.phone_number[3..6] + "-" + user.phone_number[0..2] %></td>
 				<td><%= user.email %></td>
 				<td><% if user.permissions != "admin" %>
 						<% if user.permissions == "company_rep" %>
 							<%= form_with(model:user ,url: not_approval_user_path(user.id), method: :put) do |f| %>
-									<%= f.submit "企業担当者", class: "btn btn-primary  btn-sm" %>
+									<%= f.submit "企業担当者", class: "btn btn-warning  btn-sm" %>
 							<% end %>
 						<% else %>
 							<%= form_with(model:user ,url: approval_user_path(user.id), method: :put) do |f| %>
