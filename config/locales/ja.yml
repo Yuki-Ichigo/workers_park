@@ -1,0 +1,7 @@
+ja:
+  enums:
+    profile:
+      employment_type:
+        engaging: "社員"
+        contract: "副業・委託"
+        both: "問わない"

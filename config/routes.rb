@@ -26,6 +26,7 @@ Rails.application.routes.draw do
       put 'reopen'
       get 'information'
       patch 'info_up'
+      get 'member_list'
     end
   end
   resource :company_members, only: [:create, :destroy]

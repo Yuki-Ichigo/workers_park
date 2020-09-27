@@ -2,6 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
 .home-flex{
   display: flex;
   flex-direction: row;
@@ -12,13 +13,20 @@
 
 .home-work-box {
   width: 300px;
-  height: 370px;
 }
 
 .home-work-contents {
   width: 300px;
+
 }
 
+.work-image{
+
+}
+
+.right_link{
+  text-align: right;
+}
 
 // 表示行数指定
 .max-5-lines{
@@ -38,6 +46,12 @@
   max-height: calc(24px*5);
 }
 
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
 .home-btn-flex {
   display: flex;
   justify-content: center;
@@ -48,5 +62,9 @@
 }
 
 
-
+.about-flex{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
 

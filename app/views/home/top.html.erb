@@ -1,43 +1,46 @@
-top page
+
 <% flash.each do |key, value| %>
   <%= content_tag(:div, value, class: key) %>
 <% end %>
 
-<div>トップ画像</div>
-
-<div>トップメッセージ</div>
-
-<div class="home-btn-flex">
-	<div class="home-btns">
-		<%= link_to new_user_registration_path do %>
-			<button class="btn btn-success">会員登録する</button>
+<br><br>
+<div class="body-wrapper">
+	<div class="home-flex home-work-box row col-sm-12 clearfix">
+		<% @works.each do |work| %>
+			<div class="col-sm-4 work-detail-box">
+				<%= link_to company_work_path(work.company.id, work.id) do %>
+					<div class="work-image"><%= attachment_image_tag work, :image, :fill,  290, 150, fallback: "no_image_gray.png", size:'290x150' %></div>
+					<div>
+						<div class="home-work-contents">
+							<%= work.title %>
+						</div>
+						<div class="home-work-contents max-5-lines">
+							<p><%= simple_format(work.introduction) %></p>
+						</div>
+						<div><%= attachment_image_tag work.company, :image, :fill, 40, 40, fallback: "no_image_white.png", size:'40x40' %><br>
+							<%= work.company.name %>
+						</div>
+					</div>
+				<% end %>
+			</div>
 		<% end %>
 	</div>
 
-	<div class="home-btns">
-		<%= link_to user_session_path do %>
-			<button class="btn btn-warning">ログイン</button>
-		<% end %>
-	</div>
-</div>
+	<div class="row col-sm-12 right_link"><%= link_to "もっとみる ＞＞", recruitments_path %></div>
 
-<div class="home-flex home-work-box">
-<% @works.each do |work| %>
-	
-		<table col-sm-12>		
-			<%= link_to company_work_path(work.company.id, work.id) do %>
-				<tr><td><%= attachment_image_tag work, :image, :fill,  300, 150, fallback: "no_image_gray.png", size:'326x150' %></td></tr>
-				<tr class="home-work-contents"><td><b><%= work.title %></b></td></tr>
-				<tr class="home-work-contents"><td class="max-5-lines"><p><%= simple_format(work.introduction) %></p></td></tr>
-				<tr class="home-work-contents">
-					<td><%= attachment_image_tag work.company, :image, :fill, 40, 40, fallback: "no_image_white.png", size:'40x40' %>
-					<%= work.company.name %></td>
-				</tr>
+	<div class="home-btn-flex row col-sm-12">
+		<div class="home-btns">
+			<%= link_to new_user_registration_path do %>
+				<button class="btn btn-success">会員登録する</button>
 			<% end %>
-		</table>
-	
-<% end %>
+		</div>
+
+		<div class="home-btns">
+			<%= link_to user_session_path do %>
+				<button class="btn btn-warning">ログイン</button>
+			<% end %>
+			<br><br>
+		</div>
+	</div>
 </div>
-
-
 

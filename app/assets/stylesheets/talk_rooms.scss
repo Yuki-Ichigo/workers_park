@@ -81,7 +81,8 @@
 .text-contents {
 	min-height: 100%;
 	padding: 20px 0 20px 20px;
-
+	overflow: scroll;
+	height: 500px;
 }
 
 .post-form {  

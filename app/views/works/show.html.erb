@@ -24,17 +24,23 @@
 <br>
 <div>
 	<h3><strong><%= "#{@work.company.name}のメンバー" %></strong></h3>
-
-	<% @members.each do |member| %>
-		<%= link_to profile_path(member.id) do %>
-			<%= attachment_image_tag member, :image, :fill, 100, 100, fallback: "no_image_human.jpeg", size:'100x100', class:"img-circle" %> <br />
-			<p><%= member.nic_name %></p>
+	<div class="right-link">
+		<%= link_to "ほかのメンバーもみる ＞＞", member_list_company_path(@company) %>
+	</div>
+	<div class="company-member-flex row col-sm-12">
+		<% @members.each do |member| %>
+			<div class="col-sm-2">
+				<%= link_to profile_path(member.id) do %>
+					<%= attachment_image_tag member, :image, :fill, 100, 100, fallback: "no_image_human.jpeg", size:'100x100', class:"img-circle" %> <br />
+					<p><%= member.nic_name %></p>
+				<% end %>
+			</div>
 		<% end %>
-	<% end %>
+	</div>
 </div>
 
 <br>
-<div>
+<div class="row col-sm-12">
 	<h3><strong>事業内容</strong></h3>
 
 	<% if user_signed_in? %>
@@ -53,7 +59,7 @@
 </div>
 
 <br>
-<div>
+<div class="row col-sm-12">
 	<h3><strong>今後の展望</strong></h3>
 
 	<div class="company-flex">
@@ -65,37 +71,42 @@
 </div>
 
 <br>
-<div>
+<div class="row col-sm-12">
 	<h3><strong>募集内容</strong></h3>
+
+	
 		<% if user_signed_in? %>
 			<% if current_user.belongs_to?(@company) %>
-				<div class="secret-btn-right"><%= link_to "募集内容を編集する", edit_company_work_path(@company.id, @work.id), class: "btn btn-warning  btn-sm", data: {"turbolinks" => false} %></div><br>
+				<div class="work-btn-flex">
+					<div class="work-btn-margin"><%= link_to "募集内容を編集する", edit_company_work_path(@company.id, @work.id), class: "btn btn-warning  btn-sm", data: {"turbolinks" => false} %>
+					</div><br>
 
 					<% if @work.is_active == 1 %>
-						<div>
+						<div class="work-btn-margin">
 							<%= form_with model: @work, url: hide_company_work_path(@company, @work), method: :put do |f| %>
 
 									<%= f.hidden_field :is_active, value: false  %>
-									<%= f.submit "停止する", class: "btn btn-primary btn-sm company-btns" %>	
+									<%= f.submit "募集を停止する", class: "btn btn-warning btn-sm" %>	
 							<% end %>
 						</div>
 					<% else %>
-						<div>
+						<div class="work-btn-margin">
 							<%= form_with model: @work, url: reopen_company_work_path(@company, @work), method: :put do |f| %>
 
 									<%= f.hidden_field :is_active, value: true  %>
-									<%= f.submit "再開する", class: "btn btn-primary btn-sm company-btns" %>
+									<%= f.submit "募集を再開する", class: "btn btn-warning btn-sm" %>
 							<% end %>
 						</div>
-					<% end %>	
+					<% end %>
+				</div>
 			<% end %>
 		<% end %>
-
+	
 		<div><%= simple_format(@work.job_details) %></div>
 </div>
 
 <br>
-<div>
+<div class="row col-sm-12">
 	<% if user_signed_in? %>
 		<% if current_user.belongs_to?(@company) %>
 		　　<p></p>	
@@ -115,7 +126,9 @@
 		<% end %>
 	<% else %>
 		<%= link_to "ログインしてシゴトの詳細を聞く", user_session_path , class: "btn btn-success  btn-sm" %>
-	<% end %>	
+	<% end %>
+	<br>
+<br>
 </div>
 <br>
 <br>

@@ -70,6 +70,8 @@ gem "refile", require: "refile/rails", github: 'manfe/refile'
 gem "refile-mini_magick"
 gem 'rails-i18n'
 gem 'devise-i18n-views'
+gem 'enum_help'
+
 
 # mysql
 gem 'dotenv-rails'

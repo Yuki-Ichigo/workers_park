@@ -20,10 +20,14 @@ class WorksController < ApplicationController
 
 	def index
 		@company = Company.find(params[:company_id])
-		if current_user.belongs_to?(@company)
-		  @works = @company.works
+		if user_signed_in?
+			if current_user.belongs_to?(@company)
+			  @works = @company.works
+			else
+			  @works = @company.works.where(is_active: true)
+			end
 		else
-		  @works = @company.works.where(is_active: true)
+			@works = @company.works.where(is_active: true)
 		end
 	end
 
@@ -48,7 +52,7 @@ class WorksController < ApplicationController
 	def show
 		@work = Work.find(params[:id])
 		@company = Company.find(params[:company_id])
-	    @members = @company.users
+	    @members = @company.users.limit 12
 		if user_signed_in?
 		  @work.user_id = current_user.id
 	      belongsCompany = CompanyMember.find_by(user_id: current_user.id)

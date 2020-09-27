@@ -34,15 +34,22 @@
 <br>
 <h3>就業形態</h3>
 <div class="size-adjustment-box1">
+	<br>
 	<% if @profile.both? %>
-		<span class = "box1">社員</span>
-		<span class = "box1">副業・委託</span>
+		<div class="employee_boxs">
+			<span class = "box1">社員</span>
+			<span class = "box1">副業・委託</span>
+		</div>
 	<% elsif @profile.contract? %>
-		<span class = "box2">社員</span>
-		<span class = "box1">副業・委託</span>
+		<div>
+			<span class = "box2">社員</span>
+			<span class = "box1">副業・委託</span>
+		</div>
 	<% else @profile.engaging? %>
-		<span class = "box1">社員</span>
-		<span class = "box2">副業・委託</span>
+		<div>
+			<span class = "box1">社員</span>
+			<span class = "box2">副業・委託</span>
+		</div>
 	<% end %>
 </div>
 

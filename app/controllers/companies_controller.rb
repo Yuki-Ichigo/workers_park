@@ -14,15 +14,28 @@ class CompaniesController < ApplicationController
 	end
 
 	def index
-		@companies = Company.all
+		@companies = Company.where(is_active: true)
+		if user_signed_in?
+			if current_user.admin?
+				@companies = Company.all
+			end
+		else
+		@companies = Company.where(is_active: true)
+		end
 	end
 
 	def show
 		@company = Company.find(params[:id])
+		@members = @company.users.limit 12
 		@user = current_user
 		if user_signed_in?
 		  @company_member = current_user.company_members.find_by(company_id: @company.id)
 		end
+	end
+
+	def member_list
+		@company = Company.find(params[:id])
+		@members = @company.users
 	end
 
 	def hide

@@ -17,6 +17,17 @@
 	border: thin solid #9DA0A4;
 }
 
+.company-member-flex{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: flex-start;
+}
+
+.right-link{
+	text-align: right;
+}
+
 .home-flex{
 	display: flex;
 	flex-direction: row;
@@ -25,9 +36,9 @@
 	align-items: flex-start;
 }
 
+
 .home-work-box {
 	width: 300px;
-	height: 370px;
 }
 
 .home-work-contents {
@@ -54,4 +65,13 @@
 
 .btn-center {
 	text-align: center;
+}
+
+.work-btn-flex {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.work-btn-margin {
+	margin: 0px 0px 0px 10px;
 }

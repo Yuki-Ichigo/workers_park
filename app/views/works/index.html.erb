@@ -28,22 +28,23 @@
 				    	<%= work.company.address_prefecture %>
 				    </td><br>
 
-				    <% if user_signed_in? %>
-						<%if current_user.admin? %>
-							<% if work.is_active == 1 %>
-								<td>
+					<% if user_signed_in? %>
+						<% if current_user.belongs_to?(work.company) %>
+							<div class="work-btn-flex">
+								<div class="work-btn-margin"><%= link_to "募集内容を編集する", edit_company_work_path(work.company.id, work.id), class: "btn btn-warning  btn-sm", data: {"turbolinks" => false} %>
+								</div><br>
 
+								<% if work.is_active == 1 %>
 									<%= form_with(model:[work.company,work],url: hide_company_work_path(work.company.id, work.id), method: :put) do |f| %>
-											<%= f.submit "停止する", class: "btn btn-primary  btn-sm" %>	
+											<%= f.submit "掲載を停止する", class: "btn btn-warning  btn-sm work-btn-margin" %>	
 									<% end %>
 									</td>
-							<% else %>
-								<td>
+								<% else %>
 									<%= form_with(model:[work.company,work],url: reopen_company_work_path(work.company.id, work.id), method: :put) do |f| %>
-											<%= f.submit "再開する", class: "btn btn-default  btn-sm" %>	
+											<%= f.submit "募集を再開する", class: "btn btn-default  btn-sm work-btn-margin" %>	
 									<% end %>
-								</td>
-							<% end %>
+								<% end %>
+							</div>
 						<% end %>
 					<% end %>
 				</tr>
