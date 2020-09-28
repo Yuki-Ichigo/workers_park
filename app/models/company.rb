@@ -15,12 +15,12 @@ class Company < ApplicationRecord
 	validates :name_kana, presence: true, format: { with: /\A[\p{katakana}\p{blank}ー－]+\z/, message: 'はカタカナで入力して下さい。'}
 	validates :establishment, length: {is: 6}
 	validates :email, presence: true, length: {minimum: 5, maximum: 50}
-	validates :zip_code, length: {is: 7}
+	validates :zip_code, length: {is: 7}, format: { with: /\A[0-9]+\z/, message: 'はハイフンなし、半角数字で入力して下さい。'}
 	validates :address_prefecture, presence: true, length: {minimum: 1, maximum: 5}
 	validates :address_city, length: {maximum: 15}
-	validates :address_line1, length: {maximum: 20}
-	validates :address_line1, length: {maximum: 20}
-	validates :phone_number, presence: true, length: {minimum: 3, maximum: 15}
+	validates :address_line1, length: {maximum: 30}
+	validates :address_line2, length: {maximum: 50}
+	validates :phone_number, presence: true, length: {minimum: 3, maximum: 15}, format: { with: /\A[0-9]+\z/, message: 'はハイフンなし、半角数字で入力して下さい。'}
     validates :introduction, length: {maximum: 1000}
     validates :future, length: {maximum: 1000}
 
