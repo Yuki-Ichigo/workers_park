@@ -30,7 +30,7 @@
 
 <!-- ログイン済み全ユーザー表示 -->
 <div class="all-users-flex btns">
-	<% if current_user.talk_rooms.exists? %>
+	<% if TalkRoom.where(user_id: current_user.id).any? %>
 		<div>
 			<%= link_to talk_rooms_path do |f| %>
 				<button class="standerd_btn_blue users_btn">トークルームを確認する</button>
