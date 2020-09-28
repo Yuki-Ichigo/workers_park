@@ -63,8 +63,10 @@ class WorksController < ApplicationController
 	    @members = @company.users.limit 12
 		if user_signed_in?
 		  @work.user_id = current_user.id
-	      belongsCompany = CompanyMember.find_by(user_id: current_user.id)
-	      @belongs_company = Company.find(belongsCompany.company_id)
+		  if CompanyMember.find_by(user_id: current_user.id).present?
+		      belongsCompany = CompanyMember.find_by(user_id: current_user.id)
+		      @belongs_company = Company.find(belongsCompany.company_id)
+	  	  end
 		  @talk_room = TalkRoom.find_by(company_id: @work.company, user_id: current_user.id)
 		end
 	end
