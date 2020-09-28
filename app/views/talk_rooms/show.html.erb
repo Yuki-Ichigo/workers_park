@@ -8,11 +8,11 @@
       <div class="room_header">
         <table class="table-hover">
           <td class="col-sm-1"><%= attachment_image_tag @talk_room.company, :image, :fill, 50, 50, fallback: "no_image_white.jpeg", size:'50x50', class:"img-circle" %></td>
-          <td class="col-sm-3"><%= @talk_room.company.name %></td>
+          <td class="col-sm-4"><%= @talk_room.company.name %></td>
           <td class="col-sm-1"><p class="emphasis">×</p></td>
           <td class="col-sm-1"><%= attachment_image_tag @talk_room.user, :image, :fill, 50, 50, fallback: "no_image_human.jpeg", size:'50x50', class:"img-circle" %>
           </td>
-          <td class="col-sm-3"><%= @talk_room.user.name %></td>
+          <td class="col-sm-3"><%= @talk_room.user.nic_name %></td>
           <td>
         </table>
       </div>
