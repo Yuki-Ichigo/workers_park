@@ -1,14 +1,12 @@
 <%= render "layouts/error", obj: @company %>
 
 
-companies # edit page
-
 <% flash.each do |key, value| %>
   <%= content_tag(:div, value, class: key) %>
 <% end %>
 
 
-<h3>会社基本情報</h3>
+<h3>会社基本情報編集</h3>
 
 <%= form_with model: @company, method: :patch do |f| %>
 

@@ -4,7 +4,7 @@
 
 <br>
 <div class="secret-btn-right">
-	<% if current_user == @profile.user %>
+	<% if current_user == @user %>
 		<%= link_to edit_profile_path, data: {"turbolinks" => false} do %>
 			<button class="btn btn-success btn-sm">
 				プロフィールを変更する
@@ -15,7 +15,7 @@
 
 <div class="profile-flex">
 	<div>
-		<%= attachment_image_tag @profile.user, :image, :fill, 200, 200, fallback: "no_image_human.jpg", class:"img-circle" %>
+		<%= attachment_image_tag @user, :image, :fill, 200, 200, fallback: "no_image_human.jpg", class:"img-circle" %>
 	</div>&nbsp; &nbsp;
 	<div>
 		<h2><strong><%= @user.nic_name %></h2></strong> <br>
@@ -68,4 +68,26 @@
 		</tr>
 	</table>
 </div>
-<br><br><br><br>
+
+<br>
+<div>
+	<% if user_signed_in? && CompanyMember.where(user_id: current_user).any? %>
+		<% if current_user.belongs_to?(@company) %>
+			<% if TalkRoom.find_by(user_id: @user, company_id: @company).present? %>
+				<% @talk_room = TalkRoom.find_by(user_id: @user, company_id: @company) %>
+				<div class="btn-center">
+					<%= link_to "メッセージを送る", talk_room_path(@talk_room), class: "btn btn-danger btn-lg" %>
+				</div>
+			<% else %>
+				<div class="btn-center">
+					<%= form_with(url: talk_rooms_path, method: :post) do |f| %>
+						<%= f.hidden_field :company_id, :value => @company.id %>
+						<%= f.hidden_field :user_id, :value => @user.id %>
+						<%= f.submit "メッセージを送る", class: "btn btn-success btn-lg" %>
+					<% end %>
+				</div>
+			<% end %>		
+		<% end %>
+	<% end %>
+</div>
+<br><br>

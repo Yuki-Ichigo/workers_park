@@ -101,14 +101,14 @@
 				</div>
 			<% end %>
 		<% end %>
-	
-		<div><%= simple_format(@work.job_details) %></div>
+	<br>
+	<div><%= simple_format(@work.job_details) %></div>
 </div>
 
 <br>
 <div class="row col-sm-12">
 	<% if user_signed_in? %>
-		<% if current_user.belongs_to?(@company) %>
+		<% if current_user.belongs_to?(@belongs_company) %>
 		　　<p></p>	
 		<% else %>			
 			<% if TalkRoom.find_by(company_id: @work.company, user_id: current_user.id).present? %>
@@ -119,6 +119,7 @@
 				<div class="btn-center">
 					<%= form_with(url: talk_rooms_path, method: :post) do |f| %>
 						<%= f.hidden_field :company_id, :value => @company.id %>
+						<%= f.hidden_field :user_id, :value => current_user.id %>
 						<%= f.submit "メッセージを送る", class: "btn btn-success btn-lg" %>
 					<% end %>
 				</div>

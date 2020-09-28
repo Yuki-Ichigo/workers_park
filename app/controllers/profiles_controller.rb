@@ -21,6 +21,15 @@ class ProfilesController < ApplicationController
 	def show
 		@profile = Profile.find(params[:id])
 		@user = @profile.user
+		if user_signed_in?
+			if CompanyMember.where(user_id: current_user).any?
+				@company_member = CompanyMember.find_by(user_id: current_user)
+				@company = Company.find(@company_member.company_id)
+				if current_user.belongs_to?(@company)
+					@talk_room = TalkRoom.find_by(user_id: @user, company_id: @company)
+				end
+			end
+		end
 	end
 
 	def edit

@@ -1,6 +1,16 @@
 class CompaniesController < ApplicationController
+
+
 	def new
-		@company = Company.new
+		if user_signed_in?
+			if current_user.admin?
+				@company = Company.new
+			else
+				redirect_to user_path(current_user)
+			end
+		else
+			redirect_to root_path
+		end
 	end
 
 	def create
@@ -51,7 +61,13 @@ class CompaniesController < ApplicationController
 	end
 
 	def edit
-		@company = Company.find(params[:id])
+		if user_signed_in?
+			if current_user.admin?
+				@company = Company.find(params[:id])
+			end
+		else
+			redirect_to root_path
+		end
 	end
 
 	def update
@@ -65,7 +81,14 @@ class CompaniesController < ApplicationController
 	end
 
 	def information
-		@company = Company.find(params[:id])
+		if user_signed_in?
+			@company = Company.find(params[:id])
+			if current_user.belongs_to?(@company) == false
+				redirect_to user_path(current_user.id)
+			end
+		else
+			redirect_to root_path
+		end
 	end
 
 	def info_up

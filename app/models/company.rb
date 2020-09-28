@@ -12,7 +12,7 @@ class Company < ApplicationRecord
 	accepts_nested_attributes_for :talk_rooms
 
 	validates :name, presence: true
-	validates :name_kana, presence: true
+	validates :name_kana, presence: true, format: { with: /\A[\p{katakana}\p{blank}ー－]+\z/, message: 'はカタカナで入力して下さい。'}
 	validates :establishment, length: {is: 6}
 	validates :email, presence: true, length: {minimum: 5, maximum: 50}
 	validates :zip_code, length: {is: 7}

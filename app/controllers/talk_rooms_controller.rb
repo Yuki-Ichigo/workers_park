@@ -7,11 +7,7 @@ class TalkRoomsController < ApplicationController
 
 	def create
 		@talk_room = TalkRoom.new(talk_room_params)
-		@talk_room.user_id = current_user.id
-		@talk_room.company = Company.find(params[:company_id])
-		@talk_room.company_id = @talk_room.company.id
-		if TalkRoom.where(company_id: @talk_room.company, user_id: @talk_room.user_id).blank?
-			@talk_room.save
+		if  @talk_room.save
 			redirect_to talk_room_path(@talk_room.id)
 		else
 			redirect_to request.referer
@@ -31,7 +27,12 @@ class TalkRoomsController < ApplicationController
 	def show 
 		@talk_room = TalkRoom.find(params[:id])
 		@company_id = @talk_room.company_id
-		@talks = Talk.where(talk_room_id: params[:id])
+		@member = CompanyMember.find_by(user_id: current_user.id)
+		if @talk_room.user_id == current_user.id || @company_id == @member.company_id
+			@talks = Talk.where(talk_room_id: params[:id])
+		else
+			redirect_to user_path(current_user.id)
+		end
 	end
 
 	def destroy

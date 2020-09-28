@@ -36,7 +36,7 @@ class User < ApplicationRecord
 
 
   validates :name, presence: true, length: {minimum: 2, maximum: 30}
-  validates :name_kana, presence: true, length: {minimum: 2, maximum: 30}
+  validates :name_kana, presence: true, length: {minimum: 2, maximum: 30}, format: { with: /\A[\p{katakana}\p{blank}ー－]+\z/, message: 'はカタカナで入力して下さい。'}
   validates :nic_name, presence: true, length: {minimum: 2, maximum: 10}
   validates :birthday, length: {is: 8}
   validates :email, presence: true, length: {minimum: 5, maximum: 50}

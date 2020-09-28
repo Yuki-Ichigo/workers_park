@@ -3,10 +3,8 @@
   <%= content_tag(:div, value, class: key) %>
 <% end %>
 
-管理者・企業担当者はedit・掲載停止ボタンが押せる
-
 <div class="row col-sm-12">
-	<% if @works.where(is_active: 1).blank? %>
+	<% if @works.blank? %>
 		<p>現在募集はしていません</p>
 	<% else %>
 		<% @works.each do |work| %>
@@ -22,7 +20,7 @@
 							<%= attachment_image_tag work.company, :image, :fill, 60, 60, fallback: "no_image_white.png", size:'60x60', class:"img-circle" %>
 						<% end %>
 					</td>
-				    <td><%= link_to company_path(work.company.id) do %>
+				    <td class="col-sm-5"><%= link_to company_path(work.company.id) do %>
 					    	<%= work.company.name %>
 				    	<% end %><br>
 				    	<%= work.company.address_prefecture %>
@@ -31,18 +29,18 @@
 					<% if user_signed_in? %>
 						<% if current_user.belongs_to?(work.company) %>
 							<div class="work-btn-flex">
-								<div class="work-btn-margin"><%= link_to "募集内容を編集する", edit_company_work_path(work.company.id, work.id), class: "btn btn-warning  btn-sm", data: {"turbolinks" => false} %>
+								<div class="work-btn-margin"><td class="col-sm-2"><%= link_to "募集内容を編集する", edit_company_work_path(work.company.id, work.id), class: "btn btn-warning  btn-sm", data: {"turbolinks" => false} %></td>
 								</div><br>
 
 								<% if work.is_active == 1 %>
-									<%= form_with(model:[work.company,work],url: hide_company_work_path(work.company.id, work.id), method: :put) do |f| %>
+									<td class="col-sm-2"><%= form_with(model:[work.company,work],url: hide_company_work_path(work.company.id, work.id), method: :put) do |f| %>
 											<%= f.submit "掲載を停止する", class: "btn btn-warning  btn-sm work-btn-margin" %>	
-									<% end %>
-									</td>
+									<% end %></td>
+									
 								<% else %>
-									<%= form_with(model:[work.company,work],url: reopen_company_work_path(work.company.id, work.id), method: :put) do |f| %>
+									<td><%= form_with(model:[work.company,work],url: reopen_company_work_path(work.company.id, work.id), method: :put) do |f| %>
 											<%= f.submit "募集を再開する", class: "btn btn-default  btn-sm work-btn-margin" %>	
-									<% end %>
+									<% end %></td>
 								<% end %>
 							</div>
 						<% end %>

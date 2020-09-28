@@ -21,12 +21,11 @@
                   <%= image_tag('logo_clear.png', width: '224', height: '49') %>
                 <% end %>
               <% end %>
-            <!-- 検索フォームがつけれれば書く -->
-          
-            <!-- 検索フォームがつけれれば書く -->
+
             <ul class="nav navbar-nav navbar-right" data-hover="dropdown" data-animations="zoomIn fadeIn fadeInUp fadeIn">
-              <li><%= link_to "カイシャの一覧をみる", companies_path %></li>
-              <li><%= link_to "シゴトの募集一覧をみる", recruitments_path %></li>
+              <li><%= link_to "カイシャ一覧をみる", companies_path %></li>
+              <li><%= link_to "シゴト一覧をみる", recruitments_path %></li>
+              <li><%= link_to "プロフィール一覧をみる", profiles_path %></li>
               <% if user_signed_in? %>
               <li>
                 <% if current_user.profile.blank? %>

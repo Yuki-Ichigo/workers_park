@@ -58,7 +58,9 @@
 <br>
 <% if user_signed_in? %>
 	<% if current_user.belongs_to?(@company) %>
-		<div><%= link_to "新規の募集をする", new_company_work_path(@company.id), class: "btn btn-warning  btn-sm", data: {"turbolinks" => false} %></div>
+		<div><%= link_to "新規の募集をする", new_company_work_path(@company.id), class: "btn btn-warning  btn-sm", data: {"turbolinks" => false} %>	
+			<%= link_to "トークルームを確認する", talk_rooms_path, class: "btn btn-warning  btn-sm" %>
+		</div>
 		<div class="secret-btn-right"><%= link_to "会社の紹介文を編集する", information_company_path(@company.id), class: "btn btn-warning  btn-sm", data: {"turbolinks" => false} %></div>
 		<br>
 	<% end %>

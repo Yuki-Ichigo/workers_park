@@ -1,8 +1,15 @@
 class WorksController < ApplicationController
 	
 	def new
-		@work = Work.new	
-		@company = Company.find(params[:company_id])
+		if user_signed_in?
+			@work = Work.new
+			@company = Company.find(params[:company_id])
+			if current_user.belongs_to?(@company) == false
+				redirect_to user_path(current_user)
+			end
+		else
+			redirect_to root_path
+		end
 	end
 
 	def create
@@ -41,6 +48,7 @@ class WorksController < ApplicationController
 	end
 
 	def reopen
+
 		@work = Work.find(params[:id])
 		@work.user_id = current_user.id
 		@company = Company.find(params[:company_id])
@@ -56,14 +64,22 @@ class WorksController < ApplicationController
 		if user_signed_in?
 		  @work.user_id = current_user.id
 	      belongsCompany = CompanyMember.find_by(user_id: current_user.id)
+	      @belongs_company = Company.find(belongsCompany.company_id)
 		  @talk_room = TalkRoom.find_by(company_id: @work.company, user_id: current_user.id)
 		end
 	end
 
 	def edit
-		@work = Work.find(params[:id])
-		@work.user_id = current_user.id
-		@company = Company.find(params[:company_id])
+		if user_signed_in?
+			@work = Work.find(params[:id])
+			@work.user_id = current_user.id
+			@company = Company.find(params[:company_id])
+			if current_user.belongs_to?(@company) == false
+				redirect_to user_path(current_user)
+			end
+		else
+			redirect_to root_path
+		end
 	end
 
 	def update
