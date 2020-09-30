@@ -24,11 +24,11 @@
 <br>
 <div>
 	<h3><strong><%= "#{@work.company.name}のメンバー" %></strong></h3>
-	<div class="right-link">
-		<%= link_to "ほかのメンバーもみる ＞＞", member_list_company_path(@company) %>
-	</div>
-	<div class="company-member-flex row col-sm-12">
-		<% if @members.blank? %>
+	<% if @members.blank? == false %>
+		<div class="right-link">
+			<%= link_to "ほかのメンバーもみる ＞＞", member_list_company_path(@company) %>
+		</div>
+		<div class="company-member-flex row col-sm-12">		
 			<% @members.each do |member| %>
 				<div class="col-sm-2">
 					<%= link_to profile_path(member.profile) do %>
@@ -37,8 +37,8 @@
 					<% end %>
 				</div>
 			<% end %>
-		<% end %>
-	</div>
+		</div>
+	<% end %>
 </div>
 
 <br>
