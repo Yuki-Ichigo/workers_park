@@ -45,7 +45,7 @@ class CompaniesController < ApplicationController
 
 	def member_list
 		@company = Company.find(params[:id])
-		@member = @company.users.limit 12
+		@members = @company.users
 	end
 
 	def hide
