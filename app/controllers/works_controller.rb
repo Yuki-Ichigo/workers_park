@@ -60,7 +60,7 @@ class WorksController < ApplicationController
 	def show
 		@work = Work.find(params[:id])
 		@company = Company.find(params[:company_id])
-	    @members = @company.users.limit 12
+		@users = @company.users.limit 12
 		if user_signed_in?
 		  @work.user_id = current_user.id
 		  if CompanyMember.find_by(user_id: current_user.id).present?

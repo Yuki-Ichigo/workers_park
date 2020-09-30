@@ -115,20 +115,27 @@
 <div>
 	<h4 class="subheading"><strong><%= "メンバー" %></strong></h4>
 	<div class="right-link">
-		<%= link_to "ほかのメンバーもみる ＞＞", member_list_company_path(@company) %>
-	</div>
-	<br>
-	<% if @members.blank? %>
-		<div class="company-member-flex row col-sm-12">
-			<% @members.each do |member| %>
+	<% if @users.blank? == false %>
+		<div class="right-link">
+			<%= link_to "ほかのメンバーもみる ＞＞", member_list_company_path(@company) %>
+		</div>
+		<div class="company-member-flex row col-sm-12">		
+			<% @users.each do |user| %>
 				<div class="col-sm-2">
-					<%= link_to profile_path(member.profile) do %>
-						<%= attachment_image_tag member, :image, :fill, 100, 100, fallback: "no_image_human.jpeg", size:'100x100', class:"img-circle" %> <br />
-						<p><%= member.nic_name %></p>
+					<% if Profile.where(user_id: user).blank? %>
+						<%= attachment_image_tag user, :image, :fill, 100, 100, fallback: "no_image_human.jpeg", size:'100x100', class:"img-circle" %> <br />
+						<p><%= user.nic_name %></p>
+					<% else %>
+						<%= link_to profile_path(user.profile) do %>
+							<%= attachment_image_tag user, :image, :fill, 100, 100, fallback: "no_image_human.jpeg", size:'100x100', class:"img-circle" %> <br />
+							<p><%= user.nic_name %></p>
+						<% end %>
 					<% end %>
 				</div>
 			<% end %>
 		</div>
+	<% else %>
+	<p>現在メンバー登録はありません</p>
 	<% end %>
 </div>
 
