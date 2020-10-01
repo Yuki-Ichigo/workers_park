@@ -10,13 +10,13 @@
 			<td class="col-sm-2"><%= talk_room.company.name %></td>
 			<td class="col-sm-1"><p class="emphasis">×</p></td>
 			<% if talk_room.user.blank? %>
-				<td class="col-sm-6">相手のユーザーが退会しました</td>
+				<td class="col-sm-8">相手のユーザーが退会しました</td>
 			<% else %>
 				<td class="col-sm-1"><%= attachment_image_tag talk_room.user, :image, :fill, 60, 60, fallback: "no_image_human.jpeg", size:'60x60', class:"img-circle" %>
 				</td>
 				<td class="col-sm-2"><%= talk_room.user.name %></td>
 				<td>
-					<div class="col-sm-3">
+					<div class="col-sm-5">
 						<%= link_to "このトークルームに行く", talk_room_path(talk_room.id),class: "btn btn-default  btn-sm" %>
 					</div>
 				</td>
